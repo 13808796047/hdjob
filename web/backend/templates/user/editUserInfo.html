@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	{css file="bootstrap" /}
+    {css file="__TPL__/css/public.css"}
+    {css file="jqueryUI.bootstrap" /}
+    {jquery /}
+    {js file="jqueryUI"}
+    {js file="jquery.validate" /}
+	<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+</head>
+<body>
+	<div class="user-info">
+	<?php
+		$data=new data('resume_basic');
+		$userinfo=$data->convert($userinfo);
+	?>
+	<form action="__CONTROL__/editUserInfo/id/{$userinfo.uid}" validate="true" method="post">
+	<table class="table well">
+		<tr>
+			<th>用户名</th>
+			<td>{$userinfo.username}</td>
+		</tr>
+		<tr>
+			<th>积分</th>
+			<td><input type="text" name="point" value="{$userinfo.point}" class="input-mini"> </td>
+		</tr>
+		<tr>
+			<th>修改密码</th>
+			<td>
+				<input type="password" name="password" validate="{minlength:6}" id="pwd" value="">
+				<p class="help-inline">若密码为空则不修改密码</p>
+			</td>
+		</tr>
+		<tr>
+			<th>重复密码</th>
+			<td><input type="password" name="re_password" validate="{equalTo:'#pwd'}" value=""></td>
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td><input type="text" name="email" validate="{email:true}" value="{$userinfo.email}"><label class="checkbox" style=""><input type="checkbox" name="email_verify" class="input-checkbox pull-left" style="width:20px;" value="1">已认证</label></td>
+		</tr>
+		<tr>
+			<th>禁止</th>
+			<td class="ban-user">
+				<label class="radio pull-left" action="ban" style="margin-right:25px;"><input type="radio" name="banned" value="1" checked>禁止</label>
+				<label class="radio" action="unban"><input type="radio" name="banned" value="0" {if value="!$userinfo.banned"}checked{/if}>不禁止</label>
+			</td>
+		</tr>
+		<tr class="ban-reason{if value="!$userinfo.banned"} hide{/if}">
+			<th>禁止原因</th>
+			<td><textarea name="ban_reason" class="tips">{$userinfo.ban_reason}</textarea></td>
+		</tr>
+		<script type="text/javascript">
+		$('.ban-user label').click(function(){
+			if($(this).attr('action')=='ban'){
+				$('.ban-reason').show();
+			}else{
+				$('.ban-reason').hide();
+			}
+		});
+		</script>
+	</table>
+	</form>
+	</div>
+</body>
+</html>

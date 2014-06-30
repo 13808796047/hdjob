@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<meta name="keywords" content="{$arc.keywords}" />
+<meta name="description" content="{$arc.summary}" />
+{css file="alice" /}
+{css file="__ROOT__/templates/default/css/index.css" /}
+{css file="__ROOT__/templates/default/css/content.css" /}
+</head>
+<body>
+	{include file="__ROOT__/templates/default/navigation.html" /}
+	<div id="content">
+		<div id="arc">
+			<div id="title">
+				<h2>{$arc.title}</h2>
+				<h3><span>更新日期：{$arc.updated|date:'Y-m-d',@@}</span><span>来源:{$arc.source}</span></h3>
+			</div>
+			<div id="arc-con">
+				{$arc.contents}
+			</div>
+		</div>
+		<div id="widget">
+			<div class="cate c-list">
+				<h2>资讯分类</h2>
+				<ul>
+					{hd_channel}
+					<li><a href="{$channel.href}">{$channel.title}</a></li>
+					{/hd_channel}
+				</ul>
+			</div>
+			<div class="cate new-info">
+				<h2>最新资讯</h2>
+				<ul>
+					{arc_list nums="10"}
+					<li><a href="{$arc.href}" target="_blank">{$arc.title}</a><span>{$arc.updated|date:'Y-m-d',@@}</span></li>
+					{/arc_list}
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

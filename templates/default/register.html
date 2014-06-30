@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户注册--{$hd.config.web_name}</title>
+{hd_seo /}
+{css file="alice"}
+{css file="__TPL__/css/register.css" /}
+{css file="__TPL__/css/common.css" /}
+{js file="jquery" /}
+</head>
+<body>
+{include file="__TPL__/navigation.html" /}
+<!--reg-->
+<div id="reg"> 
+  <!--reg-center-->
+  <div id="reg-center"> 
+    <!--reg-area-->
+    <div id="reg-input-info">
+      <div id="reg-type" class="fn-clear"><a href="__WEB__/register.html" class="reg-type {if value="$type=='user'"}reg-type-active{/if}">个人注册</a><a href="__WEB__/register/company.html" class="reg-type  {if value="$type=='company'"}reg-type-active{/if}">企业注册</a></div>
+      <div id="form-area" >
+        <form action="__WEB__/index/auth/register.html" method="post">
+          <table>
+            <tr>
+              <th>用户名：</th>
+              <td><input name="name" id="name" type="text" maxlength="20" /></td>
+              <td class="tips">可以输入数字、字母、下划线，必须以字母开头。6-20位<br />
+                例如：houdunwang</td>
+            </tr>
+            <tr>
+              <th>密码：</th>
+              <td><input name="pwd" id="pwd" type="password" maxlength="20" /></td>
+              <td class="tips">6-20个字符，建议使用复杂的<br />
+                密码（密码中包含字母，标点符号，大写字母）</td>
+            </tr>
+            <tr>
+              <th>重复密码：</th>
+              <td><input name="re-pwd" id="re-pwd" type="password" maxlength="20" /></td>
+              <td class="tips">重复用户密码</td>
+            </tr>
+            <tr>
+              <th>Email：</th>
+              <td><input name="email" id="email" type="text" /></td>
+              <td class="tips">Email地址</td>
+            </tr>
+              {if value="C('AUTH_REG_CODE')"}
+            <tr>
+              <th>验证码：</th>
+              <td><input name="code" type="text" /></td>
+              <td class="tips"><img title="点击更换验证码" src="__CONTROL__/validateCode.html" onclick="javascript:this.src='__CONTROL__/validateCode?1.html'" /></td>
+            </tr>
+              {/if}
+            <tr>
+                <th></th>
+                <td colspan="2"><input type="checkbox" class="checkbox" name="agree" id="agree" value="1" style="" /><label for="agree">我同意<a href="" id="read-registration">《后盾招聘注册协议》</a><label></td>
+            </tr>
+            <tr>
+                <td><input type="hidden" name="id" value="{$type}" /></td>
+              <td colspan="2"><input name="register" type="submit" value="提交注册" class="reg-button" /></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    <!--/reg-area--> 
+    <!--suggest-area-->
+    <div id="reg-suggest">
+      <div id="has-account">
+        <h2>已有账号？</h2>
+        <a href="__WEB__/login.html">马上登陆</a>
+        </div>
+      <div id="account-instruct">
+        <h2>个人用户</h2>
+        <span> 填写个人简历，在线投递简历，在线申请职位，搜索职位... </span>
+        <h2>企业用户</h2>
+        <span> 发布招聘信息，查看人才简历，搜索简历，在线邀请面试... </span>
+      </div>
+    </div>
+    <!--/suggest-area--> 
+    <div id="registration" class="fn-hidex">
+      <h2 class="data-title">注册协议</h2>
+      <div id="registration-con">
+        {$hd.config.registration|nl2br}
+        </div>
+      </div>
+  </div>
+  <!--/reg-center--> 
+</div>
+<!--/reg-->
+<div id="f-link">
+  <h2>友情链接：</h2>
+  <ul>
+    {hd_link}
+    <li><a href="{$link.href}">{$link.web_name}</a></li>
+    {/hd_link}
+  </ul>
+</div>
+<div id="copyright"> <a href="http://www.houdunwang.com" id="bottom-logo"><em class="fn-hide">后盾logo</em></a> <span id="info">联系地址：北京市朝阳区小营路5号四方大厦 版权所有：<a href="http://www.houdunwang.com">后盾网</a> 京ICP备10027771号-1 站长统计 <br />
+  All rights reserved, houdunwang.com services for Beijing 2008-2011</span> </div>
+<script type="text/javascript">
+    var url='__WEB__';
+</script>
+{js file="__TPL__/js/regValidate.js" /}
+</body>
+</html>

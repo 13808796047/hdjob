@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	{css file="bootstrap" /}
+	{css file="jqueryUI.bootstrap" /}
+	{css file="__TPL__/css/public.css" /}
+	{js file="jquery" /}
+	{js file="jqueryUI" /}
+</head>
+<body>
+	<table class="table">
+		<tr>
+			<th width="3%"><input type="checkbox" class="select-all input-checkbox"></th>
+			<th>反馈标题</th>
+			<th>反馈内容</th>
+			<th>反馈时间</th>
+			<th>反馈人</th>
+			<th>Email</th>
+			<th>反馈类型</th>
+			<th>用户类型</th>
+			<th>状态</th>
+			<td>操作</td>
+		</tr>
+		{foreach from="$fbs" value="$fb"}
+		<tr>
+			<td><input type="checkbox" name="fbid" class="input-checkbox" value="{$fb.fbid}"></td>
+			<td>{$fb.title}</td>
+			<td><a href="###" class="view-fb" title="{$fb.content}">查看</a></td>
+			<td>{$fb.created|date:'Y-m-d H:i:s',@@}</td>
+			<td>{$fb.name}</td>
+			<td>{$fb.email}</td>
+			<td>{$type[$fb.type]}</td>
+			<td>
+				{if value="$fb.user_type=='personal'"}
+				<span class="tips">个人用户</span>
+				{else /}
+				<span class="tips">企业</span>
+				{/if}
+			</td>
+			<td>
+				{if value="$fb.process"}
+				<span class="success">已处理</span>
+				{else /}
+				<span class="warning">未处理</span>
+				{/if}
+			</td>
+			<td class="opt">
+				<a href="" type="item" title="删除该反馈"><i class="icon-trash"></i>删除</a>
+			</td>
+		</tr>
+		{/foreach}
+		<tr class="well opt">
+			<td><input type="checkbox" class="select-all input-checkbox"></td>
+			<td colspan="4">
+				<a href="" action="del" title="删除选中反馈" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i>删除</a>
+				<a href="" action="replay" title="删除选中反馈" class="btn btn-mini btn-success"><i class="icon-ok icon-white"></i>已处理</a>
+			</td>
+			<td colspan="5">
+				{$page}
+			</td>
+		</tr>
+	</table>
+	<div id="dialog" class="hide" title="查看反馈内容"></div>
+	<script type="text/javascript">
+	$('.select-all').click(function(){
+        	if($(this).attr('checked')){
+        		$('.select-all').attr('checked',true);
+        		$('.table :checkbox[name]').attr('checked',true);
+        	}else{
+        		$('.select-all').attr('checked',false);
+        		$('.table :checkbox[name]').attr('checked',false);
+        	}
+    });
+
+    $('.opt a').click(function(){
+    		if($(this).attr('type')=='item'){
+    			$(this).parent('td').siblings(":eq(0)").find('input').attr('checked',true);
+    		}
+        	var _id_arr=[],
+        	_confirm_msg='删除',
+        	_action=$(this).attr('action'),
+            _fun="del_feedback",//处理函数
+        	_checked=$('.table :checkbox[name]:checked');
+        	if(_checked.length==0){
+        		alert("请选中你需要操作的反馈!");
+        		return false;
+        	}
+        	_checked.each(function(){
+        		_id_arr.push($(this).val());
+        	});
+        	if(_action=='replay'){
+        		_confirm_msg="已处理";
+        		_fun="reply_feedback";
+        	}
+        	if(confirm("确定"+_confirm_msg+"选中反馈？")){
+        		eval(_fun+"({id:_id_arr,checked_obj:_checked})");
+        	}
+        	return false;
+        });
+    function reply_feedback (arg) {
+    	$.post('__CONTROL__/replyFeedback',{"fbid":arg.id},function(data) {
+    		if(data==1){
+    			window.location.reload();
+    		}
+    	});
+    }
+    function del_feedback (arg) {
+    	$.post('__CONTROL__/delFeedback',{"fbid":arg.id},function(data) {
+    		if(data==1){
+    			arg.checked_obj.parents('tr').fadeOut('slow',function(){
+    				arg.checked_obj.parents('tr').remove();
+    			});
+    		}
+    	});
+    }
+	$('.view-fb').click(function(){
+		$('#dialog').html($(this).attr('title'));
+		$('#dialog').dialog({
+			"modal":true,
+			"buttons":{
+				"关闭":function(){
+					$(this).dialog('close');
+				}
+			}
+		});
+		return false;
+	});
+	</script>
+</body>
+</html>

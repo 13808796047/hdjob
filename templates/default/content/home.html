@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="alice" /}
+{css file="__TPL__/css/index.css" /}
+<style type="text/css">
+	#c-list{
+		width: 1000px;
+		margin: 15px auto;
+		/*border: 1px #0f0 solid;*/
+	}
+	.channel{
+		width: 290px;
+		height: 205px;
+		border: 1px #DEDEEE solid;
+		float: left;
+		margin-right: 15px;
+		margin-bottom: 10px;
+		overflow: hidden;
+	}
+	.channel-title{
+		padding: 4px 10px;
+		border-bottom: solid 1px #DEDEEE;
+		color: #666;
+	}
+	.channel-title a{
+		float: right;
+		color: #999;
+		font-weight: normal;
+	}
+	.channel ul{
+		margin-top: 6px;
+	}
+	.channel ul li{
+		padding: 2px;
+		height: 20px;
+		padding-left: 10px;
+		font-size: 13px;
+	}
+	.channel ul li a{
+		color: #06C;
+	}
+</style>
+</head>
+<body>
+	{include file="./navigation.html" /}
+	<div id="c-list">
+		{hd_channel}
+			<div class="channel">
+				<div class="channel-title">
+					<h2><span>{$channel.title}</span><a href="{$channel.href}">更多</a></h2>
+				</div>
+				<ul>
+				{arc_list cid="$channel.id"}
+				<li><a href="{$arc.href}" target="_blank">{$arc.title}</a></li>
+				{/arc_list}
+				</ul>
+			</div>
+		{/hd_channel}
+	</div>
+</body>
+</html>

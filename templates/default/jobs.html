@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$job.recruit_name}-{$hd.config.web_name}</title>
+<meta name="keywords" content="{$job.seo_keywords}" />
+<meta name="description" content="{$job.seo_desc}" />
+{css file="alice" /}
+{css file="__TPL__/css/jobs.css" /}
+{css file="__TPL__/css/common.css" /}
+{css file="__ROOT__/public/js/artDialog/skins/blue.css" /}
+{js file="jquery" /}
+{js file="__ROOT__/public/js/artDialog/jquery.artDialog.min.js" /}
+<script type="text/javascript">
+    var web='__WEB__',
+        app='__APP__';
+</script>
+</head>
+
+<body>
+{include file="__TPL__/navigation.html" /}
+<div id="nav-ads">
+    {hd_ads cate="2"}
+        <a href="{if value="$ads.href|substr:@@,0,4=='http'"}{$ads.href}{else /}__ROOT__/{$ads.href}{/if}"><img src="__ROOT__/{$ads.path}" alt="" /></a>
+    {/hd_ads}
+</div>
+<div id="jobs">
+    <div class="jobs-title">
+        <h2><span class="job-name">{$job.recruit_name}</span> <span class="view-nums">浏览：{$job.views}次</span></h2>
+    </div>
+    <div class="company-simple">
+        <table>
+            <tr class="c-header">
+                <td colspan="6">
+                    <a href="" class="company-name" c-id="{$job.uid}">{$job.company_name}</a>
+                    <a href="__APP__/index/company/id/{$job.uid}" target="_blank" class="view-company">查看公司信息</a>
+                </td>
+            </tr>
+            <tr>
+                <th>公司规模：</th>
+                <td>{$job.company_scope}</td>
+                <th>公司性质：</th>
+                <td>{$job.company_property}</td>
+                <th></th>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="jobs-info">
+        <ul>
+            <li class="ui-active"><a href="#jobs-item">职位信息</a></li>
+            <li><a href="#company-desc">公司简介</a></li>
+        </ul>
+        <div id="jobs-item">
+            <table>
+                <tr>
+                    <th>职位行业：</th>
+                    <td>{$job.jobs_industry}</td>
+                    <th>职位分类：</th>
+                    <td colspan="3">{$job.class}</td>
+                </tr>
+                <tr>
+                    <th>职位性质：</th>
+                    <td>{$job.jobs_property}</td>
+                    <th>经验要求：</th>
+                    <td>{$job.work_exp}</td>
+                    <th>更新日期：</th>
+                    <td>{$job.refresh_date|date:'Y-m-d',@@}</td>
+                </tr>
+                <tr>
+                    <th>学历要求：</th>
+                    <td>{$job.degree}</td>
+                    <th>工作地点：</th>
+                    <td>{$job.address}</td>
+                    <th>截止日期：</th>
+                    <td>{$job.expiration_time|date:'Y-m-d',@@}</td>
+                </tr>
+                <tr>
+                    <th>月薪范围：</th>
+                    <td>{$job.salary}</td>
+                    <th>招聘人数：</th>
+                    <td>{if value="!$job.recruit_num"}不限{else/}{$job.recruit_num}人{/if}</td>
+                    <th></th>
+                    <td></td>
+                </tr>
+            </table>
+            <div class="apple" style="margin-left:0px"><a href="{$job.recruit_id}" class="applyJob"><img src="__TPL__/images/list_36.gif" alt=""></a></div>
+        </div>
+        <div id="company-desc" class="fn-hide">
+            {$job.company_desc|nl2br}
+        </div>
+    </div>
+    <div id="job-desc">
+        <div href="" class="list-title">职位描述</div>
+        <div class="job-desci">
+            {$job.job_desc}
+        </div>
+        <div class="apple" style="margin-left:0px"><a href="{$job.recruit_id}" class="applyJob"><img src="__TPL__/images/list_36.gif" alt=""></a></div>
+    </div>
+    <div id="company-contact">
+        <div href="" class="list-title">联系方式</div>
+        {logged_in}
+        <table>
+            <tr>
+                <th>联系电话：</th>
+                <td>{$job.phone}</td>
+            </tr>
+            <tr>
+                <th>电子邮件：</th>
+                <td>{$job.rece_mail}</td>
+            </tr>
+            <tr>
+                <th>联系人：</th>
+                <td>{$job.contact}</td>
+            </tr>
+            <tr>
+                <th>公司网站：</th>
+                <td><a href="{$job.company_index}" target="_blank">{$job.company_index}</a></td>
+            </tr>
+        </table>
+        {else /}
+        <div class="waring">请<a href="__WEB__/login.html">登录</a>后查看企业联系方式。如果你还没有账号，请先<a href="__WEB__/register.html">注册</a>账号</div>
+        {/logged_in}
+    </div>
+</div>
+{js file="__TPL__/js/job.js" /}
+{include file="__TPL__/footer.html" /}

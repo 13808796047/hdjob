@@ -1,0 +1,34 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_9f8c327b98761af6132eae899970f20d = Array
+	(
+	0=>Array
+		(
+		'id'=>1,
+		'title'=>'简历',
+		'pinyin'=>'jianli',
+		'href'=>'/content/index/lists/cid/1'
+		),
+	1=>Array
+		(
+		'id'=>2,
+		'title'=>'面试',
+		'pinyin'=>'mianshi',
+		'href'=>'/content/index/lists/cid/2'
+		),
+	2=>Array
+		(
+		'id'=>3,
+		'title'=>'求职问道',
+		'pinyin'=>'qiuzhiwendao',
+		'href'=>'/content/index/lists/cid/3'
+		),
+	3=>Array
+		(
+		'id'=>4,
+		'title'=>'职场资讯',
+		'pinyin'=>'news',
+		'href'=>'/content/index/lists/cid/4'
+		)
+	);
+?>

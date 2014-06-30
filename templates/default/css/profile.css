@@ -1,0 +1,70 @@
+#personal{
+	width:772px;
+	color: #333;
+}
+#info{
+	float: left;
+}
+#info .sys{
+	font-size: 15px;
+}
+#info a{
+	color: #09C;
+}
+#info .avatar{
+	float: left;
+	border: 2px #CDE6F3 solid;
+	margin: 5px 14px;
+	padding: 1px;
+}
+#info .user-log{
+	float: left;
+	padding-top: 5px;
+}
+#info .user-title{
+	color: #666;
+	font-size: 14px;
+	padding-left: 5px;
+}
+#info .email-pass{
+	font-size: 12px;
+	font-weight: normal;
+	color: #060;
+	padding-left: 17px;
+	background: url('../images/succ2.png') no-repeat left center;
+}
+#info .login-log{
+	padding: 5px 0px;
+}
+#info .login-log span{
+	margin-right: 10px;
+}
+#info .person-log{
+	padding-bottom: 10px;
+}
+#shortcut{
+	float: right;
+	margin: 10px;
+}
+#shortcut a{
+	display: block;
+	width: 83px;
+	height: 64px;
+	float: left;
+	margin-right: 10px;
+}
+#shortcut .creat{
+	background: url('../images/profile-s.gif') no-repeat left top;
+}
+#shortcut .creat:hover{
+	background: url('../images/profile-s.gif') no-repeat left bottom;
+}
+#shortcut .manage{
+	background: url('../images/profile-s.gif') no-repeat right top;
+}
+#shortcut .manage:hover{
+	background: url('../images/profile-s.gif') no-repeat right bottom;
+}
+#shortcut .logout{
+
+}

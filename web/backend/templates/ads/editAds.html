@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+        {js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+        {js file="jquery.colorPicker" /}
+        {js file="datepicker" /}
+        {js file="__ROOT__/caches/js/linkage_data.js" /}
+        {js file="__ROOT__/caches/js/linkage_style_1.js" /}
+    </head>
+    <body>
+        <div id="add-form">
+            <form action="__METH__/id/{$hd.get.id}" method="post" validate="true" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <th>广告标题：</th>
+                        <td><input type="text" name="ads_title" value="{$ads.ads_title}" validate="{required:true}" /></td>
+                    </tr>
+                    <tr>
+                        <th>位置：</th>
+                        <td><select name="cate" id="cate" validate="{required:true,messages:'必须选择广告投放位置'}">
+                                <option value="">请选择</option>
+                                {foreach from="$cates" value="$cate"}
+                                <option cate="cate_c_{$cate.type}" {if value="$cate.id==$ads.cate"}selected{/if} value="{$cate.id}">{$cate.title}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>开始时间：</th>
+                        <td><input type="text" name="starttime" class="input-medium" value="{$ads.starttime|date:'Y-m-d H:i:s',@@}" onfocus="WdatePicker({minDate:'%yyyy-%MM-%dd %HH:%mm:%ss',alwaysUseStartDate:true,dateFmt:'yyyy-MM-dd HH:mm:ss',autoPickDate:true,vel:'starttime'})" /></td>
+                    </tr>
+                    <tr>
+                        <th>结束时间：</th>
+                        <td><input type="text" name="endtime" class="input-medium" value="{$ads.endtime|date:'Y-m-d H:i:s',@@}" onfocus="WdatePicker({minDate:'%yyyy-%MM-%dd %HH:%mm:%ss',alwaysUseStartDate:true,dateFmt:'yyyy-MM-dd HH:mm:ss',autoPickDate:true,vel:'endtime'})" /></td>
+                    </tr>
+                    <tr>
+                        <th>排序：</th>
+                        <td><input type="text" name="sort" class="input-mini" value="{$ads.sort}" validate="{digits:true}" /></td>
+                    </tr>
+                    <tr>
+                        <th>状态：</th>
+                        <td>
+                            <label><input type="radio" name="state" value="1" checked />开启</label>
+                            <label><input type="radio" name="state" value="0" {if value="$ads.state==0"}checked{/if} />关闭</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>用户ID：</th>
+                        <td><input type="text" name="uid" value="{$ads.uid}" class="input-medium"></td>
+                    </tr>
+                    <tr>
+                        <th>投放城市：</th>
+                        <td>
+                            {linkage data="city" field="provice#city" defaults="$ads['provice']#$ads['city']" attr='class="input-medium"'}
+                            {/linkage}
+                        </td>
+                    </tr>
+                </table>
+                <table class="cate_c_1">
+                    <tr class="cate-title">
+                        <td colspan="2"><span  class="alert alert-info" style="display:block;width:100%">文字广告</span></td>
+                    </tr>
+                    <tr>
+                        <th>文字内容：</th>
+                        <td><input type="text" name="text" id="" disabled="disabled" value="{$ads.text}" /></td>
+                    </tr>
+                    <tr>
+                        <th>链接地址：</th>
+                        <td><input type="text" name="href" id="ahref" disabled="disabled" value="{$ads.href}" /></td>
+                    </tr>
+                    <tr>
+                        <th>颜色：</th>
+                        <td>
+                            <select name="color" id="color" disabled="disabled">
+                                <option value=""></option>
+                                <option value="#000000">#000000</option>
+                                <option value="#000099">#000099</option>
+                                <option value="#0066FF">#0066FF</option>
+                                <option value="#9900FF">#9900FF</option>
+                                <option value="#990000">#990000</option>
+                                <option value="#FF0000">#FF0000</option>
+                                <option value="#FF6600">#FF6600</option>
+                                <option value="#669900">#669900</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <script type="text/javascript">
+                    $(function(){
+                        $('input[name="color"]').val('{$ads.color}').css('color','{$ads.color}');
+                    });
+                </script>
+                <table class="cate_c_2 hide">
+                    <tr class="cate-title">
+                        <td colspan="2"><span  class="alert alert-info" style="display:block;width:100%">图片广告</span></td>
+                    </tr>
+                    <tr>
+                        <th>上传图片：</th>
+                        <td>{upload size="2" type="jpg,png,gif" limit="1" text="点击上传" name="path" dir="uploads/ads" /}<span class="help-block tips">例如：uploads/img/1.jpg 或 http://www.houdunwang.com/images/logo.gif</span></td>
+                    </tr>
+                    <tr>
+                        <th>或图片地址：</th>
+                        <td><input type="text" class="input-xlarge" name="path[web_url]" disabled="disabled" value="{if value="$ads.path|substr:@@,0,4=='http'"}{$ads.path}{/if}" /></td>
+                    </tr>
+                    <tr>
+                        <th>图片链接：</th>
+                        <td>
+                            <input type="text" name="href" value="{$ads.href}" disabled="disabled" class="input-xlarge" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>图片文字：</th>
+                        <td>
+                            <textarea name="text" disabled="disabled" class="input-xlarge">{$ads.text}</textarea>
+                        </td>
+                    </tr>
+                </table>
+                <table class="cate_c_3 hide">
+                    <tr class="cate-title">
+                        <td colspan="2"><span class="alert alert-info" style="display:block;width:100%">FLASH广告</span></td>
+                    </tr>
+                    <tr>
+                        <th>上传FLASH：</th>
+                        <td>{upload size="2" type="swf" limit="1" text="点击上传" name="path" dir="uploads/ads/flash" /}</td>
+                    </tr>
+                    <tr>
+                        <th>或FLASH地址：</th>
+                        <td><input type="text" name="path[web_url]" disabled="disabled" value="{$ads.path}" class="input-xlarge" /></td>
+                    </tr>
+                    <tr>
+                        <th>宽：</th>
+                        <td><input type="text" name="width" id="" disabled="disabled" value="{if value="$ads.width"}{$ads.width}{/if}" /></td>
+                    </tr>
+                    <tr>
+                        <th>高：</th>
+                        <td><input type="text" name="height" id="" disabled="disabled" value="{if value="$ads.height"}{$ads.height}{/if}" /></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th></th>
+                        <td><input type="submit" value="更新" class="btn btn-primary" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $('#color').colourPicker({ico:'__ROOT__/templates/default/images/jquery.colourPicker.gif'});
+            function show_area(aname){
+                $('[class^=cate_c_]').hide();
+                $('[class^=cate_c_] input').attr('disabled',true);
+                $('[class^=cate_c_] textarea').attr('disabled',true);
+                $('.'+aname).show();
+                $('.'+aname+' input').attr('disabled',false);
+                $('.'+aname+' textarea').attr('disabled',false);
+            }
+            show_area($('#cate').find(':checked').attr('cate'));
+            $('#cate').change(function(){
+                show_area($(this).find(':checked').attr('cate'));
+            });
+            
+        </script>
+        <style type="text/css">
+            #jquery-colour-picker{
+                width: 220px;
+            }
+            table th{
+                width: 95px;
+                text-align:right;
+            }
+            .cate-title{
+                width: 200px;
+                height: 40px;
+            }
+            table label{
+                width: 70px;
+                float: left;
+                text-indent:0.3em;
+            }
+            table label input{
+                display:block;
+                padding-right:20px;
+                float: left;
+            }
+        </style>
+        <script type="text/javascript">
+            $(function(){
+                {if value="$ads.type=='2' && $ads.path|substr:@@,0,4!='http'"}
+               uploadSuccess({"id":"SWFUpload_0_0","index":"0","size":"5870","name":"zhang.jpg"},'{"state":"SUCCESS","fid":"6bdf9bfeeb5eaaa762c44699578175c7","thumb":{"file":"__ROOT__/{$ads.path}","w":"200","h":"200"},"file":[{"path":"{$ads.path}","url":"__ROOT__/{$ads.path}"}]}');
+               {/if}
+            });
+        </script>
+    </body>
+</html>

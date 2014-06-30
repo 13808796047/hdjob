@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人中心---{$hd.config.web_name}</title>
+    {hd_seo /}
+    {css file="alice" /}
+    {css file="__TPL__/css/profile_public.css" /}
+    {css file="__TPL__/css/common.css" /}
+    {js file="jquery" /}
+    <script type="text/javascript">
+        var url='__ROOT__';
+    </script>
+</head>
+<body>
+    <!--公共头部导航-->
+{include file="__TPL__/navigation.html" /}
+    <!--/公共头部导航--> 
+    <!--个人主页-->
+    <div id="ui-center">
+<div id="ui-opt">
+<div id="ui-opt-menu">
+  <div class="menu-list">
+<h2>个人中心</h2>
+<ul>
+<li><a href="__CONTROL__/">个人中心</a></li>
+</ul>
+    </div>
+    <div class="menu-list">
+<h2>简历管理</h2>
+<ul>
+<li><a href="__CONTROL__/createNewRes.html">创建新简历</a></li>
+<li><a href="__CONTROL__/resume.html">简历管理</a></li>
+<li><a href="__CONTROL__/postLog.html">简历投递记录</a></li>
+</ul>
+    </div>
+    <div class="menu-list">
+<h2>求职管理</h2>
+<ul>
+<li><a href="__APP__/search.html" target="_blank">搜索职位</a></li>
+<li><a href="__CONTROL__/interview">收到的面试邀请</a></li>
+<li><a href="__CONTROL__/viewFav.html">职位收藏夹</a></li>
+<li><a href="__CONTROL__/downloadLog.html">谁下载了我的简历</a></li>
+</ul>
+    </div>
+    <div class="menu-list">
+<h2>账户中心</h2>
+<ul>
+<li><a href="__CONTROL__/info.html">个人资料</a></li>
+<li><a href="__CONTROL__/proAuth">安全认证</a></li>
+<li><a href="__CONTROL__/password">修改密码</a></li>
+<li><a href="__APP__/index/feedback">意见反馈</a></li>
+</ul>
+    </div>
+</div>
+<script>
+$('#ui-opt-menu li').hover(function(){
+    if(!$(this).is(":animated")){
+    $(this).animate({'padding-left': '+15px'},400);
+    }else{
+        $(this).stop();
+    }
+},function(){
+    $(this).animate({'padding-left': '-15px'},400);
+});
+$("#ui-opt-menu h2").toggle(function(){
+    $(this).addClass('title-more');
+    $(this).next().slideUp();
+},function(){
+    $(this).removeClass('title-more');
+    $(this).next().slideDown();
+});
+</script>

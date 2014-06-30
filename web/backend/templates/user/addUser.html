@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+        <script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+    </head>
+    <body>
+        <div id="user_add">
+            <form action="__METH__" method="post" id="add-user-form" class="well form-horizontal">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="rid">用户组</label>
+                        <div class="controls">
+                            <select name="rid" id="rid" validate="{required:true}">
+                                <option value=""></option>
+                                {foreach from="$role_list" value="$role"}
+                                <option value="{$role.rid}">{$role.title}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="username">用户名</label>
+                        <div class="controls">
+                            <input type="text" name="username" id="username" validate="{required:true,regexp:/[\w]{6,}/i,messages:{regexp:'请输入正确的用户名'}}" />
+                            <p class="help-block">
+                                数字、字母、下划线
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password">密码</label>
+                        <div class="controls">
+                            <input type="password" name="password" id="password" validate="{required:true}" />
+                            <p class="help-block">
+                                密码至少为最少6位
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="re_password">重复密码</label>
+                        <div class="controls">
+                            <input type="password" name="re_password" id="re_password" validate="{required:true,equalTo:'#password'}" />
+                            <p class="help-block">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="email">Email</label>
+                        <div class="controls">
+                            <input type="text" name="email" validate="{email:true}" id="email"/>
+                            <label class="checkbox"><input type="checkbox" name="email_verify" value="1">已验证</label>
+                            <p class="help-block">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="email">状态</label>
+                        <div class="controls">
+                            <label class="radio"><input type="radio" name="banned" id="banned" value="0" checked>开启</label>
+                            <label class="radio"><input type="radio" name="banned" value="1">禁止</label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <input type="submit" name="userAdd" class="btn btn-primary" value="添加" />
+                        <button class="btn">取消</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $("#add-user-form").validate();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+{css file="__TPL__/css/common.css" /}
+<div id="ui-opt-area">
+    <div id="new-resume">
+        <h2 class="data-title">修改简历</h2>
+        <form action="__METH__/id/{$hd.get.id}" method="post" validate="true" enctype="multipart/form-data">
+        <table class="table-form">
+            <tr>
+                <th>简历名称</th>
+                <td><input type="text" name="resume_name" validate="{required:true}" value="{$info.resume_name}" /><span>简历名称将作为企业的检索条件</span></td>
+            </tr>
+            <tr>
+                <th>简历风格</th>
+                <td><select name="style" validate="{required:true}">
+                        <option value="">请选择</option>
+                        {foreach from="$style" value="$value"}
+                        <option value="{$value.dir_name}" {if value="$value.dir_name==$info.style"}selected{/if}>{$value.name}</option>
+                        {/foreach}
+                    </select></td>
+            </tr>
+            <tr>
+                <th>简历头像</th>
+                <td>{if value="$info.avatar|empty"}<img src="__TPL__/images/no_photo.gif" alt="">{else /}<img src="__ROOT__/{$info.avatar}" alt="简历头像">{/if}
+                    <p><a href="" id="edit-avatar">修改头像</a></p></td>
+            </tr>
+            <tr class="fn-hide" id="avatar-type-switch">
+                <th></th>
+                <td id="avatar-type">
+                    <label><input type="radio" name="avatar_type" href="#avatar_info" value="1" checked>使用个人头像</label>
+                    <label><input type="radio" name="avatar_type" href="#avatar_new" value="2">上传新头像</label>
+                    <label><input type="radio" name="avatar_type" href="no-avatar" value="0">不使用头像</label>
+                </td>
+            </tr>
+            <script type="text/javascript">
+            $('#avatar-type input').click(function(){
+                $('.avatar-type').hide();
+                $('.avatar-type input').attr('disabled',true);
+                $($(this).attr('href')).show();
+                $('input',$(this).attr('href')).attr('disabled',false);
+            });
+            $('#edit-avatar').click(function(){
+                $('#avatar-type-switch').show();
+                $('#avatar-type input:checked').trigger('click');
+                return false;
+            });
+            </script>
+            <tr class="avatar-type fn-hide" id="avatar_info">
+                <th></th>
+                <td>{if value="$avatar|empty"}
+                    <span>你还没有设置个人头像，马上<a href="__CONTROL__/avatars">设置</a>，或使用上传新头像</span>
+                    {else /}
+                        <img src="__ROOT__/{$avatar}" alt="">
+                        <input type="hidden" name="avatar" value="{$avatar}" disabled>
+                    {/if}</td>
+            </tr>
+            <tr class="avatar-type fn-hide" id="avatar_new">
+                <th></th>
+                <td><input type="file" name="avatar" class="input-file" disabled></td>
+            </tr>
+            <tr>
+                <th>公开设置：</th>
+                <td>
+                    <label><input type="radio" name="open" value="1" checked id="">公开</label>
+                    <label><input type="radio" name="open" value="0" {if value="$info.open==0"}checked{/if}>不公开</label>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" class="btn btn-green btn-mini" value="保存并下一步" /></td>
+            </tr>
+        </table>
+            </form>
+    </div>
+</div>
+</div>
+</div>
+<!--/个人主页--> 
+<!--公共底部信息--> 
+<!--/公共底部信息-->
+{include file="__TPL__/footer.html" /}

@@ -1,0 +1,39 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="datepicker" /}
+<div id="ui-opt-area">
+    <div class="tabs-nav">
+        <ul>
+            <li><a href="__CONTROL__/info">基本资料</a></li>
+            <li class="tabs-nav-active"><a href="__CONTROL__/avatars">个人头像</a></li>
+            <li><a href="__CONTROL__/proAuth">邮箱验证</a></li>
+            <li><a href="__CONTROL__/password">修改密码</a></li>
+        </ul>
+        <div class="fn-clear"></div>
+    </div>
+    <div id="new-resume" style="width:400px;margin:25px auto;">
+        <form action="__METH__" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td rowspan="3">
+                    {if value="$avatar==''"}
+                    <img src="__TPL__/images/no_photo.gif" alt="" />
+                    {else /}
+                    <img src="__ROOT__/{$avatar}" alt="个人头像" />
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <th>上传：</th>
+                <td><input type="file" name="avatar" class="input-file" id=""></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><button type="submit" class="btn btn-green">修改</button></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+{include file="__TPL__/footer.html" /}

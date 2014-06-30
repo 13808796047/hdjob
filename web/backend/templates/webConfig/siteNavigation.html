@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{css file="jqueryUI.bootstrap" /}
+{jquery /}
+{js file="jqueryUI" /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+<style type="text/css">
+    .input-mini{
+        width: 25px;
+        text-align:center;
+    }
+    .waring{
+        color: #B94A48;
+    }
+    #dialog{
+		width: 400px;
+	}
+	#dialog table{
+		width: 100%;
+	}
+	#dialog table th{
+		width: 100px;
+	}
+	#dialog table label{
+		float: left;
+		margin-right: 10px;
+	}
+	#dialog table label input{
+		float: left;
+		margin-right: 5px;
+	}
+	#nav-button{
+		height: 36px;
+	}
+	.nav{
+		width: 200px;
+		float: left;
+	}
+	.alert-success{
+		float: left;
+		margin-bottom: 0px;
+	}
+</style>
+</head>
+<body>
+<div id="tabs">
+<div id="nav-button"><ul class="nav nav-pills" style="margin-bottom:10px;"><li class="active"><a href="" id="addNav"><i class="icon-plus-sign icon-white"></i> 添加导航</a></li></ul>
+<div class="alert alert-success hide">
+        <a class="close" data-dismiss="alert">×</a>
+        <strong>后盾招聘系统提示：</strong>
+        <span></span>
+</div></div>
+<div id="tabs-1" style="clear:both">
+	<form action="__CONTROL__/sortNavigation" method="post">
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>标记</th>
+			<th>导航名称</th>
+			<th>页面状态</th>
+                        <th>打开方式</th>
+			<th width="10%">排序</th>
+                        <th>操作</th>
+		</tr>
+            {foreach from="$navs" value="$nav"}
+                <tr>
+			<td>{$nav.id}</td>
+			<td>{$nav.mark}</td>
+			<td><a href="{if value="$nav.href|substr:@@,0,4!='http'"}__WEB__{$nav.href}{else /}{$nav.href}{/if}" target="{$nav.target}">{$nav.title}</a></td>
+                        <td>{if value="$nav.state"} <span class="success">显示</span>{else /}<span class="waring">不显示</span>{/if}</td>
+                        <td>{if value="$nav.target=='_blank'"}新窗口{else /}本页{/if}</td>
+			<td><input type="text" name="sort[{$nav.id}]" class="input-mini" value="{$nav.sort}" /></td>
+                        <td>
+                            <a href="__CONTROL__/editNavigation/id/{$nav.id}" class="edit-item"><i class="icon-edit"></i>编辑</a>
+                            <a href="{$nav.id}" class="del-item"><i class="icon-trash"></i>删除</a>
+                        </td>
+		</tr>
+            {/foreach}
+            <tr>
+                <td colspan="5"></td>
+                <td><input type="submit" value="更新排序" class="btn btn-mini btn-primary" /></td>
+                <td></td>
+            </tr>
+	</table>
+	</form>
+</div>
+<div id="dialog" class="hide">
+<form action="__CONTROL__/addNavigation" method="post">
+<div id="tabs-add" title="添加导航">
+	<ul>
+		<li><a href="#tabs-1">基本设置</a></li>
+		<li><a href="#tabs-2">SEO设置</a></li>
+	</ul>
+	<div id="tabs-1"><table>
+		<tr>
+	<th width="10%">导航标记</th>
+	<td><input type="text" name="mark" validate="{required:true,regexp:/^\w+$/,messages:'只能输入数字、字母、下划线'}" /></td>
+</tr>
+<tr>
+	<th width="10%">导航名称</th>
+	<td><input type="text" name="title" /></td>
+</tr>
+<tr>
+	<th>链接地址</th>
+	<td><input type="text" name="href" /></td>
+</tr>
+<tr>
+	<th>排序</th>
+	<td><input type="text" name="sort" class="input-mini" /></td>
+</tr>
+<tr>
+	<th>打开方式</th>
+	<td><label><input type="radio" name="target" value="" checked />本页打开</label><label><input type="radio" name="target" value="_blank" />新窗口打开</label></td>
+</tr>
+<tr>
+	<th>是否显示</th>
+	<td><label><input type="radio" name="state" value="1" checked />显示</label><label><input type="radio" name="state" value="0" />不显示</label></td>
+</tr>
+</table>
+</div>
+	<div id="tabs-2">
+		<table>
+			<tr>
+				<th>SEO关键字</th>
+				<td><textarea name="seo_keywords"></textarea></td>
+			</tr>
+			<tr>
+				<th>SEO描述</th>
+				<td><textarea name="seo_desc" cols="100" rows="5"></textarea></td>
+			</tr>
+		</table>
+	</div>
+</div>
+</form>
+</div>
+</div>
+<script type="text/javascript">
+$('.del-item').click(function(){
+	var _obj=$(this).parents('tr');
+	if(confirm("确认删除此导航？")){
+	$.post('__CONTROL__/delNavigation',{id:$(this).attr('href')},function(data){
+		if(data==1){
+			_obj.fadeOut();
+		}else{
+			alert('删除失败');
+		}
+	},'html');
+	}
+	return false;
+});
+$('#dialog form').validate();
+$('#addNav').click(function(){
+	var _obj=$('#dialog form');
+	$('#tabs-add').tabs();
+	$('#dialog').dialog({
+		width:400,
+		modal:true,
+		title:'添加导航',
+		buttons:{
+			'添加':function(){
+				if($('#dialog input[name="mark"]').val()==''){
+					alert('请输入调用标记');
+					return false;
+				}
+				 $.post('__CONTROL__/addNavigation',_obj.serialize(),function(data){
+                                     if(data==1){
+                                         $('#dialog').dialog( "close" );
+                                         $('.alert-success').slideDown().children('span').html('添加导航成功！');
+                                         setTimeout(function(){$('.alert-success').fadeOut();location.reload();},2500);
+                    }
+				 },'html');
+			}
+		}
+	});
+	return false;
+});
+$('.close').click(function(){$('.alert-success').slideUp();return false;});
+</script>
+</body>
+</html>

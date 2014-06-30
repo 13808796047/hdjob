@@ -1,0 +1,119 @@
+{include file="__TPL__/header.html" /}
+<style type="text/css">
+.table th{
+	text-align: right;
+	padding-right: 20px;
+	font-weight: normal;
+}
+.table .table-title{
+	background-color: lavender;
+}
+.table .table-title th{
+	text-align: center;
+	font-weight: bold;
+	font-size: 13px;
+}
+</style>
+<form action="__METH__" method="post">
+<table class="table">
+	<tr class="table-title">
+		<th colspan="2">用户设置</th>
+	</tr>
+	<tr>
+		<th >用户名登录</th>
+		<td>
+			<div class="switch {if value="!$hd.config.auth_username_login"}switch-off{/if}"></div>
+			<input type="hidden" name="AUTH_USERNAME_LOGIN" value="{if value="$hd.config.auth_username_login"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >Email登录</th>
+		<td>
+			<div class="switch {if value="!$hd.config.auth_email_login"}switch-off{/if}"></div>
+			<input type="hidden" name="AUTH_EMAIL_LOGIN" value="{if value="$hd.config.auth_email_login"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >统计登录尝试次数</th>
+		<td>
+			<div class="switch {if value="!$hd.config.auth_count_login_attempts"}switch-off{/if}"></div>
+			<input type="hidden" name="AUTH_COUNT_LOGIN_ATTEMPTS" value="{if value="$hd.config.auth_count_login_attempts"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >最大登录尝试次数</th>
+		<td>
+			<input type="text" name="AUTH_MAX_LOGIN_ATTEMPTS" value="{$hd.config.auth_max_login_attempts}" class="input-mini">
+		</td>
+	</tr>
+	<tr>
+		<th >验证码登录</th>
+		<td>
+			<div class="switch {if value="!$hd.config.auth_captcha_login"}switch-off{/if}"></div>
+			<input type="hidden" name="AUTH_CAPTCHA_LOGIN" value="{if value="$hd.config.auth_captcha_login"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >验证码注册</th>
+		<td>
+			<div class="switch {if value="!$hd.config.auth_reg_code"}switch-off{/if}"></div>
+			<input type="hidden" name="AUTH_REG_CODE" value="{if value="$hd.config.auth_reg_code"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >允许注册</th>
+		<td>
+			<div class="switch {if value="!$hd.config.allow_register"}switch-off{/if}"></div>
+			<input type="hidden" name="ALLOW_REGISTER" value="{if value="$hd.config.allow_register"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >注册需Email激活</th>
+		<td>
+			<div class="switch {if value="!$hd.config.auth_email_activate"}switch-off{/if}"></div>
+			<input type="hidden" name="AUTH_EMAIL_ACTIVATE" value="{if value="$hd.config.auth_email_activate"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >Email激活失效时间</th>
+		<td>
+			<input type="text" name="EMAIL_ACTIVATE_EXPIRE" value="{$hd.config.email_activate_expire}" class="input-mini">
+		</td>
+	</tr>
+	<tr>
+		<th >发送账户信息</th>
+		<td>
+			<div class="switch {if value="!$hd.config.email_account_info"}switch-off{/if}"></div>
+			<input type="hidden" name="EMAIL_ACCOUNT_INFO" value="{if value="$hd.config.email_account_info"}TRUE{else /}FALSE{/if}" />
+		</td>
+	</tr>
+	<tr>
+		<th >自动登录COOKIE名</th>
+		<td>
+			<input type="text" name="AUTH_AUTOLOGIN_COOKIE_NAME" value="{$hd.config.auth_autologin_cookie_name}" class="input-medium">
+		</td>
+	</tr>
+	<tr>
+		<th >自动登录失效时间</th>
+		<td>
+			<input type="text" name="AUTH_AUTOLOGIN_COOKIE_LIFE" value="{$hd.config.auth_autologin_cookie_life}" class="input-mini">
+		</td>
+	</tr>
+	<tr>
+		<th>简历需审核</th>
+		<td><div class="switch {if value="!$hd.config.verify_resume"}switch-off{/if}"></div>
+			<input type="hidden" name="VERIFY_RESUME" value="{if value="$hd.config.verify_resume"}TRUE{else /}FALSE{/if}" /></td>
+	</tr>
+	<tr>
+		<th>招聘需审核</th>
+		<td><div class="switch {if value="!$hd.config.verify_recruit"}switch-off{/if}"></div>
+			<input type="hidden" name="VERIFY_RECRUIT" value="{if value="$hd.config.verify_recruit"}TRUE{else /}FALSE{/if}" /></td>
+	</tr>
+	<tr>
+		<th></th>
+		<td><button class="btn btn-primary"><i class="icon-edit icon-white"></i>保存</button> </td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

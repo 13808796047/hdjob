@@ -1,0 +1,65 @@
+{load file="__TPL__/company/company_top.html" /}
+{css file="__TPL__/css/company_tpl.css" /}
+<div id="content">
+<!--opt-->
+<div id="opt">
+    <!--menu-->
+    <div id="opt-menu">
+        <dl>
+            <dt>职位管理</dt>
+            <dd><a href="__CONTROL__/issueRecruit.html">发布职位</a></dd>
+            <dd><a href="__CONTROL__/recruit.html">职位管理</a></dd>
+            <dd><a href="__CONTROL__/recruit">简历搜索</a></dd>
+            <dd><a href="__CONTROL__/receiveApply">收到的职位申请</a></dd>
+            <dt>企业推广</dt>
+            <dd><a href="__APP__/company/template.html">企业模板</a></dd>
+            <dd><a href="__CONTROL__/addSpread/cate/5.html">职位置顶</a></dd>
+            <dd><a href="__CONTROL__/addSpread/cate/2.html">紧急招聘</a></dd>
+            <dd><a href="__CONTROL__/addSpread/cate/1.html">推荐职位</a></dd>
+            <dd><a href="__CONTROL__/addSpread/cate/6.html">职位变色</a></dd>
+            <dt>企业资料</dt>
+            <dd><a href="__CONTROL__/data" class="view-data">企业资料</a></dd>
+            <dd><a href="__APP__/index/company/id/{$hd.session.uid}" class="view-data">企业首页</a></dd>
+            <dd><a href="__APP__/company/proAuth" class="view-data">邮箱认证</a></dd>
+        </dl>
+    </div>
+    <!--/menu-->
+    <!--opt-area-->
+    <div id="opt-area">
+        <div id="spread">
+            <h2 class="data-title">选择推广模板</h2>
+            <div id="tpl-list">
+                <form action="__CONTROL__/setStyle.html" method="post">
+                    {foreach from="$templates" value="$template"}
+                    <div class="tpl-list-one">
+                        <a href="__APP__/index/company/id/{$hd.session.uid}/style/{$template.dir_name}" target="_blank"><img src="__ROOT__/templates/company_tpl/{$template.dir_name}/thumb_hd.jpg" width="225px" height="136px" alt="" /></a>
+                        <table>
+                            <tr>
+                                <td colspan="2">{$template.name}</td>
+                            </tr>
+                            <tr>
+                                <td>售价：{if value="!$template.point"}免费{else /}{$template.point}积分{/if}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label>
+                                        <input type="radio" name="tpl_style" value="{$template.dir_name}" {if value="$template.dir_name==$company.tpl_style"}checked{/if} />使用此模板
+                                </label><a href="__APP__/index/company/id/{$hd.session.uid}/style/{$template.dir_name}" target="_blank">(预览)</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                {/foreach}
+                <div id="save">
+                    <button class="btn" name="save_style" type="submit">保存设置</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</div>
+<!--/opt-area--> 
+</div>
+<!--/opt--> 
+</div>
+{include file="__TPL__/footer.html" /}

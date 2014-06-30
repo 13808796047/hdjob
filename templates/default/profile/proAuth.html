@@ -1,0 +1,52 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+<div id="ui-opt-area">
+    <div class="tabs-nav">
+        <ul>
+            <li><a href="__CONTROL__/info">基本资料</a></li>
+            <li><a href="__CONTROL__/avatars">个人头像</a></li>
+            <li class="tabs-nav-active"><a href="__CONTROL__/proAuth">邮箱验证</a></li>
+            <li><a href="__CONTROL__/password">修改密码</a></li>
+        </ul>
+        <div class="fn-clear"></div>
+    </div>
+    <div id="new-resume">
+        {if value="$verify"}
+        <div class="tips-well">邮箱:{$email}已经 <span class="success">验证成功</span>。你可以使用该邮箱登录。</div>
+        {elseif value="$activating==TRUE"}
+        <form action="__CONTROL__/reAuth" method="post">
+        <table>
+            <tr>
+                <td colspan="2">已向{$email}发送验证邮件，没有收到？</td>
+            </tr>
+            <tr>
+                <th>邮箱账号</th>
+                <td><input type="text" name="email" value="{$email}"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" class="submit" value="重新发送"></td>
+            </tr>
+        </table>
+        </form>
+        {else /}
+        <form action="__METH__" method="post">
+        <table class="table-form">
+            <tr>
+                <th>邮箱账号</th>
+                <td><input type="text" name="email" value="{$email}"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><button class="btn btn-green">发送验证邮件</button></td>
+            </tr>
+        </table>
+        </form>
+        {/if}
+    </div>
+</div>
+</div>
+</div>
+<!--/个人主页--> 
+{include file="__TPL__/footer.html" /}

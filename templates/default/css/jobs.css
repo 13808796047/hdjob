@@ -1,0 +1,185 @@
+﻿#top {
+	width: 1000px;
+	height: 70px;
+	margin: 5px auto;
+}
+#top #logo {
+	display: block;
+	width: 217px;
+	float: left;
+}
+#top #top-ads {
+	width: 650px;
+	height: 63px;
+	float: left;
+	margin-left: 120px;
+}
+#top #top-ads img {
+	float: right;
+	margin-left: 20px;
+}
+#nav {
+	width: 1000px;
+	height: 38px;
+	line-height: 38px;
+	margin: 0px auto;
+	background: url(../images/nav-bg.gif) repeat-x;
+}
+#nav .fn-left {
+	width: 4px;
+	height: 38px;
+	background: url(../images/nav-left.gif) no-repeat left;
+}
+#nav li {
+	float: left;
+	padding-left: 35px;
+}
+#nav .nav-list {
+	width: 965px;
+	height: 38px;
+	float: left;
+}
+#nav .nav-list li a {
+	font-size: 15px;
+	color: #FFF;
+	font-weight: bold;
+}
+#nav #nav-help {
+	float: right;
+}
+#nav #nav-help a {
+	margin-left: 3px;
+	padding: 8px 12px;
+	font-weight: bold;
+	color: #006600;
+	background-color: #ffff99;
+	border-radius: 3px;
+}
+#nav .fn-right {
+	width: 4px;
+	height: 38px;
+	background: url(../images/nav-right.gif) no-repeat right;
+}
+#nav-ads {
+	width: 1000px;
+	margin: 5px auto;
+}
+#nav-ads img {
+	display: block;
+	float: left;
+	border: 1px #d0d0d0 solid;
+	margin-right: 6px;
+}
+#jobs {
+	width: 995px;
+	margin: 5px auto;
+	color: #333333;
+	clear: both;
+}
+.list-title {
+	color: #26713a;
+	padding-left: 22px;
+	font-weight: bold;
+	font-size: 14px;
+	height: 27px;
+	line-height: 27px;
+	background: #ebeef6;
+	margin-top: 40px;
+	margin-bottom: 13px;
+}
+#job-desc .job-desci {
+	margin-left: 10px;
+}
+#company-contact table {
+	width: 100%;
+	margin-left: 10px;
+}
+#company-contact table tr {
+	height: 24px;
+}
+#company-contact table th {
+	width: 65px;
+}
+.jobs-title h2 {
+	font-size: 25px;
+	color: #26713a;
+	padding: 4px 12px;
+}
+.jobs-title h2 .view-nums{
+	font-size: 12px;
+	color: #888;
+}
+.company-name {
+	margin-left: 11px;
+	color: #F60;
+	font-weight: bold;
+}
+.view-company {
+	margin-left: 25px;
+	color: #26713a;
+}
+.company-simple {
+	padding: 1px;
+	border: 1px #ebeef6 solid;
+	margin-bottom: 25px;
+}
+.company-simple table {
+	width: 100%;
+}
+.company-simple table tr {
+	height: 36px;
+	line-height: 36px;
+}
+.company-simple table th {
+	padding-left: 10px;
+	width: 65px;
+}
+.company-simple table .c-header {
+	height: 30px;
+	line-height: 30px;
+	background: #ebeef6;
+}
+.jobs-info ul {
+	height: 29px;
+	border-bottom: 3px #ebeef6 solid;
+}
+.jobs-info li {
+	width: 120px;
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	text-align: center;
+	border: 1px #ebeef6 solid;
+}
+.jobs-info li a {
+	color: #26713a;
+}
+.jobs-info .ui-active {
+	background: #ebeef6;
+	font-weight: bold;
+}
+.jobs-info div {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+#jobs-item table tr {
+	height: 27px;
+}
+#jobs-item table tr th {
+	width: 67px;
+}
+#jobs-item table tr td {
+	width: 235px;
+}
+.apple{
+	margin:10px 10px 0px;
+}
+.waring{
+	margin-left: 10px;
+	font-size: 15px;
+}
+.waring a{
+	color: #F65;
+	padding: 0px 7px;
+	font-size: 17px;
+}

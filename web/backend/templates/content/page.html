@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="bootstrap" /}
+{js file="jquery" /}
+{js file="datepicker" /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+</head>
+<body>
+	<form action="__METH__/id/{$arc.id}/cid/{$hd.get.cid}" method="post" validate="true">
+	<table>
+		<tr>
+			<th>文章标题：</th>
+			<td><input type="text" class="input-xxlarge" validate="{required:true}" name="title" value="{$arc.title}" style="background:url(__TPL__/images/ruler.gif) repeat-x left 12px;border-bottom:none;border-radius:0px;" /></td>
+		</tr>
+		<tr>
+			<th>关键字：</th>
+			<td><input type="text" style="width:340px" name="keywords" value="{$arc.keywords}" /></td>
+		</tr>
+		<tr>
+			<th>摘要：</th>
+			<td><textarea class="input-xxlarge" rows="3" name="summary">{$arc.summary}</textarea></td>
+		</tr>
+		<tr>
+			<th>内容：</th>
+			<td>{editor width="660" name="contents" content="$arc.contents" id="contents"}</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td><input type="submit" value="更新" class="btn btn-primary" /> </td>
+		</tr>
+	</table>
+	</form>
+	<script type="text/javascript">
+	$("select[select]").each(function(e,obj){
+		$(this).val($(this).attr('select'));
+	})
+</script>
+</body>
+</html>

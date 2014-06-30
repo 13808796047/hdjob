@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	{css file="bootstrap"}
+</head>
+<body>
+	<table class="table">
+		<tr>
+			<th></th>
+			<th>职位名称</th>
+			<th>公司名称</th>
+			<th>发布时间</th>
+			<th>到期时间</th>
+			<th>更新时间</th>
+		</tr>
+		{foreach from="$recruits" value="$recruit"}
+		<tr>
+			<td><input type="radio" name="recruit_id" uid="{$recruit.uid}" value="{$recruit.recruit_id}"> </td>
+			<td>{$recruit.recruit_name}</td>
+			<td>{$recruit.company_name}</td>
+			<td>{$recruit.created|date:'Y-m-d H:i:s',@@}</td>
+			<td>{$recruit.expiration_time|date:'Y-m-d H:i:s',@@}</td>
+			<td>{$recruit.refresh_date|date:'Y-m-d H:i:s',@@}</td>
+		</tr>
+		{/foreach}
+	</table>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+{js file="datepicker" /}
+{css file="__ROOT__/public/js/artDialog/skins/blue.css" /}
+{js file="__ROOT__/public/js/artDialog/jquery.artDialog.min.js" /}
+<style type="text/css">
+    select{
+        width: 100px;
+        padding-right: 0px;
+    }
+</style>
+<div id="ui-opt-area">
+    <div id="new-resume-nav" class="fn-clear tabs-nav">
+        <ul>
+            <li class="tabs-nav-active"> 1 基本情况</li>
+            <li> 2 教育与工作</li>
+            <li> 3 附加信息</li>
+        </ul>
+    </div>
+    <div id="new-resume">
+        {hd_field model="6"}
+            <input type="hidden" name="resume_id" value="{$hd.get.resume_id}" />
+            <table class="table-form">
+                <tr>
+                    <th></th>
+                    <td><button class="btn btn-large btn-green" name="addRecruit" />提交</button>
+                </tr>
+            </table>    
+        {/hd_field}
+    </div>
+</div>
+</div>
+</div>
+{include file="footer.html"}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        <!--[if IE 6]>
+                <link href="__ROOT__/public/css/bootstrap/bootstrap.ie6.min.css" rel="stylesheet" />
+        <![endif]-->
+        {css file="jqueryUI.bootstrap" /}
+        <!--[if IE]>
+            <link rel="stylesheet" type="text/css" href="__ROOT__/public/css/jqueryUI.bootstrap/jquery.ui.1.8.16.ie.css" />
+        <![endif]-->
+        {js file="jquery" /}
+        <!--[if lt IE 9]>
+                <script src="__ROOT__/public/js/html5.js"></script>
+        <![endif]-->
+        {js file="jqueryUI" /}
+        {js file="jquery.validate" /}
+        <style>
+            #dialog{
+                display: none;
+            }
+            .input-min{
+                width: 25px;
+                height:10px;
+                text-align: center;
+                margin: 0px;
+            }
+            .form-horizontal .control-group{
+                margin-left: -80px;
+                margin-bottom: 10px;
+            }
+        </style>
+        <script>
+            $(function(){
+                $("#add-linkage").click(function(){
+                    $("#dialog").dialog({
+                        //modal:true,
+                        width:435,
+                        resizable: true,
+                        buttons:{
+                            '添加':function(){
+                                $("#add_linkage_data").submit();
+                            },
+                            '取消':function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                    return false;
+                });
+                $(".add_son").click(function(){
+                    var linkage_id=$(this).parent().siblings('.linkage_id').html();
+                    $("#pid option[value="+linkage_id+"]").attr('selected',true);
+                    var path=$("#pid").find("option:selected").attr('path')+','+linkage_id;
+                    $("#path").val(path);
+                    $("#dialog").dialog({
+                        //modal:true,
+                        resizable: true,
+                        width:435,
+                        buttons:{
+                            '添加':function(){
+                                $("#add_linkage_data").submit();
+                            },
+                            '取消':function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                    $("#dialog #title").val('').focus();
+                    return false;
+                });
+                $("#add_linkage_data").validate();
+                $("#pid").change(function(){
+                    var path;
+                    if($(this).val() == 0){
+                        $("#path").val(0);
+                    }else{
+                        path=$(this).find("option:selected").attr('path')+','+$(this).val();
+                        $("#path").val(path);
+                    }
+                });
+                $(".del-linkage").click(function(){
+                    if(confirm('确认删除此条联动数据？')){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                });
+                $(".edit-linkage").click(function(){
+                    var _laid=$(this).attr('href');
+                    var _pid=$(this).attr('pid');
+                    $("#add_linkage_data").append('<input name="laid" type="hidden" value="'+_laid+'" />');
+                    $("#add_linkage_data").attr('action','__CONTROL__/editLinkageData');
+                    $("#add_linkage_data").find('option[value='+_pid+']').attr('selected','selected');
+                    var _title=$(this).parent().siblings(".linkage-title").text();
+                    var _path=$(this).attr('path');
+                    $("#dialog #title").val(_title);
+                    $("#path").val(_path);
+                    $("#dialog").dialog({
+                        width:435,
+                        buttons:{
+                            '添加':function(){
+                                $("#add_linkage_data").submit();
+                            },
+                            '取消':function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                    return false;
+                });
+                $(".ui-table-list tr").hover(function(){
+                    $(".ui-table-list tr").css({'backgroundColor':'#FFF'});
+                    $(this).css({'backgroundColor':'#ddd'});
+                }); 
+            });
+        </script>
+    </head>
+    <body>
+        <div id="button-area" style="margin:10px 20px;">
+            <button id="add-linkage" class="btn btn-small btn-primary"><i class="icon-plus-sign icon-white"></i>添加数据</button>
+            <button id="go-back" class="btn btn-small btn-info" onclick="javascript:window.history.go(-1)" class="ui-button"><i class="icon-home icon-white"></i>返回上级</button>
+        </div>
+        {if value="!$linkage_data"}
+        <div class="ui-tips-error">
+            <p>没有子数据啦，你可以添加数据。</p>
+        </div>
+        {/if}
+        <div>
+            <div id="manage_linkage_data" style="margin:0px 20px;">
+                <form id="linkage_data" action="__CONTROL__/sortLinkage/lcgid/{$hd.get.lcgid}/pid/{$pid}" method="post">
+                    <table class="table table-condensed table-bordered" width="100%">
+                        <tr>
+                            <th width="2%">ID</th>
+                            <th width="18%">联动值</th>
+                            <th width="10%">联动分类</th>
+                            <th width="6%">排序</th>
+                            <th width="15%">操作</th>
+                        </tr>
+                        {foreach from="$linkage_data['data']" value="$linkage"}
+                        <tr>
+                            <td class="linkage_id">{$linkage.laid}</td>
+                            <td class="linkage-title">{$linkage.title}</td>
+                            <td>{$hd.get.lcgname|urldecode}</td>
+                            <td><input type="text" class="input-min" name="sort[{$linkage.laid}]" value="{$linkage.sort}" /></td>
+                            <td>
+                                <a href="###" class="add_son" title="添加子类"><i class="icon-plus-sign"></i>添加</a> | 
+                                <a href="__METH__/pid/{$linkage.laid}/lcgid/{$hd.get.lcgid}/lcgname/{$hd.get.lcgname}" class="" title="管理子类"><i class="icon-th-list"></i>管理</a> | 
+                                <a href="__CONTROL__/delLinkageData/laid/{$linkage.laid}" class="del-linkage" title="删除"><i class="icon-trash"></i>删除</a> | 
+                                <a href="{$linkage.laid}" class="edit-linkage" pid="{$linkage.pid}" path="{$linkage.path}" title="修改"><i class="icon-edit"></i>修改</a>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="submit" value="排序" class="btn btn-mini btn-primary" name="sortLinkage" /></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </form>
+                <div id="page">{$linkage_data.page}</div>
+            </div>
+        </div>
+        <div id="dialog" title="添加联动数据">
+            <form action="__CONTROL__/addLinkageData" method="post" id="add_linkage_data" class="well form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="pid">上级菜单</label>
+                        <div class="controls">
+                            <select name="pid" id="pid">
+                                <option value="0" path="0">├─作为顶级数据</option><?php 
+                                function linkage_data_all($data, $pid = 0) {
+                                $arr = '';
+                                foreach ($data as $v) {
+                                if ($v['pid'] == $pid) {
+                                if($pid==0){
+                                $arr.='<option value="'.$v['laid'].'" path="'.$v['path'].'">├─'.$v['title'].'</option>';
+                                }else{
+                                $arr.='<option value="'.$v['laid'].'" path="'.$v['path'].'">'.str_repeat('&nbsp;',substr_count($v['path'],',')*4).'└─'.$v['title'].'</option>';
+                                }
+                                $arr.=linkage_data_all($data, $v['laid']);
+                                }
+                                }
+                                return $arr;
+                                }
+                                echo linkage_data_all($linkage_data_all);
+                                ?></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="title">数据值</label>
+                        <div class="controls">
+                            <textarea class="input-xlarge" rows="4" name="title" id="title" class="required"></textarea>
+                            <p class="help-block">
+                                一次添加多个请用,或，号隔开
+                            </p>
+                        </div>
+                    </div>
+                <input type="hidden" id="path" name="path" value="0" />
+                <input type="hidden" name="lcgid" value="{$hd.get.lcgid}"  />
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(function(){if($.browser.msie&&parseInt($.browser.version,10)===6){$('.row div[class^="span"]:last-child').addClass("last-child");$('[class*="span"]').addClass("margin-left-20");$(':button[class="btn"], :reset[class="btn"], :submit[class="btn"], input[type="button"]').addClass("button-reset");$(":checkbox").addClass("input-checkbox");$('[class^="icon-"], [class*=" icon-"]').addClass("icon-sprite icon-sprite-white");$(".pagination li:first-child a").addClass("pagination-first-child")}});
+        </script>
+    </body>
+</html>

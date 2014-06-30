@@ -1,0 +1,87 @@
+/*
+ * Copyright  : [后盾人才招聘系统] (C)2011-2012 后盾网 ，Inc. 
+ * Link       : http://www.houdunwang.com
+ * Author     : 张博
+ * Email      : zhangbo1248@gmail.com
+ * Created    : 2012-9-9
+ */
+#content{
+    width: 900px;
+    background: #F7F7F7;
+    margin: 0px auto;
+    font-size: 13px;
+    color: #555;
+}
+#shadow-top{
+    width: 811px;
+    height: 12px;
+    margin: 0px auto;
+    background: url(./images/shadow_top.png) no-repeat;
+}
+#company{
+    width: 771px;
+    margin: 0px auto;
+    padding: 20px;
+    background: url(./images/shadow_bg.png) repeat-y;
+}
+#com-basic table{
+    width: 100%;
+}
+#com-basic table tr{
+    height: 30px;
+}
+#com-basic table th{
+    color: #999;
+    width: 70px;
+}
+#com-desc{
+    text-indent: 2em;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+#com-address{
+    padding-left: 2em;
+}
+#com-address table tr{
+    height: 25px;
+}
+.job-list ul{
+    margin-left: 20px;
+}
+.job-list ul li{
+    height: 25px;
+}
+.job-list ul li a{
+    margin-left: 15px;
+    color: #315AAA;
+}
+.cate-title{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #FFF;
+    background: #b73e3e;
+    border-top: 2px solid #F60;
+    margin: 10px 0px;
+}
+#shadow-b{
+    width: 811px;
+    height: 12px;
+    margin: 0px auto;
+    background: url(./images/shadow_b.png) no-repeat;
+}
+#com-name h2{
+    font-size: 20px;
+    color: #315AAA;
+    padding: 10px;
+    margin-left: 40px;
+}
+.not-login{
+    padding-left: 2em;
+}
+.not-login a{
+    font-size: 15px;
+    margin: 0px 8px;
+    color: #F65;
+}

@@ -1,0 +1,58 @@
+{include file="__TPL__/profile/public.html" /}
+<div id="ui-opt-area">
+    <div id="new-resume">
+        <h2 class="data-title">收藏的职位</h2>
+        <table class="table-list">
+            <tr class="table-list-header">
+                <th width="35%">职位名称</th>
+                <th>招聘公司</th>
+                <th>收藏时间</th>
+                <th width="15%">操作</th>
+            </tr>
+            {if value="$favorites|empty"}
+            <tr>
+                <td colspan="4"><div>还没有收藏过简历，赶快去<a href="__APP__/search">找找</a>你喜欢的职位吧。</div></td>
+            </tr>
+            {/if}
+            {foreach from="$favorites" value="$favorite"}
+            <tr>
+                <td><a href="__APP__/search/jobs/id/{$favorite.recruit_id}.html" target="_blank">{$favorite.job_name}</a></td>
+                <td><a href="__APP__/company/home/id/{$favorite.company_id}.html" target="_blank">{$favorite.company_name}</a></td>
+                <td>{$favorite.created|date:'Y-m-d',@@}</td>
+                <td><a href="{$favorite.id}" class="del">删除</a></td>
+            </tr>
+            {/foreach}
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">
+                    <div class="page-list">
+                        {$page}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $('.del').click(function(){
+        var _obj=$(this).parents('tr');
+        if(confirm('确认删除此收藏？删除后不可恢复。')){
+        $.post('__CONTROL__/delFav',{'id':$(this).attr('href')},function(data){
+            if(data==1){
+                _obj.fadeOut();
+            }
+        },'html');
+        }
+        return false;
+    });
+    $('tr').hover(function(){
+        $('.view',$(this)).show();
+        $(this).css({'background-color':'#EEE'});
+    },function(){
+        $('.view',$(this)).hide();
+        $(this).css({'background-color':'#FFF'});
+    });
+</script>
+{include file="__TPL__/footer.html" /}

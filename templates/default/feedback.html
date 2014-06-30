@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>反馈和建议----{$hd.config.web_name}</title>
+{hd_page_seo cate="index"}
+{css file="alice" /}
+{css file="__TPL__/css/common.css" /}
+</head>
+<body>
+	{include file="__TPL__/navigation.html" /}
+	<div id="feedback">
+		<form action="__METH__" method="post">
+		<table class="table-form">
+			<tr>
+				<th>标题：</th>
+				<td><input type="text" name="title" id="" /></td>
+			</tr>
+			<tr>
+				<th>我是：</th>
+				<td>
+					<label><input type="radio" name="user_type" value="personal" checked />个人用户</label>
+					<label><input type="radio" name="user_type" value="company" />企业用户</label>
+				</td>
+			</tr>
+			<tr>
+				<th>反馈类型：</th>
+				<td>
+					{foreach from="$type" value="$value" key="$key"}
+					<label><input type="radio" value="{$key}" {if value="$hd.get.type==$key"}checked{/if} name="type" />{$value}</label>
+					{/foreach}
+				</td>
+			</tr>
+			<tr>
+				<th>你的姓名：</th>
+				<td><input type="text" name="name" id="" /></td>
+			</tr>
+			<tr>
+				<th>Email：</th>
+				<td><input type="text" name="email" id="" /></td>
+			</tr>
+			<tr>
+				<th>内容：</th>
+				<td><textarea name="content" id="" cols="30" rows="10"></textarea></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><button type="submit" class="btn btn-green btn-large">提交</button></td>
+			</tr>
+		</table>
+		</form>
+	</div>
+	<style type="text/css">
+	#feedback{
+		width: 390px;
+		margin: 0px auto;
+		border: none;
+		min-height: 440px;
+		height:auto;
+		_height:420px;
+	}
+	</style>
+{include file="footer.html" /}

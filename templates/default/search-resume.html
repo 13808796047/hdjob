@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>简历搜索-{$hd.config.web_name}</title>
+{hd_seo /}
+{css file="alice" /}
+{css file="__TPL__/css/search.css" /}
+{css file="__TPL__/css/common.css" /}
+{js file="jquery" /}
+</head>
+<body>
+<!--nav--> 
+{include file="__TPL__/navigation.html" /}
+<!--/nav--> 
+<!--条件区域-->
+<div id="condition">
+  <div class="cond-list fn-clear" id="">
+    <div class="cond-title">简历名称：</div>
+    <div class="cond-switch"> <span id="keyword-area">
+      <form method="get" id="search" action="__METH__/">
+        <input name="keywords" id="keywords" class="input-word" type="text" onclick="javascript:if(this.value=='输入简历名称......'){this.value='';}" {if value="!$_GET.keywords|empty"}value="{$hd.get.keywords}"{else /}value="输入简历名称......"{/if}>
+        <input class="search-img  search-resume-btn" type="submit" value=" ">
+      </form>
+            <script type="text/javascript">
+                $('#search').submit(function(){
+                    if($('#keywords').val()=='输入简历名称......'){
+                     $('#keywords').val('');   
+                    }
+                });
+            </script>
+      </span>
+      <div id="show_more"> <span class="show_more"><a href="">显示更多搜索条件</a></span> </div>
+    </div>
+  </div>
+  <div class="cond-list fn-clear">
+    <div class="cond-title">地区：</div>
+    <div class="cond-switch">
+        <ul>
+            <?php $i=1;?>
+        {foreach from="$filterCond.address" value="$value"}
+        {if value="$i==5"}
+        <li><span class="show_more"><a href="">更多</a></span></li>
+        {/if}
+        <li><a {if value="$hd.get.address|isset && $hd.get.address==$value.id"}class="cond-checked"{/if} href="<?php echo url_remove_param(array('address','city','address_cn'));?>/address/{$value.id}/address_cn/{$value.name}">{$value.name}</a></li>
+        <?php $i++;?>
+        {/foreach}
+        <li><span class="show_less"><a href="">收起</a></span></li>
+        </ul>
+    </div>
+  </div>
+  {if value="$hd.get.address|isset"}
+  <div class="cond-list fn-clear">
+    <div class="cond-title">地区子类：</div>
+    <div class="cond-switch">
+        <ul>
+            <?php $i=1;?>
+        {foreach from="$filterCond.sonAddress" value="$value"}
+        {if value="$i==5"}
+        <li><span class="show_more"><a href="">更多</a></span></li>
+        {/if}
+        <li><a {if value="$hd.get.city|isset && $hd.get.city==$value.id"}class="cond-checked"{/if} href="<?php echo url_remove_param(array('city','city_cn'));?>/city/{$value.id}/city_cn/{$value.name}">{$value.name}</a></li>
+        <?php $i++;?>
+        {/foreach}
+        <li><span class="show_less"><a href="">收起</a></span></li>
+        </ul>
+    </div>
+  </div>
+  {/if}
+  <div class="cond-list fn-clear">
+    <div class="cond-title">更新：</div>
+    <div class="cond-switch">
+        <ul>
+            <li><a href="<?php echo url_remove_param('updated');?>/updated/3.html" {if value="$hd.get.updated|isset && $hd.get.updated==3"}class="cond-checked"{/if}>3天内</a></li>
+            <li><a href="<?php echo url_remove_param('updated');?>/updated/10.html" {if value="$hd.get.updated|isset && $hd.get.updated==10"}class="cond-checked"{/if}>10天内</a></li>
+            <li><a href="<?php echo url_remove_param('updated');?>/updated/15.html" {if value="$hd.get.updated|isset && $hd.get.updated==15"}class="cond-checked"{/if}>15天内</a></li>
+            <li><a href="<?php echo url_remove_param('updated');?>/updated/30.html" {if value="$hd.get.updated|isset && $hd.get.updated==30"}class="cond-checked"{/if}>30天内</a></li>
+        </ul>
+    </div>
+  </div>
+  <!--隐藏条件区域-->
+  <div class="hide-cond">
+    {foreach from="$filterCond.linkages" value="$linkages"}
+      <div class="cond-list fn-clear">
+    <div class="cond-title">{$linkages.title}：</div>
+    <div class="cond-switch">
+        <ul>
+        {foreach from="$linkages.data" value="$value"}
+        {if value="$i==5"}
+        <li><span class="show_more"><a href="">更多</a></span></li>
+        {/if}
+        <li><a {if value="$hd.get.work_exp|isset && $hd.get.work_exp==$value.laid"}class="cond-checked"{/if} href="<?php echo url_remove_param(array('work_exp','work_exp_cn'));?>/work_exp/{$value.laid}/work_exp_cn/{$value.title}">{$value.title}</a></li>
+        <?php $i++;?>
+        {/foreach}
+        <li><span class="show_less"><a href="">收起</a></span></li>
+        </ul>
+    </div>
+  </div>
+  {/foreach}
+  </div>
+  <!--/隐藏条件区域-->
+</div>
+<!--/条件区域-->
+<div id="now-cond"><span>当前搜索条件：</span>
+    {if value="$hd.get.address|isset"}
+        <a href="<?php echo url_remove_param(array('address','city','address_cn','city_cn'));?>">{$hd.get.address_cn}<em>X</em></a>
+    {/if}
+    {if value="$hd.get.city|isset"}
+        <a href="<?php echo url_remove_param(array('city_cn','city'));?>">{$hd.get.city_cn}<em>X</em></a>
+    {/if}
+    {foreach from="$_GET" key="$key" value="$value"}
+        {if value="$filterCond.linkages.$key|isset"}
+        <a href="{$key|url_remove_param}"><?php echo $_GET[$key.'_cn'];?><em>X</em></a>
+        {/if}
+    {/foreach}
+    {if value="$hd.get.updated|isset"}
+        <a href="<?php echo url_remove_param('updated');?>">{$hd.get.updated}天内<em>X</em></a>
+    {/if}
+</div>
+<div id="lists">
+    <div id="list-nav">
+        <div id="view-way">
+            <span class="fn-left">查看方式：</span>
+            <a href="" class="list-info">详细</a>
+            <a href="" class="list">列表</a>
+        </div>
+        <!--<div id="total-list">符合当前条件的共有<span>{$jobs|count}</span>个职位</div>-->
+    </div>
+    <div id="list">
+    <table>
+    <tr class="list-head">
+    	<th class="check-fav"></th>
+    	<th>简历名称</th>
+    	<th>创建者</th>
+    	<th>工作经验</th>
+    	<th>性别</th>
+    	<th class="update-date">更新日期</th>
+    </tr>
+        <!--遍历普通职位-->
+        {foreach from="$resumes" value="$resume"}
+    <tr class="jobs-simple">
+    	<td><label><input type="checkbox" name="recruit_id[]" value="{$resume.resume_id}"/></label></td>
+        <td><a class="job-title" href="__APP__/profile/viewResume/id/{$resume.resume_id}.html" target="_blank">{$resume.resume_name}</a></td>
+    	<td c_id="{$resume.uid}">{$resume.name}</td>
+        <td>{$resume.work_exp}</td>
+    	<td>{$resume.gender}</td>
+    	<td>{$resume.updated|date:'Y-m-d',@@}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan='5' class="company-info">
+            {$resume.self_eval}
+        </td>
+    </tr>
+        {/foreach}
+        <!--/遍历普通职位-->
+    <tr class="list-footer">
+        <td colspan="3">
+            <div class="select-all"><label id="select-button" for="select-all"><input type="checkbox" name="" id="select-all" />全选</label></div>
+            <div class="tool">
+                <a href="" class="favorite" type="favorite-resume">收藏选中简历</a>
+            </div>
+        </td>
+        <td colspan="3">
+            <div class="page-list">{$page}</div>
+        </td>
+    </tr>
+    </table>
+    </div>
+</div>
+<style type="text/css">
+    .d-content select{
+        width:130px;
+        background:none;
+        height:25px;
+        border:1px #B7B7B7 solid;
+    }
+</style>
+<script type="text/javascript">
+var url='__WEB__',
+    app='__APP__';
+</script>
+{js file="__TPL__/js/search.js" /}
+{include file="footer.html" /}

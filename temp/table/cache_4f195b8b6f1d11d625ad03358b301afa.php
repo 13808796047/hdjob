@@ -1,0 +1,69 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_4f195b8b6f1d11d625ad03358b301afa = Array
+	(
+	0=>Array
+		(
+		'field'=>'id',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'uid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'content',
+		'type'=>'varchar(300)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'point',
+		'type'=>'int(11)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'0',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'created',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	5=>Array
+		(
+		'field'=>'ip',
+		'type'=>'varchar(20)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	6=>Array
+		(
+		'field'=>'username',
+		'type'=>'varchar(20)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		)
+	);
+?>

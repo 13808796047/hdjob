@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$company.name}-{$hd.config.web_name}</title>
+<meta name="keywords" content="{$company.name}" />
+<meta name="description" content="{$company.desc|mb_substr:@@,0,80,'utf-8'}" />
+{css file="alice" /}
+{css file="__TPL__/css/index.css" /}
+{css file="__ROOT__/templates/company_tpl/skyblue/skyblue.css" /}
+</head>
+<body>
+    {include file="__TPL__/navigation.html" /}
+    <div id="content">
+        <div id="com-name">
+            <h2>{$company.name}{if value="$company.license_verify==1"}<span class="auth-status">认证企业<img src="__TPL__/images/succ2.png" alt="" /></span>{/if}</h2>
+        </div>
+        <div id="shadow-top"></div>
+        <div id="company">
+            <div id="com-basic">
+                <table>
+                    <tr>
+                        <th>公司性质：</th>
+                        <td>{$company.company_property}</td>
+                        <td rowspan="3" class="logo">{if value="$company.logo==''"}<img src="__TPL__/images/no_photo.gif" alt="" />{else /}<img src="__ROOT__/{$company.logo}" alt="" />{/if}</td>
+                    </tr>
+                    <tr>
+                        <th>公司规模：</th>
+                        <td>{$company.company_scope}</td>
+                    </tr>
+                    <tr>
+                        <th>公司行业：</th>
+                        <td>{$company.company_industry}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="cate-title">
+                公司介绍
+            </div>
+            <div id="com-desc">
+                {$company.desc}
+            </div>
+            <div class="cate-title">
+                联系方式
+            </div>
+            {logged_in}
+            <div id="com-address">
+                <table>
+                    <tr>
+                        <th>公司地址：</th>
+                        <td>{$company.address}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>{$company.street}</td>
+                    </tr>
+                    <tr>
+                        <th>联  系  人：</th>
+                        <td>{$company.contact_person}</td>
+                    </tr>
+                    <tr>
+                        <th>Email：</th>
+                        <td>{$company.link_email}</td>
+                    </tr>
+                     <tr>
+                        <th>联系电话：</th>
+                        <td>{$company.contact_tel}</td>
+                    </tr>
+                </table>
+            </div>
+            {else /}
+            <div class="not-login">请 <a href="__WEB__/login">登录</a>后查看企业联系方式</div>
+            {/logged_in}
+            <div class="cate-title">
+                招聘职位
+            </div>
+            <div class="job-list">
+                <ul>
+                {foreach from="$recruits" value="$recruit"}
+                    <li>{$recruit.start_time|date:'Y-m-d',@@}<a href="__APP__/search/jobs/id/{$recruit.recruit_id}" target="_blank">{$recruit.recruit_name}</a></li>
+                {/foreach}
+                </ul>
+            </div>
+        </div>
+        <div id="shadow-b"></div>
+    </div>
+{include file="__TPL__/footer.html" /}

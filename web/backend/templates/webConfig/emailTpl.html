@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {js file="jquery" /}
+    </head>
+    <body>
+        <div>
+            <div class="tags" style="padding-left:80px;margin-top:10px;width:660px;">
+                {foreach from="$placeholder" key="$key" value="$value"}
+                    <div class="control-group pull-left" style="margin-right:5px;">
+                    <div class="controls">
+                      <div class="input-prepend">
+                        <span class="add-on">{$value}</span><input style="margin:0px;width:80px;" value="{{$key}}" type="text">
+                      </div>
+                    </div>
+                  </div>
+                {/foreach}
+            </div>
+            <div style="clear:both"></div>
+            <form action="__METH__/type/{$hd.get.type}" method="post">
+                <table>
+                    <tr>
+                        <th width="80px">邮件主题：</th>
+                        <td><input type="text" name="subject" id="" value="{$tpl.subject}" /></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>邮件内容：</th>
+                        <td>{editor id="content" name="content" content="$tpl.content" width="700" height="150" max="1000" /}</td>
+                    </tr>
+                    <tr class="well">
+                        <th></th>
+                        <td><input type="submit" value="更新" class="btn btn-primary" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+#spread{
+    min-height: 418px;
+    height: auto;
+    _height: 420px;
+}
+#spread .sys{
+    padding: 2px 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+#spread-info table{
+    width: 500px;
+    margin: 0px auto;
+}
+#spread-info table tr{
+    height: 30px;
+    border: none;
+}
+#spread-info table th{
+    width: 100px;
+    padding:10px;
+    text-align:right;
+    font-size:13px;
+    color:#376BA6;
+}
+#spread-info table td{
+    color:#6d6d6d;
+    padding:5px;
+    border: none;
+}
+#spread-info .cate-desc{
+    background: #eee;
+    border-radius: 2px;
+}
+.

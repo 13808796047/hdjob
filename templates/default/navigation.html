@@ -1,0 +1,23 @@
+ <!-- <div id="top"><a href="__WEB__" id="logo"><img src="__ROOT__/public/images/logo.png" width="217" height="60" /></a> -->
+ 
+
+<div id="top-ads">
+    {hd_ads cate="indexTopPic"}
+    <a href="{$ads.href}"><img src="__ROOT__/{$ads.path}" width="300" height="63" /></a>
+    {/hd_ads}
+</div>
+ 
+<!--nav-->
+<div id="nav" class="round-case">
+<div class="fn-left"></div>
+<div class="nav-list">
+    <ul>
+        {hd_nav}
+          <li><a href="{if value="$nav.href|substr:@@,0,4!='http'"}__WEB__{$nav.href}{else /}{$nav.href}{/if}" target="{$nav.target}">{$nav.title}</a></li>
+        {/hd_nav}
+    </ul>
+    <div id="nav-help"><a href="###">企业服务</a><a href="###">招聘助手</a></div>
+</div>
+<div class="fn-right"></div>
+</div>
+<!--/nav--> 

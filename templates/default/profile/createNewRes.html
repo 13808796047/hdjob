@@ -1,0 +1,72 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+<div id="ui-opt-area">
+    <div id="new-resume">
+        <h2 class="data-title">新建简历</h2>
+        <form action="__METH__" method="post" validate="true" enctype="multipart/form-data">
+        <table class="table-form">
+            <tr>
+                <th>简历名称：</th>
+                <td><input type="text" name="resume_name" validate="{required:true}" /><span>简历名称将作为企业的检索条件</span></td>
+            </tr>
+            <tr>
+                <th>简历风格：</th>
+                <td><select name="style" validate="{required:true}">
+                        <option value="">请选择</option>
+                        {foreach from="$style" value="$value"}
+                        <option value="{$value.dir_name}">{$value.name}</option>
+                        {/foreach}
+                    </select></td>
+            </tr>
+            <tr>
+                <th>简历头像：</th>
+                <td id="avatar_type">
+                    <label><input type="radio" name="avatar_type" href="#no_avatar" value="0" checked>不使用头像</label>
+                    <label><input type="radio" name="avatar_type" href="#avatar_info" value="1">使用个人头像</label>
+                    <label><input type="radio" name="avatar_type" href="#avatar_new" value="2">上传新头像</label>
+                </td>
+            </tr>
+            <script type="text/javascript">
+            $('#avatar_type input').click(function(){
+                $('.avatar_type').hide();
+                $($(this).attr('href')).show();
+            });
+            </script>
+            <tr class="avatar_type fn-hide" id="avatar_info">
+                <th></th>
+                <td>
+                    {if value="!$avatar|empty"}
+                    <img src="__ROOT__/{$avatar}" alt="">
+                    <input type="hidden" name="avatar" value="{$avatar}">
+                    {else /}
+                    <img src="__TPL__/images/no_photo.gif" alt="">
+                    <input type="hidden" name="avatar" value="">
+                    {/if}
+                </td>
+            </tr>
+            <tr class="avatar_type fn-hide" id="avatar_new">
+                <th></th>
+                <td><input type="file" name="avatar" class="input-file"></td>
+            </tr>
+            <tr>
+                <th>公开设置：</th>
+                <td>
+                    <label><input type="radio" name="open" value="1" checked id="">公开</label>
+                    <label><input type="radio" name="open" value="0" id="">不公开</label>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" class="btn btn-green" style="width:100px;" value="保存并下一步" /></td>
+            </tr>
+        </table>
+            </form>
+    </div>
+</div>
+</div>
+</div>
+<!--/个人主页--> 
+<!--公共底部信息--> 
+<!--/公共底部信息-->
+{include file="__TPL__/footer.html" /}

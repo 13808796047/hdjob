@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+{css file="bootstrap" /}
+{css file="jqueryUI.bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{jquery /}
+{js file="jqueryUI" /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"}
+<style type="text/css">
+	dd{
+		float: left;
+		width: 252px;
+		background: #D4E2F0;
+        padding:2px 5px;
+        border-radius: 3px;
+        border: 1px #B2C1D2 solid;
+        margin-top: 6px;
+        margin-right: 5px;
+        margin-left: 10px;
+        cursor: pointer;
+	}
+    dd .method-title{
+        height: 20px;
+    }
+    dd .method-title input{
+        float: left;
+    }
+    dd .method-title span{
+        display: block;
+        height: 20px;
+        overflow: hidden;
+        margin-left: 20px;
+    }
+	dd:hover{
+		background: #EFF3F6;
+	}
+    .app-list label{
+        font-size: 14px;
+        font-weight: bold;
+        color: #065;
+    }
+    .disable{
+        border: 1px #f00 solid;
+    }
+    .control-item dt label{
+        display: block;
+        color: #ED7A53;
+    }
+	dd .node-path{
+        color: #999;
+        height: 20px;
+        overflow: hidden;
+	}
+    label{
+        height: 20px;
+    }
+    label input{
+        display: block;
+        float: left;
+        width: 25px;
+        border:none;
+    }
+</style>
+</head>
+<body style="padding:10px;">
+    <form action="__METH__/rid/{$hd.get.rid}" method="post">
+        <input type="hidden" name="rid" value="{$hd.get.rid}" />
+        <div style="margin-bottom:9px;">
+            <span class="label label-info pull-left" style="margin-right:10px;margin-top:5px;">筛选：</span>
+            <div class="btn-group pull-left">
+            <button href="all" class="btn btn-info app-show">全部显示</button>
+            {foreach from="$nodes" value="$app"}
+            <button href="#app-{$app.nid}" class="btn btn-info app-show">{$app.title}</button>
+            {/foreach}
+            </div>
+            <input type="submit" class="btn btn-primary" style="margin-left:10px;" value="保存" />
+        </div>
+<div style="clear:both;"></div>
+{foreach from="$nodes" value="$app"}
+    <div class="app-item well" id="app-{$app.nid}" style="padding:8px;margin-bottom:8px;" title="{$app.des}">
+        <div class="app-list">
+            <label class="{if value="!$app.state"} disable{/if}" type="app" {if value="$app.name=='/'"}node-path="root"{/if}><input type="checkbox" {if value="$app.name|in_array:$permissions"}checked{/if} {if value="$app.name=='/'"}name="permissions[]" value="{$app.name}"{/if} />{$app.title}({$app.name})</label>
+        </div>
+    {foreach from="$app.son_data" value="$control"}
+        <dl class="control-item">
+            <dt title="{$control.des}">
+                <label class="{if value="!$control.state"} disable{/if}" type="control"><input type="checkbox" />{$control.title}({$control.name})</label>
+            </dt>
+            <div style="clear:both;"></div>
+            {foreach from="$control['son_data']" value="$method"}
+                <dd class="method-item {if value="!$method.state"} disable{/if}" title="{$method.des}" >
+                    <div class="method-title">
+                        <input type="checkbox"  {if value="$method.name|in_array:$permissions"}checked{/if} class="input-checkbox {if value="!$method.state"} disable{/if}" name="permissions[]" value="{$method.name}" />
+                    	<span title="{$method.title}">{$method.title}</span>
+                    </div>
+                    <div class="node-path">{$method.name}</div>
+                </dd>
+            {/foreach}
+        </dl>
+        <div style="clear:both;"></div>
+    {/foreach}
+    <div style="clear:both;"></div>
+    </div>
+{/foreach}
+</form>
+<script type="text/javascript">
+    $('.app-show').click(function(){
+        _id=$(this).attr('href');
+        if(_id=='all'){
+            $('.app-item').show();
+        }else{
+            $('.app-item').hide();
+            $(_id).show();
+        }
+        return false;
+    });
+    $('dd,label').click(function(){
+        if($(this).is('.disable')){
+            alert('已禁用该节点，不能配置权限。\n请开启节点后配置权限!!');
+            return false;
+        }
+        if($(this).attr('type') && !$(this).attr('node-path')){
+            _input=$(this).parent().nextAll().find('input:not(".disable")');
+        }else{
+            _input=$('input',$(this));
+        }
+        if(_input.attr('checked')){
+            $('input',$(this)).attr('checked',false);
+            _input.attr('checked',false);
+        }else{
+            $('input',$(this)).attr('checked',true);
+            _input.attr('checked',true);
+        }
+        return false;
+    });
+</script>
+</body>
+</html>

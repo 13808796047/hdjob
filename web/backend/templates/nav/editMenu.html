@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {css file="bootstrap" /}
+    {css file="__TPL__/css/public.css" /}
+    {css file="jqueryUI.bootstrap" /}
+    {js file="jquery" /}
+    {js file="jqueryUI"}
+    {js file="jquery.validate" /}
+    {js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"}
+</head>
+<body>
+<form class="form-horizontal" validate="true" method="post" action="__METH__/id/{$hd.get.id}" id="add_menu">
+    <div class="control-group">
+        <label class="control-label" for="parent_id">父级菜单</label>
+        <div class="controls">
+            <select name="parent_id" id="parent_id" class="input-medium" validate="{required:true}" select="{$menu.parent_id}">
+                <option value="">请选择</option>
+                <option value="0" level="1">├─一级菜单</option>
+                {foreach from="$menu_list" key="$key" value="$value"}
+                <option value="{$value.id}" level="2">├─{$value.menu_name}</option>
+                {foreach from="$value.two_level" key="$two_key" value="$two_menu"}
+                <option value="{$two_menu.id}" level="3">&nbsp;&nbsp;&nbsp;&nbsp;└─{$two_menu.menu_name}</option>
+                {/foreach}
+                {/foreach}
+            </select>
+            <script type="text/javascript">
+                $('select[select]').val($('select[select]').attr('select'));
+            </script>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="input01">菜单名称</label>
+        <div class="controls">
+            <input type="text" class="input-medium" validate="{required:true,messages:'请输入菜单名称'}" name="menu_name" value="{$menu.menu_name}" id="input01">
+            <p class="help-inline">
+                输入中文名称
+            </p>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="app">操作应用</label>
+        <div class="controls">
+            <input type="text" class="input-medium" validate="{required:true}" value="{$menu.app}" name="app" id="app">
+            <p class="help-inline">
+                此菜单中的应用
+            </p>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="control">操作控制器</label>
+        <div class="controls">
+            <input type="text" class="input-medium" name="control" value="{$menu.control}" id="control">
+            <p class="help-inline">
+                此菜单应用中的控制器
+            </p>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="method">操作方法</label>
+        <div class="controls">
+            <input type="text" class="input-medium" name="method" value="{$menu.method}" id="method">
+            <p class="help-inline">
+                此菜单应用中的控制器的方法
+            </p>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="" class="control-label">GET参数</label>
+        <div class="controls">
+            <textarea name="query_string" id="" cols="30" rows="3" class="input-xlarge">{$menu.query_string}</textarea>
+            <p class="help-block">格式pathinfo:/name/hd/city/bj  query:?name=hd&city=bj</p>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="display_on">显示菜单</label>
+        <div class="controls">
+            <label for="display_on" class="radio inline"><input type="radio" id="display_on" value="1" checked="checked" name="state" />显示</label>
+            <label for="display_off" class="radio inline"><input type="radio" id="display_off" value="0" name="state" {if value="!$menu.state"}checked{/if}/>不显示</label>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">加到底部快捷连接</label>
+        <style type="text/css">
+        </style>
+        <div class="controls">
+            <label class="radio inline"><input type="radio" value="1" name="set_end" checked="checked"/>加入</label>
+            <label class="radio inline"><input type="radio" value="0" name="set_end" {if value="!$menu.set_end"}checked{/if} />不加入</label>
+        </div>
+    </div>
+</form>
+</body>
+</html>

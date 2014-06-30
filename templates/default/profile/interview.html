@@ -1,0 +1,44 @@
+{include file="__TPL__/profile/public.html" /}
+<style>
+    #personal{
+        width:772px;
+    }
+</style>
+<div id="ui-opt-area">
+    <div id="personal">
+        <h2 class="data-title">企业邀请面试</h2>
+    	<table class="table-list">
+    		<tr>
+    			<th>邀请公司</th>
+    			<th>邀请时间</th>
+    			<th>面试职位</th>
+    			<th class="text-left">附加内容</th>
+    		</tr>
+        {if value="!$views"}
+        <tr>
+            <td colspan="4">
+                没有企业向你发起面试邀请，你可以先<a href="__APP__/search">搜索</a>你兴趣的职业并投递简历。
+            </td>
+        </tr>
+        {else /}
+    	{foreach from="$views"  value="$view"}
+    	<tr>
+    		<td><a href="__APP__/company/home/id/{$view.company_id}" target="_blank">{$view.company_name}</a></td>
+    		<td>{$view.created|date:'Y-m-d H:i:s',@@}</td>
+    		<td><a href="__APP__/search/jobs/id/{$view.recruit_id}" target="_blank">{$view.recruit_name}</a></td>
+    		<td class="text-left" title="{$view.content}">{$view.content|mb_substr:@@,0,10,'utf-8'}</td>
+    	</tr>
+    	{/foreach}
+        <tr>
+            <td colspan="2"></td>
+            <td colspan="2"><div class="page-list">{$page}</div></td>
+        </tr>
+        {/if}
+    	</table>
+    </div>
+</div>
+</div>
+</div>
+<!--/个人主页--> 
+<!--公共底部信息--> 
+{include file="__TPL__/footer.html" /}

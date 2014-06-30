@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="bootstrap" /}
+{js file="jquery" /}
+{js file="datepicker" /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+<style type="text/css">
+	th{
+		text-align: right;
+		padding-right: 10px;
+	}
+</style>
+</head>
+<body>
+	<form action="__METH__" method="post" validate="true" style="margin-top:20px;">
+	<table width="100%">
+		<tr>
+			<th width="30%">文章栏目：</th>
+			<td>
+				<select name="cid" id="cid" validate="{required:true}" select="{$_GET['cid']}">
+					<option value="">请选择</option>
+					{foreach from="$channels" value="$channel"}
+					<?php $stepN=substr_count($channel['path'],',');?>
+					<?php if($stepN==0):?>
+					<option value="{$channel.id}">├─{$channel.title}</option>
+					<?php else:?>
+					<option value="{$channel.id}"><?php echo str_repeat('&nbsp;&nbsp;', $stepN*2);?>└─{$channel.title}</option>
+					<?php endif;?>
+					{/foreach}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>文章标题：</th>
+			<td><input type="text" class="input-xxlarge" validate="{required:true}" name="title" id="" style="background:url(__TPL__/images/ruler.gif) repeat-x left 12px;border-bottom:none;border-radius:0px;" /></td>
+		</tr>
+		<tr>
+			<th>信息：</th>
+			<td>作者：<input type="text" name="author" class="input-medium" value="{$hd.config.web_name}" id="" /> 来源：<input type="text" name="source" class="input-medium" id="" /></td>
+		</tr>
+		<tr>
+			<th>关键字：</th>
+			<td><input type="text" style="width:340px" name="keywords" id="" /></td>
+		</tr>
+		<tr>
+			<th>摘要：</th>
+			<td><textarea class="input-xxlarge" rows="3" name="summary"></textarea></td>
+		</tr>
+		<tr>
+			<th>内容：</th>
+			<td>{editor width="660" name="contents" id="contents"}</td>
+		</tr>
+		<tr>
+			<th>状态：</th>
+			<td> <label class="radio pull-left" style="margin-right:12px"><input type="radio" name="state" checked value="1" />发布</label><label class="radio pull-left"><input type="radio" name="state" value="0" />关闭</label>	 </td>
+		</tr>
+		<tr>
+			<th>发布时间：</th>
+			<td>
+				<input type="text" onfocus="WdatePicker({minDate:'%yyyy-%MM-%dd %HH:%mm:%ss',alwaysUseStartDate:true,dateFmt:'yyyy-MM-dd HH:mm:ss',autoPickDate:true})" class="input-medium" name="created" id="" />
+			</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td><input type="submit" value="发布" class="btn btn-primary" /> </td>
+		</tr>
+	</table>
+	</form>
+	<script type="text/javascript">
+	$("select[select]").each(function(e,obj){
+		$(this).val($(this).attr('select'));
+	})
+	</script>
+</body>
+</html>

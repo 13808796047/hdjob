@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{css file="jqueryUI.bootstrap" /}
+{jquery /}
+{js file="jqueryUI" /}
+<style type="text/css">
+</style>
+</head>
+<body>
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">规则列表</a></li>
+			<li><a href="#tabs-2">添加规则</a></li>
+		</ul>
+		<div id="tabs-1">
+			<table class="table">
+				<tr>
+					<th>规则调用名</th>
+					<th>规则名称</th>
+					<th>花费积分</th>
+					<th>类型</th>
+					<th>操作</th>
+				</tr>
+				{foreach from="$rules" value="$rule"}
+				<tr>
+					<td>{$rule.opt_name}</td>
+					<td>{$rule.opt_title}</td>
+					<td>{if value="$rule.operator>0"}&nbsp;{$rule.operator}{else /}{$rule.operator}{/if}</td>
+					<td>{if value="$rule.is_sys==1"}<span class="sys">系统</span>{else /}<span class="warning">自定义</span>{/if}</td>
+					<td><a href="__CONTROL__/editPointRule/name/{$rule.opt_name}"><i class="icon-edit"></i>编辑</a> {if value="$rule.is_sys==1"}<span href="">删除</span>{else /}<a href="{$rule.id}" class="del-item"><i class="icon-trash"></i>删除</a>{/if}</td>
+				</tr>
+				{/foreach}
+			</table>
+		</div>
+		<div id="tabs-2">
+			<form action="__CONTROL__/addPointRule" method="post">
+			<table class="table">
+				<tr>
+					<th width="12%">积分规则查询名</th>
+					<td>
+						<input type="text" name="opt_name" />
+						<p>即：调用的标记。例如：new_user</p>
+					</td>
+				</tr>
+				<tr>
+					<th>积分规则名</th>
+					<td>
+						<input type="text" name="opt_title" />
+						<p>就是给她取了个好听的名字而已</p>
+					</td>
+				</tr>
+				<tr>
+					<th>积分变化</th>
+					<td>
+						<input type="text" name="operator" />
+						<p>如增加积分则：+30,如减少则 -30</p>
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td><input type="submit" class="btn btn-primary" value="添加" /></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$('#tabs').tabs();
+	$('.del-item').click(function(){
+		var _obj=$(this).parents('tr');
+		if(confirm("确认删除此积分规则？")){
+		$.post('__CONTROL__/delPointRule',{id:$(this).attr('href')},function(data){
+			if(data==1){
+				_obj.fadeOut();
+			}else{
+				alert('删除失败');
+			}
+		},'html');
+		}
+		return false;
+	});
+	</script>
+</body>
+</html>

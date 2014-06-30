@@ -1,0 +1,65 @@
+{include file="__TPL__/profile/public.html" /}
+{css file="__TPL__/css/common.css" /}
+{css file="__TPL__/css/profile.css" /}
+<div id="ui-opt-area">
+    <div id="personal">
+    	<h2 class="data-title">个人信息</h2>
+    	<div id="info">
+    		<div class="avatar">
+    			{if value="!$user.avatar|empty"}
+    			<a href="__CONTROL__/avatars"><img src="__ROOT__/{$user.avatar}" alt="{$user.name}" title="{$user.name}"></a>
+    			{else /}
+    			<a href="__CONTROL__/avatars"><img src="__TPL__/images/no_photo.gif" alt=""></a>
+    			{/if}
+    		</div>
+    		<div class="user-log">
+    			<h2>
+    				<span class="user-title">{$user.name}</span>
+                    <span><a href="__APP__/auth/logout">退出登录</a></span>
+    				{if value="$user.email_verify==1"}
+    				<span class="email-pass">Email已认证</span>
+    				{/if}
+    			</h2>
+    			<p class="login-log tips">
+    				<span>上次登录：{$hd.session.last_login|date:'Y-m-d H:i:s',@@}</span>
+    				<span>上次IP：{$_SESSION.last_ip}</span>
+    			</p>
+    			<div class="person-log">
+    				<span>你创建了 <span class="sys">{$user.resumeNums}</span> 份简历</span>
+    				<a href="__CONTROL__/resume">管理简历</a>
+    				<a href="__CONTROL__/interview">查看收到的邀请</a>
+    			</div>
+    			<div id="shortcut-tips">
+    				<span>收到的面试邀请：(<a href="" class="tips">{$user.interviews}</a>)</span>
+    				<span>已申请职位：(<a href="" class="tips">{$user.delivers}</a>)</span>
+    				<span>已收藏职位：(<a href="" class="tips">{$user.favorites}</a>)</span>
+    			</div>
+    		</div>
+    	</div>
+    	<div id="shortcut">
+    		<a href="__CONTROL__/createNewRes" class="creat"></a>
+    		<a href="__CONTROL__/resume" class="manage"></a>
+    	</div>
+    	<div style="clear:both"></div>
+    </div>
+    <div id="news">
+    	<h2 class="data-title">最新邀请面试</h2>
+    	<table class="table-list">
+    		<tr class="table-list-header">
+    			<th>邀请公司</th>
+    			<th>面试职位</th>
+    			<th>邀请时间</th>
+    		</tr>
+    		{list from="$interviews" name="$interview" row="5"}
+    		<tr>
+    			<td><a href="__APP__/index/company/id/{$interview.company_id}" target="_blank">{$interview.company_name}</a></td>
+    			<td><a href="__APP__/search/jobs/id/{$interview.recruit_id}" target="_blank">{$interview.recruit_name}</a></td>
+    			<td>{$interview.created|date:'Y-m-d H:i:s',@@}</td>
+    		</tr>
+    		{/list}
+    	</table>
+    </div>
+</div>
+</div>
+</div>
+<{include file="__TPL__/footer.html" /}

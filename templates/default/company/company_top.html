@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$hd.session.company_name}  Powered by {$hd.config.web_name}</title>
+<meta name="keywords" content="{$hd.config.keyword}" />
+<meta name="description" content="{$hd.config.desc}" />
+{css file="alice" /}
+{css file="__TPL__/css/company.css" /}
+{css file="__TPL__/css/common.css" /}
+</head>
+<body>
+<div id="public">
+<!--page-nav-->
+<div id="page-nav" class="fn-clear">
+<div id="company-logo"><a href="__WEB__"><img src="__TPL__/images/logo.png" width="210" height="60" /></a></div>
+    <div id="page-nav-list">
+        <ul>
+            <li {if value="METHOD=='index'"}class="nav-active"{/if}><a href="__APP__/company.html">企业中心</a></li>
+            <li {if value="METHOD=='recruit'"}class="nav-active"{/if}><a href="__APP__/company/recruit.html">职位管理</a></li>
+            <li {if value="METHOD=='template'|| METHOD=='spread'"}class="nav-active"{/if}><a href="__APP__/company/template.html">企业推广</a></li>
+            <li {if value="METHOD=='data'"}class="nav-active"{/if}><a href="__APP__/company/data.html">企业资料</a></li>
+            <li {if value="METHOD=='account'"}class="nav-active"{/if}><a href="__APP__/company/account">账户管理</a></li>
+            <li><a href="__APP__/index/company/id/{$hd.session.uid}.html">企业首页</a></li>
+        </ul>
+        <div id="search-resume">
+            <form action="__APP__/search/resume" method="get">
+                <input type="text" name="keywords" placeholder="搜简历" />
+                <button id="search-button" type="submit"></button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!--/page-nav-->

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {css file="alice" /}
+    {css file="__TPL__/css/company-top.css" /}
+    {css file="__TPL__/css/company.css" /}
+  </head>
+  <body>
+     {load file="__TPL__/company/company_top.html" /}
+      <div id="content">
+            <!--opt-->
+            <div id="opt">
+                <div id="opt-menu">
+                    <dl>
+                        <dt>企业中心</dt>
+                        <dd><a href="#">招聘管理</a></dd>
+                        <dd><a href="#">发布职位</a></dd>
+                        <dd><a href="#">简历搜索</a></dd>
+                        <dd><a href="#">收到的职位申请</a></dd>
+                        <dt>企业资料</dt>
+                        <dd><a href="#" class="view-data">查看企业资料</a></dd>
+                        <dd><a href="#" class="edit-data">修改企业资料</a></dd>
+                    </dl>
+                </div>
+                <!--opt-area-->
+                <div id="opt-area">
+                    <table class="table-list">
+                        <tr>
+                            <th>被邀请人</th>
+                            <th>面试职位</th>
+                            <th>邀请时间</th>
+                            <th>附加内容</th>
+                        </tr>
+                        {foreach from="$interviews" value="$interview"}
+                        <tr>
+                            <td>{$interview.username}</td>
+                            <td><a href="__APP__/search/jobs/id/{$interview.recruit_id}" target="_blank">{$interview.recruit_name}</a></td>
+                            <td>{$interview.created|date:'Y-m-d H:i:s',@@}</td>
+                            <td title="{$interview.content}">{$interview.content|mb_substr:@@,0,15,'utf-8'}</td>
+                        </tr>
+                        {/foreach}
+                        <tr class="ui-func">
+                            
+                        </tr>
+                    </table>
+                </div>
+                <!--/opt-area-->
+            </div>
+            <script type="text/javascript">
+            //全选反选
+            $('.select a').click(function () {
+                var _obj=$('.table-list tr:not(.ui-func) :checkbox');
+                if($(this).attr('type')=='all'){
+                    $('.ui-func :checkbox').attr('checked',true);
+                    _obj.attr('checked',true);
+                }else{
+                    $('.ui-func :checkbox').attr('checked',false);
+                    _obj.each(function(){
+                        $(this).attr('checked')?$(this).attr('checked',false):$(this).attr('checked',true);
+                    });
+                }
+                return false;
+            });
+            $('#set-viewed').click(function() {
+                var _obj=$('input[name="resume"]:checked'),
+                _id_arr=[];
+                if(_obj.length==0){
+                    alert('请先选中你需要设置的简历。');
+                    return false;
+                }
+                _obj.each(function(){
+                    _id_arr.push($(this).val());
+                });
+                $.post('__CONTROL__/setViewed',{'id_arr':_id_arr},function(data){
+                    if(data=='1'){
+                        alert("设置成功");
+                        window.location.reload();
+                    }
+                },'html');
+                return false;
+            });
+            </script>
+            <style type="text/css">
+                #opt-area{
+                    
+                }
+                .table-list{
+                    width: 100%;
+                    color: #404040;
+                }
+                .table-list a{
+                    color: #385EA2;
+                }
+                .table-list tr{
+                    height: 28px;
+                    border-top:1px #CCF solid;
+                }
+                .table-list th{
+                    font-weight: bold;
+                }
+                .table-list .select a{
+                    display:block;
+                    float: left;
+                    padding:2px 10px;
+                    margin-right: 10px;
+                    border: 1px #385EA2 solid;
+                }
+                .table-list .success{
+                    color: #090;
+                }
+                .table-list .waring{
+                    color: #f65;
+                }
+            </style>
+            <!--/opt--> 
+        </div>
+  </body>
+</html>
+<?php exit;?>

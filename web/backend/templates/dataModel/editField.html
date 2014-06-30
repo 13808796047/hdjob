@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+{css file="bootstrap" /}
+{js file="jquery" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+<style>
+.input-min{
+    width: 23px;
+}
+legend{
+    margin-bottom: 0px;
+}
+.linkage_set{
+    display:none;
+}
+table th{
+    font-weight:normal;
+    text-align:left;
+}
+.control-group{
+    border-bottom: 1px #DDD dashed;
+    padding-bottom: 4px;
+}
+</style>
+</head>
+<body>
+<?php $setting=json_decode($data['field_info']['setting'],true);?>
+<div id="edit_field">
+<form class="form-horizontal" validate="true" method="post" action="__METH__" id="edit_form">
+<fieldset>
+<legend>修改字段</legend>
+<div class="control-group">
+    <label class="control-label" for="field_name">字段名称</label>
+    <div class="controls">
+        <input type="text" id="field_name" name="field_name" value="{$data.field_info.field_name}" validate="{required:true,regexp:/^[a-z]\w+[^_]$/,messages:'请输入正确的格式'}" />
+        <input type="hidden" name="old_field_name" value="{$data.field_info.field_name}" />
+        <p class="help-block">
+            使用字母、数字、下划线，作为表字段名,并且仅能字母开头，不以下划线结尾。至少两位。
+        </p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="title">字段别名</label>
+    <div class="controls">
+        <input type="text" name="title" id="title" value="{$data.field_info.title}" />
+        <p class="help-block">
+            发布内容时的字段提示文字
+        </p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="field_type">字段类型</label>
+    <div class="controls">
+        <select name="field_type" id="field_type" validate="{required:true}">
+            <option value="">请选择</option>
+            {foreach from="$data.field_type" value="$type"}
+            <option value="{$type.name}" {if value="$data.field_info.field_type==$type.name"}selected{/if}>{$type.title}</option>
+            {/foreach}
+        </select>
+        <p class="help-block">字段在数据库中的存储类型和前台显示样式<br />例如：input或textarea</p>
+    </div>
+</div>
+<!-- <div class="control-group file_upload_set" style="display:none">
+    <label for="" class="control-label">文件上传参数</label>
+    <div class="controls">
+        <label class="radio inline"><input type="radio" disabled="disabled" checked="checked" name="setting[type]" value="radio" class="radio" />普通上传框</label>
+        <label class="radio inline"><input type="radio" disabled="disabled" name="setting[type]" value="checkbox" class="radio" />上传插件</label>&nbsp;&nbsp;&nbsp;
+        <p class="help-inline">普通上传框只生成html代码</p>
+    </div>
+    <div class="controls">
+        <label>允许上传的类型：<input type="text" disabled name="setting[allow]" value="gif|jpg" /></label>
+        允许上传的数量：<input type="text" disabled class="input-min" name="setting[nums]" />
+        <div class="input-append">允许上传大小：<input type="text" disabled name="setting[max_size]" class="input-mini" value=""><span class="add-on">KB</span>
+        </div>
+    </div>
+</div> -->
+<!--选项参数-->
+<div class="control-group switch_set" style="display:none;">
+    <label for="" class="control-label">选项类型</label>
+    <div class="controls">
+        <label class="radio inline"><input type="radio" disabled="disabled" name="setting[type]" value="radio" class="radio" checked="checked" {if value="$setting.type|isset && $setting.type=='radio'"}checked{/if} validate="{required:true}" />单选</label>
+        <label class="radio inline"><input type="radio" disabled="disabled" name="setting[type]" value="checkbox" class="radio" {if value="$setting.type|isset && $setting.type=='checkbox'"}checked{/if} />复选框</label>
+        <label class="radio inline"><input type="radio" disabled="disabled" name="setting[type]" value="option" class="radio" {if value="$setting.type|isset && $setting.type=='option'"}checked{/if} />下拉列表</label>
+        <table>
+            <tr>
+                <td>存储类型：</td>
+                <td>
+                    <select name="setting[fieldtype]" id="switch-field" class="input-medium" disabled="disabled" validate="{required:true}"><option value="">请选择</option>
+                        <option {if value="$setting.fieldtype|isset && $setting.fieldtype=='VARCHAR'"}selected{/if} value="VARCHAR">字符 VARCHAR</option>
+                        <option {if value="$setting.fieldtype|isset && $setting.fieldtype=='TINYINT'"}selected{/if} value="TINYINT">整数 TINYINT(3)</option>
+                        <option {if value="$setting.fieldtype|isset && $setting.fieldtype=='SMALLINT'"}selected{/if} value="SMALLINT">整数 SMALLINT(5)</option>
+                        <option {if value="$setting.fieldtype|isset && $setting.fieldtype=='MEDIUMINT'"}selected{/if} value="MEDIUMINT">整数 MEDIUMINT(8)</option>
+                        <option {if value="$setting.fieldtype|isset && $setting.fieldtype=='INT'"}selected{/if} value="INT">整数 INT(10)</option>
+                    </select>
+                    <span class="switch-varchar-leng">
+                        <input type="text" name="length" disabled="disabled" class="input-mini" value="{$data.field_info.length}" />
+                    </span>
+                    <span class="hide" id="switch-unsigned">
+                        <label title="即没有符号" class="radio inline">
+                            <input type="radio" value="UNSIGNED" name="setting[unsigned]" {if value="$setting.unsigned|isset && $setting.unsigned=='UNSIGNED'"}checked{/if} disabled="disabled" validate="{required:true}" />正整数</label>
+                        <label class="radio inline"><input type="radio" name="setting[unsigned]" {if value="$setting.unsigned|isset && $setting.unsigned==''"}checked{/if} disabled="disabled" value=""/>整数</label>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="data">选项列表</label></td>
+                <td><textarea validate="{required:true}" class="input-xlarge" id="data" name="data" cols="35" rows="4">{$data.field_info.data}</textarea><p class="helo-block">每行一个选项。格式：选项值=选项名称</p></td>
+            </tr>
+            <tr>
+                <td><label for="default_val">默认值</label></td>
+                <td><input class="input-mini" id="default_val" name="default_val" disabled value="{$data.field_info.default_val}"><p class="help-inline">输入数据中的选项值</p></td>
+            </tr>
+        </table>
+        <p class="help-block"></p>
+    </div>
+</div>
+<!--/选项参数-->
+<div class="control-group switch_set_no textarea_set_no">
+    <label class="control-label" for="default_val">字段默认值</label>
+    <div class="controls">
+        <input type="text" name="default_val" value="{$data.field_info.default_val}"/>
+        <p class="help-block">联动类型的默认值格式:2#7#10，即:数据ID#数据ID</p>
+    </div>
+</div>
+<div class="control-group linkage_set">
+    <label class="control-label" for="lcgid">联动数据类别</label>
+    <div class="controls">
+        <select name="lcgid" class="input-medium" id="lcgid" disabled="disabled" validate="{required:true}" >
+            <option value="">请选择</option>
+            <option value="city" {if value="$data.field_info.lcgid=='city'"}selected{/if}>地区</option>
+            {foreach from="$data.linkage_cate" value="$cate"}
+            <option value="{$cate.lcgid}" {if value="$data.field_info.lcgid==$cate.lcgid"}selected{/if}>{$cate.cate_title}</option>
+            {/foreach}
+        </select>
+        <p class="help-inline">
+            联动数据的数据来源，地区、行业、职位类别……
+        </p>
+    </div>
+    <label class="control-label">联动数据风格</label>
+    <div class="controls">
+        {foreach from="$data.view_array_index.linkage_style" value="$linkage_style" key="$linkage_style_key"}
+        <label class="radio inline"><input validate="{required:true}" type="radio" disabled="disabled" name="linkage_style" id="linkage_style" {if value="$data.field_info.linkage_style==$linkage_style_key"}checked{/if} value="{$linkage_style_key}" />{$linkage_style}</label>
+        {/foreach}
+        <p class="help-block"></p>
+    </div>
+    <label class="control-label" for="title">附属字段</label>
+    <div class="controls">
+        <?php
+        $attached_array=json_decode($data['field_info']['attached'],true);
+        ?>
+        <?php if(!empty($attached_array)):?>
+        <?php foreach($attached_array as $attached):?>
+        <div class="attached-field">字段名称：<input type="text" disabled="disabled" name="attached[]" class="input-small" value="{$attached}" /><a class="remove-attached close">&times;</a>
+        </div>
+        <?php endforeach;?>
+        <?php else:?>
+        <div class="attached-field">字段名称：<input type="text" disabled="disabled" name="attached[]" class="input-small" value="" />
+        </div>
+        <?php endif;?>
+        <span id="add-attached" style="display:block;width:100px;padding: 2px 5px;margin-left:50px;margin-top:10px;"><a href="" class=""><i class="icon-plus-sign"></i>增加一项</a></span>
+        <script type="text/javascript">
+            $("#add-attached").click(function(){
+                if($(".attached-field").length<3){
+                    $(this).before('<div class="attached-field">字段名称：<input type="text" name="attached[]" class="input-small" value="" /><a class="remove-attached close">&times;</a></div>');
+                }else{
+                    alert('一般不会超过3项吧');
+                }
+                return false;
+            });
+            $(".remove-attached").live('click',(function(){
+                $(this).parent().remove();
+                return false;
+            }));
+        </script>
+        <p class="help-block">
+            例如：当省为联动类型时，市、县字段可以不是联动类型，作为其附属字段即可
+        </p>
+    </div>
+    <label class="control-label"></label>
+    <div class="controls">
+        <label class="checkbox inline">
+            <input type="checkbox" name="setting[checkbox]" value="1" {if value="$setting.checkbox|isset"}checked{/if} disabled />允许多选
+        </label>
+    </div>
+</div>
+<style type="text/css">
+    .attached-field{
+        margin-bottom: 10px;
+        width: 185px;
+    }
+    .remove-attached{
+        margin-top:4px;
+    }
+</style>
+<div class="control-group switch_set_no editor_set_no" id="field_length">
+    <label class="control-label" for="length">字段长度</label>
+    <div class="controls">
+        <input type="text" name="length" id="length" class="input-mini" value="{$data.field_info.length}" />
+        <p class="help-block">
+            DECIMAL和FLOAT类型可以用,号隔开
+        </p>
+    </div>
+</div>
+<!--文本域参数-->
+<div class="control-group textarea_set editor_set" style="display:none">
+    <label for="" class="control-label">默认值</label>
+    <div class="controls">
+        <textarea class="input-xlarge" name="default_val" disabled cols="35" rows="4"></textarea>
+    </div>
+</div>
+<div class="control-group editor_set" style="display:none;">
+    <label class="control-label">编辑器风格</label>
+    <div class="controls">
+        {foreach from="$data.view_array_index.editor_style" value="$editor_style" key="$editor_style_key"}
+        <label class="radio inline"><input validate="{required:true}" type="radio" name="editor_style" disabled="disabled" value="{$editor_style_key}" {if value="$data.field_info.editor_style==$editor_style_key"}checked{/if} />{$editor_style}</label>
+        {/foreach}
+        <p class="help-block"></p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="rule-required">是否必需</label>
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" name="rule[required]" id="rule-required" value="true" {if value="$data.field_info.field_null==1"}checked{/if} />必需填写
+        </label>
+        <p class="help-block">即创建字段时的NOT NULL和前台是否必须填写该字段</p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">字段验证</label>
+    <?php
+    $decode_rule=json_decode($data['field_info']['rule'],true);
+    ?>
+    <div class="controls" style="width:340px;">
+        <label class="checkbox inline" title="邮箱"><input type="checkbox" name="rule[email]" {if value="$decode_rule['email']|isset"}checked{/if} value="true" />邮箱</label>
+        <label class="checkbox inline" title="网址"><input type="checkbox" name="rule[url]" {if value="$decode_rule['url']|isset"}checked{/if} value="true" />网址</label>
+        <label class="checkbox inline" title="日期"><input type="checkbox" name="rule[date]" {if value="$decode_rule['date']|isset"}checked{/if} value="true" />日期</label>
+        <label class="checkbox inline" title="数字"><input type="checkbox" name="rule[number]" {if value="$decode_rule['number']|isset"}checked{/if} value="true" />数字</label>
+        <label class="checkbox inline" title="整数"><input type="checkbox" name="rule[digits]" {if value="$decode_rule['digits']|isset"}checked{/if} value="true" />整数</label>
+        <label class="checkbox inline" title="IPV4"><input type="checkbox" name="rule[ipv4]" {if value="$decode_rule['ipv4']|isset"}checked{/if} value="true" />IPV4</label>
+    </div>
+    <div class="controls">
+        <table>
+            <tr>
+                <th>最小长度：</th>
+                <td><input type="text" class="input-mini" name="rule[minlength]" {if value="$decode_rule['minlength']|isset"}value="{$decode_rule['minlength']}"{else /}value=""{/if} /></td>
+                <th>最大长度：</th>
+                <td><input type="text" class="input-mini" name="rule[maxlength]" {if value="$decode_rule['maxlength']|isset"}value="{$decode_rule['maxlength']}"{else /}value=""{/if} /></td>
+            </tr>
+            <tr>
+                <th>最小值：</th>
+                <td><input type="text" class="input-mini" name="rule[min]" {if value="$decode_rule['min']|isset"}value="{$decode_rule['min']}"{else /}value=""{/if} /></td>
+                <th>最大值：</th>
+                <td><input type="text" class="input-mini" name="rule[max]" {if value="$decode_rule['max']|isset"}value="{$decode_rule['max']}"{else /}value=""{/if} /></td>
+            </tr>
+            <tr>
+                <td colspan="3"><input type="text" id="rule-regexp" name="rule[regexp]" {if value="$decode_rule['regexp']|isset"}checked value="{$decode_rule['regexp']}"{else /}value=""{/if} validate="{regexp:/^\/.+\/$/}" placeholder="自定义验证规则" /></td>
+                <th><select id="regexp-select" class="input-small"><option value="">请选择</option>
+                        {foreach from="$data.validate_rule" value="$rule"}<option value="{$rule.regexp}">{$rule.title}</option>{/foreach}</select></th>
+            </tr>
+        </table>
+        <p class="help-block">自定义验证正则时可以修改正则表达式</p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="width">前台显示</label>
+    <div class="controls">
+        <div class="input-append">
+            宽：<input type="text" name="width" id="width" class="input-min" validate="{number:true,min:0}" value="{if value="$data.field_info.width>0"}{$data.field_info.width}{/if}" /><span class="add-on">px</span>
+        </div>
+        <p></p>
+        <div class="input-append">
+            高：<input type="text" name="height" class="input-min" validate="{number:true,min:0}" value="{if value="$data.field_info.height>0"}{$data.field_info.height}{/if}" /><span class="add-on">px</span>
+        </div>
+        <p class="help-block"></p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="html_attr">附加HTML标签属性</label>
+    <div class="controls">
+        <textarea class="input-xlarge" id="html_attr" name="html_attr" cols="35" rows="3">{$data.field_info.html_attr}</textarea>
+        <p class="help-block">例如：id="girl",class="boy"</p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="js_event">JS事件</label>
+    <div class="controls">
+        <textarea class="input-xlarge" id="js_event" name="js_event" cols="35" rows="3">{$data.field_info.js_event}</textarea>
+        <p class="help-block">例如：onclick="javascript:alert('Beyond');return false;"</p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="field_tips">字段提示</label>
+    <div class="controls">
+        <textarea class="input-xlarge" id="field_tips" name="field_tips" cols="35" rows="3">{$data.field_info.field_tips}</textarea>
+        <p class="help-block">友好的提示信息便于用户正确的填写</p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="error_tips">错误描述</label>
+    <div class="controls">
+        <textarea class="input-xlarge" id="error_tips" name="error_tips" cols="35" rows="3">{$data.field_info.error_tips}</textarea>
+        <p class="help-block">当字段验证没有通过时的友好的错误提示</p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">加入搜索</label>
+    <div class="controls">
+        <label class="radio inline">
+            <input type="radio" class="radio" id="join_in" value="1" name="join_index" {if value="$data.field_info.join_index==1"}checked{/if} />加入</label>
+        <label class="radio inline">
+            <input type="radio" class="radio" id="join_out" value="0" name="join_index" {if value="$data.field_info.join_index==0"}checked{/if} />不加入
+        </label>
+        <input type="hidden" name="old_join_index" value="{$data.field_info.join_index}" />
+        <p class="help-block">使用索引可快速访问数据库表中的特定信息。</p>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">显示字段</label>
+    <div class="controls">
+        <label class="radio inline">
+            <input type="radio" class="radio" value="1" name="state" {if value="$data.field_info.state==1"}checked{/if} />显示</label>
+        <label class="radio inline">
+            <input type="radio" class="radio" value="0" name="state" {if value="$data.field_info.state==0"}checked{/if} />不显示</td></label>
+        <input type="hidden" name="old_state" value="{$data.field_info.state}" />
+        <p class="help-block">是否在前台显示该字段。</p>
+    </div>
+</div>
+<div class="form-actions">
+    <input type="hidden" name="mfid" value="{$hd.get.mfid}" />
+    <input type="hidden" name="dmid" value="{$hd.get.dmid}" />
+    <input type="hidden" name="table_name" value="{$hd.get.tableName}" />
+    <button type="submit" name="editField" class="btn btn-primary">保存更改</button>
+    <a href="##" onclick="javascript:window.history.back();return false;" class="btn">取消</a>
+</div>
+</fieldset>
+</form>
+</div>
+<script>
+$('.'+$('#field_type').val()+'_set').show();
+$('.'+$('#field_type').val()+'_set :input').attr('disabled',false);
+$('.'+$('#field_type').val()+'_set_no').hide();
+$('.'+$('#field_type').val()+'_set_no :input').attr('disabled',true);
+$("#field_type").change(function(){
+    var fileld_tyle=$(this).val();
+    var fileld_setting=$(this).val();
+    //有些字段类型不需要显示某些信息，故隐藏+禁用,如SET
+    if($("."+fileld_setting+'_set_no')[0]){
+        $('.'+fileld_setting+'_set_no').hide();
+        $('.'+fileld_setting+'_set_no :input').attr('disabled',true);
+    }else{
+        $("[class*=_set_no]").show();
+        $("[class*=_set_no] :input").attr('disabled',false);
+    }
+    //隐藏所有的设置区域
+    $("[class$='_set']").hide();
+    $("[class$='_set'] :input").attr('disabled',true);
+    if(fileld_tyle!=_old_field_type){
+        
+    }
+    //显示该字段类型的设置区域
+    $("."+fileld_setting+"_set").show();
+    $("."+fileld_setting+"_set :input").attr('disabled',false);
+    
+    
+    
+    //为选项设置参考示例
+    if(fileld_tyle=='switch' && $("#data").val()==''){
+        $("#data").val("1=选项1\n2=选项2");
+    }
+    //如果是字段类型为INT，则选中验证规则中的数字
+    if(fileld_tyle=='input_int'){
+        $("input[name='rule[number]']").attr('checked',true);
+    }else{
+        $("input[name='rule[number]']").attr('checked',false);
+    }
+});
+//解决修改字段类型后，原字段类型的配置还存在
+var _old_field_type = $('#field_type').val();
+$('#edit_form').submit(function(){
+    if($('#field_type').val()!=_old_field_type){
+        $('.'+_old_field_type+'_set :input').attr('disabled',false).val('');
+    }
+});
+//设置选项类型为无符号，有符号
+$("#switch-field").change(function(){
+    if($(this).val()!='VARCHAR'){
+        $(this).next().hide();
+        $(':input',$(this).next()).attr('disabled',true);
+        $(':input',$(this).nextAll('.hide')).attr('disabled',false);
+        $(this).nextAll('.hide').show();
+    }else{
+        $(this).next().show();
+        $(':input',$(this).next()).attr('disabled',false);
+        $(':input',$(this).nextAll('.hide')).attr('disabled',true);
+        $(this).nextAll('.hide').hide();
+    }
+});
+if($("#switch-field").val()!='VARCHAR'){
+    $("#switch-field").next().show();
+}
+
+//正则选择区域
+$("#regexp-select").change(function(){
+    $("#rule-regexp").val($(this).val());
+});
+</script>
+</body>
+</html>

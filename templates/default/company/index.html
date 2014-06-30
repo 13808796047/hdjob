@@ -1,0 +1,126 @@
+{load file="__TPL__/company/company_top.html" /}
+{css file="__TPL__/css/company_index.css" /}
+{js file="jquery" /}
+<div id="content">
+    <!--opt-->
+    <div id="opt">
+        <div id="opt-menu">
+            <dl>
+                <dt>职位管理</dt>
+                <dd><a href="__CONTROL__/issueRecruit.html">发布职位</a></dd>
+                <dd><a href="__CONTROL__/recruit.html">职位管理</a></dd>
+                <dd><a href="__APP__/search/resume">简历搜索</a></dd>
+                <dd><a href="__CONTROL__/receiveApply">收到的职位申请</a></dd>
+                <dd><a href="__CONTROL__/viewFav">简历收藏夹</a></dd>
+                <dt>企业推广</dt>
+                <dd><a href="__APP__/company/template.html">企业模板</a></dd>
+                <dd><a href="__APP__/company/addSpread/cate/5.html">职位置顶</a></dd>
+                <dd><a href="__APP__/company/addSpread/cate/2.html">紧急招聘</a></dd>
+                <dd><a href="__APP__/company/addSpread/cate/1.html">推荐职位</a></dd>
+                <dd><a href="__APP__/company/addSpread/cate/6.html">职位变色</a></dd>
+                <dt>企业资料</dt>
+                <dd><a href="__CONTROL__/data" class="view-data">企业资料</a></dd>
+                <dd><a href="__APP__/index/company/id/{$hd.session.uid}" class="view-data">企业首页</a></dd>
+                <dd><a href="__APP__/company/proAuth" class="view-data">邮箱认证</a></dd>
+                <dd><a href="__CONTROL__/optLog">操作日志</a></dd>
+            </dl>
+        </div>
+        <!--opt-area-->
+        <div id="opt-area">
+            <!--企业资料-->
+            <div id="info" class="fn-clear"> 
+                <div class="data-title"><h2>帐号信息</h2></div>
+                <!--资料-->
+                <div id="data">
+                    <div id="update">
+                        <div id="company-name">
+                            <div id="companyN">{$company.name}</div>
+                            <a href="__CONTROL__/account" {if value="$company.license_verify==1"}class="license-pass" title="营业执照已认证"{else/}class="license-status" title="营业执照未认证"{/if} ><em class="fn-hide">营业执照认证</em></a>
+                            <a href="__CONTROL__/proAuth" {if value="$company.email_verify"}class="email-pass" title="电子邮箱已认证"{else/}class="email-status" title="Email未认证"{/if}><em class="fn-hide">Email认证</em></a>
+                        </div>
+                        <div class="c-info" id="login-log"><span>上次登录时间：<?php echo date('Y-m-d H:i:s',$_SESSION['last_login']);?></span><span>&nbsp;&nbsp;&nbsp;&nbsp;上次登录IP：{$hd.session.last_ip}</span></div>
+                        <div class="c-info">您已经发布了&nbsp;<span class="nums">{$company.recruit_nums}</span>&nbsp;个职位：您可以&nbsp;&nbsp;<a href="__CONTROL__/recruit">管理职位</a>&nbsp;&nbsp;或者&nbsp;&nbsp;<a href="__CONTROL__/receiveApply">查看投递人</a>&nbsp;&nbsp;</div>
+                        <div class="c-info">
+                            收到的职位申请：&nbsp;<span class="nums">{$receives}</span>
+                            <span class="fast-opt">
+                                <a href="__CONTROL__/issueRecruit.html" class="">发布招聘</a>
+                            <a href="__APP__/auth/logout" class="">注销登录</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--/资料--> 
+                <!--积分-->
+                <div id="point">
+                    <h2>我的积分</h2>
+                    <p class="point-num"><span><i>{$hd.session.point}</i></span>&nbsp;&nbsp;点</p>
+                    <div id="recharge"><a href=""><img src="__TPL__/images/15.gif" /></a></div>
+                    <p class="point-rule"><a href="__CONTROL__/optLog">积分消费明细</a></p>
+                </div>
+                <!--/积分--> 
+            </div>
+            <!--/企业资料-->
+            <div id="new-recruit" class="feature-list">
+                <div class="data-title"><h2>最新招聘</h2></div>
+                <table class="table-list">
+                    <tr>
+                        <th>职位名称</th>
+                        <th>招聘人数</th>
+                        <th>开始时间</th>
+                        <th>有效时间</th>
+                        <th>结束时间</th>
+                        <th>审核状态</th>
+                    </tr>
+                    {new_recruit nums="5"}
+                    <tr>
+                        <td><a href="__APP__/search/jobs/id/{$list.recruit_id}" target="_blank">{$list.recruit_name}</a></td>
+                        {if value="!$list.recruit_num"}
+                        <td>若干</td>
+                        {else/}
+                        <td>{$list.recruit_num}人</td>
+                        {/if}
+                        <td><?php echo date('Y-m-d H:i:s',$list['start_time']);?></td>
+                        <td>{$list.effective_time}天</td>
+                        <td><?php echo date('Y-m-d H:i:s',$list['expiration_time']);?></td>
+                        <td>
+                            {if value="$list.verify==1"}
+                            <span class="success">已通过</span>
+                            {elseif value="$list.verify==2"}
+                            <span class="sys">审核中</span>
+                            {else}
+                            <span class="warning">未通过</span>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/new_recruit}
+                </table>
+            </div>
+            <div class="feature-list">
+                <div class="data-title">
+                    <h2>最新投递</h2>
+                </div>
+                <div>
+                    <table class="table-list">
+                        <tr>
+                            <th>投递简历</th>
+                            <th>投递职位</th>
+                            <th>投递人</th>
+                            <th>投递时间</th>
+                        </tr>
+                        {list from="$delivers" name="$deliver" row="5"}
+                        <tr>
+                            <td><a href="__APP__/profile/viewResume/id/{$deliver.resume_id}" target="_blank">{$deliver.resume_name}</a></td>
+                            <td>{$deliver.recruit_name}</td>
+                            <td>{$deliver.name}</td>
+                            <td>{$deliver.sendtime|date:'Y-m-d H:i:s',@@}</td>
+                        </tr>
+                        {/list}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--/opt-area--> 
+    </div>
+    <!--/opt--> 
+</div>
+{load file="__TPL__/footer.html" /}

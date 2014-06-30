@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title></title>
+{css file="bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{css file="jqueryUI.bootstrap" /}
+{jquery /}
+{js file="jqueryUI"}
+</head>
+<body>
+<form action="__METH__" method="get" id="search-form">
+<table class="table well" style="margin-bottom:-18px;">
+    <tr>
+        <th>公司名称</th>
+        <td><input type="text" name="name" value="{if value="$hd.get.name|isset"}{$hd.get.name}{/if}"></td>
+        <th>审核状态</th>
+        <td>
+        	<select name="license_verify" {if value="$hd.get.license_verify|isset"}select="{$hd.get.license_verify}"{/if}>
+        		<option value="">请选择</option>
+        		<option value="0">未通过</option>
+        		<option value="2">审核中</option>
+        		<option value="1">已通过</option>
+        	</select>
+        </td>
+        <td colspan="1">
+            <button type="submit" class="btn btn-success"><i class="icon-search icon-white"></i>&nbsp;&nbsp;查询</button>
+            <a id="reset" class="btn btn-info"><i class="icon-refresh icon-white"></i>&nbsp;&nbsp;重置</a>
+    	</td>
+    <script type="text/javascript">
+        $("select[select]").each(function(e,obj){
+            $(this).val($(this).attr('select'));
+        })
+        $('#reset').click(function(){
+            $('#search-form :input').val('');
+            $('#search-form').submit();
+        });
+    </script> 
+    </tr>
+</table>
+</form>
+<table class="table">
+	<tr>
+		<th width="5%"><input type="checkbox" class="select-all input-checkbox"></th>
+		<th>公司名称</th>
+		<th>执照</th>
+		<th>审核状态</th>
+		<th>操作</th>
+	</tr>
+	{foreach from="$licenses" value="$license"}
+	<tr>
+		<td><input type="checkbox" name="cid" class="input-checkbox" value="{$license.uid}"> </td>
+		<td>{$license.name}</td>
+		<td><a href="__ROOT__/{$license.license}" uid="{$license.uid}" class="view">查看</a></td>
+		<td>
+			{if value="$license.license_verify==2"}
+			<span class="sys">审核中</span>
+			{elseif value="$license.license_verify==1"}
+			<span class="success">已通过</span>
+			{else /}
+			<span class="warning">未通过</span>
+			{/if}
+		</td>
+		<td class="opt">
+			<a href="" action="pass" type="item">审核通过</a>
+		</td>
+	</tr>
+	{/foreach}
+	<tr class="well">
+		<td><input type="checkbox" class="select-all input-checkbox"></td>
+		<td colspan="4" class="opt">
+			<a class="btn btn-mini btn-success" action="pass"><i class="icon-ok-sign icon-white"></i> 通过</a>
+			<a class="btn btn-mini btn-danger" action="unpass"><i class="icon-ban-circle icon-white"></i>未通过</a>
+		</td>
+	</tr>
+</table>
+<div id="dialog" class="hide" title="">
+	<img src="" alt="">
+</div>
+<script type="text/javascript">
+	$('.select-all').click(function(){
+    	if($(this).attr('checked')){
+    		$('.select-all').attr('checked',true);
+    		$('.table :checkbox[name]').attr('checked',true);
+    	}else{
+    		$('.select-all').attr('checked',false);
+    		$('.table :checkbox[name]').attr('checked',false);
+    	}
+    });
+    //审核执照   id：选中的数组   type: 审核结果
+    function verify_license (id,type) {
+    	$.post('__METH__',{"id":id,"license_verify":type},function(data){
+    		if(data==1){
+    			window.location.reload();
+    		}
+    	},'html');
+    }
+    $('.opt a').click(function(){
+    		if($(this).attr('type')=='item'){
+    			$(this).parent('td').siblings('td:eq(0)').find('input').attr('checked',true);
+    		}
+        	var _id=[],
+        	_confirm_msg='通过',
+        	_action=$(this).attr('action'),
+            _fun="del_recruit",//处理函数
+            _type=1,
+        	_checked=$('.table :checkbox[name]:checked');
+        	if(_checked.length==0){
+        		alert("请选择你需要操作的营业执照!");
+        		return false;
+        	}
+        	_checked.each(function(){
+        		_id.push($(this).val());
+        	});
+        	if(_action=='unpass'){
+        		_confirm_msg="不通过";
+        		_type=0;
+        	}
+        	if(confirm("确定"+_confirm_msg+"选中的营业执照？")){
+        		verify_license(_id,_type);
+        	}
+    });
+	$('.view').click(function(){
+		$('#dialog img').attr('src',$(this).attr('href'));
+		_this=$(this);
+		$('#dialog').dialog({
+			"width":"auto",
+			"title":"查看营业执照-公司："+$(this).parent().prev().text(),
+			"modal":true,
+			"buttons":{
+				"通过":function(){
+					verify_license(_this.attr('uid'),1);
+				},
+				"不通过":function(){
+					verify_license(_this.attr('uid'),0);
+				}
+			}
+		});
+		return false;
+	});
+</script>
+</body>
+</html>

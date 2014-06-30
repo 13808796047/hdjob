@@ -1,0 +1,62 @@
+body{
+    background: url(../images/2.png) repeat;
+}
+.opt-notice{
+        width: 400px;
+        height: 155px;
+        background: #CCC;
+        position: absolute;
+        top: 30%;
+        left: 35%;
+        padding: 6px;
+        border-radius: 4px;
+    }
+.opt-notice h2{
+    background: #ffffff;
+    color: #FFF;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #393;
+    opacity: 0.7;
+    font-weight: bold;
+    font-size: 13px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.opt-notice-error h2{
+    background-color: #900;
+}
+.notice-con{
+    background: #ffffff;                
+}
+.notice-con .msg{
+    border-bottom: 1px solid #CCF;
+    color: #555;
+    font-size: 13px;
+    text-align: center;
+    padding: 10px 5px;
+    height: 73px;
+}
+.notice-con .link{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+}
+#time{
+    color: #f60;
+    font-size: 14px;
+    padding: 0px 4px;
+}
+.notice-con .link a{
+    color: #065;
+    padding: 0px 3px;
+}
+.opt-notice-error .link a{
+    color: #900;
+}
+.opt-notice-error #time{
+    color: #f00;
+}

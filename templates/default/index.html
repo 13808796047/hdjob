@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$hd.config.web_name}</title>
+{hd_page_seo cate="index"}
+{css file="__TPL__/css/base.css" /}
+{css file="__TPL__/css/index.css" /}
+{js file="jquery" /}
+{js file="__TPL__/js/textScroll.js" /}
+</head>
+<body>
+{include file="__ROOT__/header.html" /}
+
+<div id="top-ads">
+    {hd_ads cate="indexTopPic"}
+    <a href="{$ads.href}"><img src="__ROOT__/{$ads.path}" width="300" height="63" /></a>
+    {/hd_ads}
+</div>
+ 
+<!--nav-->
+<div id="nav" class="round-case">
+<div class="fn-left"></div>
+<div class="nav-list">
+    <ul>
+        {hd_nav}
+          <li><a href="{if value="$nav.href|substr:@@,0,4!='http'"}__WEB__{$nav.href}{else /}{$nav.href}{/if}" target="{$nav.target}">{$nav.title}</a></li>
+        {/hd_nav}
+    </ul>
+    <div id="nav-help"><a href="###">企业服务</a><a href="###">招聘助手</a></div>
+</div>
+<div class="fn-right"></div>
+</div>
+<!--/nav--> 
+<!--banner-->
+<div id="banner">
+<div id="login-panel">
+    <div id="login-head">用户登录</div>
+    <div id="login-input">
+        <form method="post" name="" action="__APP__/auth/login.html">
+            <div class="input-bar">
+                <input type="text" id="username" maxlength="20" name="name" value="输入用户名/Email" />
+            </div>
+            <div class="input-bar">
+                <input type="text" id="password" value="输入密码">
+                    <input type="password" name="pwd" style="display:none;" />
+            </div>
+            <div class="validate-bar">
+                <input type="text" name="code" id="validate" value="输入验证码" />
+                <a href="#"><img src="__APP__/auth/validateCode.html" onclick="javascript:this.src='__APP__/auth/validateCode?next='+Math.random();return false;" /> </a>
+            </div>
+            <div class="login-bar">
+                <input type="submit" name="login" class="login-button" value="" />
+                <div class="checkbox">
+                    <input type="checkbox" name="auto" id="auto" value="1" />
+                    <label for="auto">自动登录</label>
+                    <!-- <a href="###">忘记密码</a>  -->
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="login-bottom"> <a href="__APP__/profile/createNewRes"><em class="fn-hide">写简历</em></a><a href="__WEB__/register.html"><em class="fn-hide">注册</em></a> </div>
+</div>
+<!--right-->
+<div id="banner-right"> 
+    <!--city-list-->
+    <div id="city-list" style="position:relative;" class="fn-clear"> <span>城市频道</span>
+        <ul>
+            {open_city}
+            <li {if value="strpos(ip::area(),$city['name'])!==false"}class="city-active"{/if}><a href="__WEB__/{$city.pinyin}">{$city.name}</a></li>
+            {/open_city}
+            <li id="city-more"><a href="__WEB__/citymap.html">更多</a><span></span></li>
+        </ul>
+    </div>
+    <!--/city-list-->
+    <div id="search-area"> 
+        <!--left-->
+        <div id="search-l"> <span id="input-area">
+                <form method="get" id="search" action="__APP__/search">
+                    <input name="keywords" id="keywords" class="input-word" type="text" onclick="javascript:this.value='';" value="输入职位名称" />
+                    <input class="search-img" type="submit" value=" " />
+                </form>
+            </span> <span id="hot-keyword"> 热门关键字：{hd_keyword}<a href="__APP__/search/index/keywords/{$keyword.keyword}" {if value="$keyword.red"}class="hot"{/if}>{$keyword.keyword}</a>{/hd_keyword}</span> </div>
+        <!--/left-->
+        <div id="search-r">
+            <div class="search-type">
+                <a href="__APP__/search/index/refresh_date/10">最近更新职位</a>
+                <a href="__APP__/search">高级搜索</a>
+            </div>
+        </div>
+    </div>
+    <!--/right-->
+
+    <div id="top-ads" class="fn-clear">
+        <dl>
+            <dt id="houdun-service-b"></dt>
+            <dd id="houdun-service"> <a href="__WEB__/register/company.html">企业注册</a> <a href="">招聘推广</a> <a href="">企业服务</a> <a href="">求职帮助</a> </dd>
+            <!--/-->
+            <dt id="fast-news-b"></dt>
+            <dd id="fast-news" class="top-ads-list">
+                <ul>
+                    {hd_ads cate="6" nums="3"}
+                    <li><a href="{if value="$ads.href|substr:@@,0,4=='http'"}{$ads.href}{else /}__ROOT__/{$ads.href}{/if}">{$ads.text}</a></li>
+                    {/hd_ads}
+                </ul>
+            </dd>
+            <!--/-->
+            <dt id="hot-recruit-b"></dt>
+            <dd id="hot-recruit" class="top-ads-list">
+                <ul>
+                    {hd_ads cate="6" nums="3"}
+                    <li><a href="{if value="$ads.href|substr:@@,0,4=='http'"}{$ads.href}{else /}__ROOT__/{$ads.href}{/if}">{$ads.text}</a></li>
+                    {/hd_ads}
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <!--top-ads--> 
+</div>
+</div>
+<!--/banner-->
+<div id="banner-ads">
+<ul>
+    {hd_ads cate="7"}
+    <li class="pic-list"> <a href="{if value="$ads.href|substr:@@,0,4=='http'"}{$ads.href}{else /}__ROOT__/{$ads.href}{/if}"><img src="{$ads.path}" width="322" height="53" /></a></li>
+    {/hd_ads}
+</ul>
+</div>
+
+<!--热门职位-->
+<div id="hot-job-ads">
+<div>
+    <h2></h2>
+</div>
+<ul>
+    {hd_recruit}
+    <li><a href="__APP__/index/company/id/{$recruit.uid}" target="_blank">{$recruit.company_name}</a><span><a href="__APP__/search/jobs/id/{$recruit.recruit_id}" target="_blank">{$recruit.recruit_name}</a></span></li>
+    {/hd_recruit}
+</ul>
+</div>
+<!--/热门职位--> 
+
+<!--紧急招聘-->
+<div id="urgent-ads">
+<div>
+    <h2></h2>
+</div>
+<ul>
+    {hd_ads cate="8"}
+    <li><a href="{if value="$ads.href|substr:@@,0,4=='http'"}{$ads.href}{else /}__ROOT__/{$ads.href}{/if}" target="_blank"><img src="{if value="$ads.path|substr:@@,0,4=='http'"}{$ads.path}{else /}__ROOT__/{$ads.path}{/if}" width="109" height="45" /></a>
+        <p>{$ads.text}</p>
+    </li>
+    {/hd_ads}
+</ul>
+</div>
+<!--/紧急招聘--> 
+<!--最新简历-->
+<div id="update-resume">
+<div id="resume-list">
+    <div><span>最新简历</span><a href="#">更多</a></div>
+    <ul>
+        {new_resume field="name,gender,work_exp" join="resume_basic"}
+        <li><a href="">{$resume.name|mb_substr:@@,0,1,'utf-8'}<?php echo str_repeat('*',mb_strlen($resume['name'],'utf-8')-1);?></a>{$resume.gender}&nbsp;&nbsp;{$resume.work_exp}<span><a  href="__APP__/profile/viewResume/id/{$resume.resume_id}">{$resume.resume_name}</a></span></li>
+        {/new_resume}
+    </ul>
+</div>
+
+<!--最新头像简历-->
+<div id="image-resume">
+    <dl>
+        <dt><span>最新头像简历</span><a href="#">更多&gt;&gt;</a></dt>
+        <dd>
+            <ul>
+                {new_resume flag="avatar" field="name" join="resume_basic"}
+                <li> <a href="#"><img src="__ROOT__/{$resume.avatar}" /></a>
+                    <div> <span>
+                            <p>{$resume.name}</p>
+                            <p><a href="__APP__/profile/viewResume/id/{$resume.resume_id}" target="_blank">{$resume.resume_name}</a></p>
+                        </span>
+                        <p>浏览：{$resume.views}次 {$resume.created|date:'Y-m-d',@@}</p>
+                    </div>
+                </li>
+                {/new_resume}
+                
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--/最新头像简历--> 
+</div>
+<div id="copy">
+<div id="shortcut-link">
+    {hd_page nums="4"}
+        <dl>
+            <dt>{$page.title}</dt>
+            <dd>
+                <ul>
+                    <li><a href="__ROOT__{$page.href}">{$page.title}</a></li>
+                </ul>
+            </dd>
+        </dl>
+    {/hd_page}
+</div>
+<!--/快捷链接-->
+<div id="tel-area">
+    <div id="tel"><em class="fn-hide">一个快乐的小电话</em></div>
+    <div id="tel-list">
+        <h2>招聘咨询电话：</h2>
+        {$hd.config.tel}
+        <h2>客户服务电话：</h2>
+        {$hd.config.service_tel}
+    </div>
+</div>
+</div>
+
+{js file="__TPL__/js/index.js" /}
+{include file="__ROOT__/footer.html" /}

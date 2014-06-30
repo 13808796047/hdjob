@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	{css file="bootstrap" /}
+	{css file="__TPL__/css/public.css" /}
+	{js file="jquery" /}
+	<style type="text/css">
+		.input-mini{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<form action="__CONTROL__/updateKeyword" method="post">
+	<table class="table">
+		<tr>
+			<th width="3%"><input type="checkbox" class="select-all input-checkbox"></th>
+			<th width="40%">关键字</th>
+			<th>搜索次数</th>
+			<th>操作</th>
+		</tr>
+		{foreach from="$keywords" value="$keyword"}
+		<tr>
+			<td><input type="checkbox" class="input-checkbox" namex="kw" value="{$keyword.keyword}" id=""> </td>
+			<td {if value="$keyword.red"}class="warning" title="该关键字已描红"{/if}>{$keyword.keyword}</td>
+			<td><input type="text" name="nums[{$keyword.keyword}]" class="input-mini" value="{$keyword.nums}"/></td>
+			<td class="opt">
+				<a href="###" type="item"><i class="icon-trash"></i>删除</a>
+			</td>
+		</tr>
+		{/foreach}
+		<tr class="well">
+			<td><input type="checkbox" class="select-all input-checkbox"></td>
+			<td class="opt">
+				<a href="###" action="del" class="btn btn-danger btn-mini"><i class="icon-trash icon-white"></i>删除</a>
+				<a href="###" action="red" class="btn btn-success btn-mini"><i class="icon-trash icon-white"></i>描红</a>
+				<a href="###" action="un-red" class="btn btn-info btn-mini"><i class="icon-trash icon-white"></i>取消描红</a>
+			</td>
+			<td><button class="btn btn-mini btn-info"><i class="icon-refresh icon-white"></i>排序</button></td>
+			<td colspan="2">
+				{$page}
+			</td>
+		</tr>
+	</table>
+	</form>
+	<script type="text/javascript">
+		$('.select-all').click(function(){
+        	if($(this).attr('checked')){
+        		$('.select-all').attr('checked',true);
+        		$('.table :checkbox[namex]').attr('checked',true);
+        	}else{
+        		$('.select-all').attr('checked',false);
+        		$('.table :checkbox[namex]').attr('checked',false);
+        	}
+        });
+        function red_keyword (arg) {
+        	$.post('__CONTROL__/redkeyword/red/'+arg.a_type,{"wd":arg.id},function(data){
+        		if(data==1){
+        			window.location.reload();
+        		}
+        	},'html');
+        }
+        function del_keyword(arg){
+        	$.post('__CONTROL__/delKeyword',{"wd":arg.id},function(data){
+        		if(data==1){
+        			arg.checked_obj.parents('tr').fadeOut(function(){
+        				arg.checked_obj.parents('tr').remove();
+        			});
+        		}
+        	},'html');
+        }
+        $('.opt a').click(function(){
+        	if($(this).attr('type')=='item'){
+        		$(this).parent().siblings(':eq(0)').find('input').attr('checked',true);
+        	}
+        	var _id_arr=[],
+        	_confirm_msg='删除',
+        	_action=$(this).attr('action'),
+            _fun="del_keyword",//处理函数
+            _type="",
+        	_checked=$('.table :checkbox[namex]:checked');
+        	if(_checked.length==0){
+        		alert("请选择你需要操作的关键字!");
+        		return false;
+        	}
+        	_checked.each(function(){
+        		_id_arr.push($(this).val());
+        	});
+        	switch(_action){
+        		case "red":_confirm_msg="描红";_fun="red_keyword";_type=1;break;
+        		case "un-red":_confirm_msg="移除描红";_fun="red_keyword";_type=0;break;
+        	}
+        	if(confirm("确定"+_confirm_msg+"选择关键字？")){
+        		eval(_fun+"({id:_id_arr,checked_obj:_checked,a_type:_type})");
+        	}
+        	return false;
+        });
+	</script>
+</body>
+</html>

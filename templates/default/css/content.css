@@ -1,0 +1,56 @@
+#content{
+	width: 990px;
+	margin: 10px auto;
+}
+#content a{
+	color: #06C;
+}
+#arc{
+	width: 620px;
+	padding: 1px 20px 8px 20px;
+	border: solid 1px #DEDEEE;
+	float: left;
+}
+#arc #title h2{
+	text-align: center;
+	padding: 8px 0px;
+	font-size: 20px;
+	font-weight: normal;
+	color: #2343B1;
+	border-bottom: solid 1px #DCE8FF;
+}
+#arc #title h3{
+	text-align: center;
+	padding-top: 8px;
+	margin-bottom: 10px;
+	color: #999;
+}
+#arc #title h3 span{
+	margin-right: 10px;
+}
+#widget{
+	width: 310px;
+	float: left;
+}
+#widget .cate{
+	margin-left:10px;
+	margin-bottom: 10px;
+	border: solid 1px #DEDEEE;
+}
+#widget .cate h2{
+	text-align: center;
+	padding: 3px;
+	border-bottom: solid 1px #DEDEEE;
+	color: #666;
+}
+#widget .c-list li{
+	padding:5px 15px;
+	font-size: 13px;
+}
+#widget .new-info li{
+	padding:3px 8px;
+	font-size: 13px;
+}
+#widget .new-info span{
+	float: right;
+}

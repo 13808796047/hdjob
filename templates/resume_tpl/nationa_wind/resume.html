@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$resume.resume.resume_name}--{$hd.config.web_name}</title>
+{css file="alice" /}
+{css file="__ROOT__/templates/resume_tpl/nationa_wind/resume.css" /}
+{jquery /}
+{css file="__ROOT__/public/js/artDialog/skins/blue.css" /}
+{js file="__ROOT__/public/js/artDialog/jquery.artDialog.min.js" /}
+</head>
+<body>
+    <div id="view">
+        <div id="personal" class="fn-clear">
+            <div class="info">
+                <h2>{$resume.basic.name}</h2>
+                <div class="list-info">
+                    <p>
+                    <span>{$resume.basic.gender}</span>
+                    <span>{$resume.basic.marital_status}</span>
+                    <span>{$resume.basic.birthday}生</span>
+                    <span>户口：{$resume.basic.origin_provice}</span>
+                    <span>现居住于：{$resume.basic.link_provice}</span>
+                    </p>
+                    <p>
+                        <span>{$resume.basic.work_exp}工作经验</span>
+                        <span>{$resume.basic.cert_type}：{$resume.basic.id_number}</span>
+                    </p>
+                    {company}
+                        {resume_has_downloaded /}
+                        {if value="!$downloaded"}
+                        企业用户需要下载后才能查看联系方式。
+                        点击<a href="__APP__/company/downloadResume/id/{$hd.get.id}">下载</a>
+                        <p>下载需要扣除{$point}积分</p>
+                        {else/}
+                            <p>{$resume.basic.address}</p>
+                            <p>{$resume.basic.telephone}</p>
+                            <p>E-mail: {$resume.basic.link_email}</p>
+                            <p>{$resume.basic.profile}</p>
+                            <div class="interview"><a href="#" u-id="{$resume.basic.uid}" username="{$resume.basic.name}">邀请面试</a></div>
+                        {/if}
+                    {elseif value="in_array(4,$_SESSION['role']['rid']) && $resume.basic.uid==$_SESSION['uid']" /}
+                            <p>{$resume.basic.address}</p>
+                            <p>{$resume.basic.telephone}</p>
+                            <p>E-mail: {$resume.basic.link_email}</p>
+                            <p>{$resume.basic.profile}</p>
+                    {/company}
+                    <div id="dialog" class="fn-hide">
+                        <table>
+                            <tr>
+                                <th colspan="2"><span class="notice">邀请面试将花费<span class="pointer"><?php
+                                echo getPointRule('interview');?></span>积分，你现在共有<span class="pointer">{$hd.session.point}</span>积分</span></th>
+                            </tr>
+                            <tr>
+                                <th>邀请职位：</th>
+                                <td><select name="recruit_id" id="recruit_id"></select></td>
+                            </tr>
+                            <tr>
+                                <th>附加消息：</th>
+                                <td><textarea name="content" id="inter-con" cols="30" rows="10"></textarea></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>例如：请带上相关证件及作品</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="avatar">
+                {if value="$resume.resume.avatar==''"}
+                <img src="__ROOT__/templates/resume_tpl/nationa_wind/images/no_photo.gif" alt="" />
+                {else /}
+                <img src="__ROOT__/{$resume.resume.avatar}" alt="简历头像" />
+                {/if}
+            </div>
+        </div>
+        <div id="hope">
+            <div class="title">求职意向</div>
+            <table>
+                <tr>
+                    <th>工作性质：{$resume.basic.work_type}</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>期望职业：{$resume.basic.hope_career}</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>期望行业：{$resume.basic.hope_industry}</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>工作地区：{$resume.basic.hope_provice}</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>期望月薪：{$resume.basic.hope_salary}</th>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="self-eva">
+            <div class="title">自我评价</div>
+            <div class="con">{$resume.basic.self_eval}</div>
+        </div>
+        <div id="edu">
+            <div class="title">教育经历</div>
+            <p class="edu-time">{$resume.edu.edu_start|date:'Y/m',@@} -- {$resume.edu.edu_end|date:'Y/m',@@}</p>
+            <p class="edu-con"><span>{$resume.edu.school}</span><span>{$resume.edu.major}</span><span>{$resume.edu.degree}</span></p>
+        </div>
+        <div id="work-exp">
+            <div class="title">工作经历</div>
+            <p class="work-time">{$resume.exp.job_start|date:'Y/m',@@} -- {$resume.exp.job_end|date:'Y/m',@@}</p>
+            <p class="exp-com"><span>{$resume.exp.company_name}</span><span>{$resume.exp.department}</span><span>{$resume.exp.job_name}</span></p>
+            <p class="exp-ins"><span>行业类别：{$resume.exp.industry}</span><span>企业性质：{$resume.exp.company_property}</span><span>规模：{$resume.exp.company_scope}</span><span>职位月薪{$resume.exp.salary}</span></p>
+            <p class="work-des">工作描述：{$resume.exp.job_desc}</p>
+        </div>
+        <div id="append">
+            <div class="title">{$resume.append.title}</div>
+            <div class="con">{$resume.append.content}</div>
+        </div>
+    </div>
+<script type="text/javascript">
+$('.interview a').click(function(){
+    var _obj_a=$(this);
+    $.post('__APP__/company/recruitItem.html',function(data){
+        var _con='<option value="">请选择</option>';
+        $.each(data,function(k,v){
+            _con+='<option value="'+v.recruit_id+'">'+v.recruit_name+'</option>'
+        });
+        $('#recruit_id').html(_con);
+        $.artDialog({'title':'请选择你邀请的职位','content':$('#dialog').html(),'okValue':'邀请','ok':function(){
+            if($('#recruit_id').val()==''){
+                alert('请选择你要邀请的职位');
+                return false;
+            }
+            var _data={'username':_obj_a.attr('username'),'uid':_obj_a.attr('u-id'),'recruit_id':$('#recruit_id').val(),'recruit_name':$('#recruit_id :selected').text(),'content':$('#inter-con').val()};
+            $.post(
+                '__APP__/company/addInterview',_data,function(data){
+                    if(data==1){
+                        alert('邀请用户面试成功');
+                    }else{
+                        alert('邀请用户面试失败');
+                    }
+                },'html'
+            );
+        }});
+    },'json');
+    return false;
+});
+</script>
+</body>
+</html>

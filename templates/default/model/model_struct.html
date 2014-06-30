@@ -1,0 +1,8 @@
+<table class="table-form">
+    {foreach from="$fields" value="$field"}
+    <tr>
+        <th>{$field.title}</th>
+        <td>{$field.html}<span>{$field.field_tips}</span></td>
+    </tr>
+    {/foreach}
+</table>

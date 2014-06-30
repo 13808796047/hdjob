@@ -1,0 +1,96 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_3bf4633b561492940a5f7f88857d3b61 = Array
+	(
+	0=>Array
+		(
+		'field'=>'lid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'web_name',
+		'type'=>'varchar(45)',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'href',
+		'type'=>'varchar(120)',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'logo',
+		'type'=>'varchar(100)',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'sort',
+		'type'=>'smallint(5) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'0',
+		'extra'=>''
+		),
+	5=>Array
+		(
+		'field'=>'email',
+		'type'=>'varchar(30)',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	6=>Array
+		(
+		'field'=>'msg',
+		'type'=>'varchar(120)',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	7=>Array
+		(
+		'field'=>'state',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>1,
+		'extra'=>''
+		),
+	8=>Array
+		(
+		'field'=>'created',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	9=>Array
+		(
+		'field'=>'cate_id',
+		'type'=>'smallint(5) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		)
+	);
+?>

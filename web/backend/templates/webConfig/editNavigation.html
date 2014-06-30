@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {css file="bootstrap" /}
+{css file="jqueryUI.bootstrap" /}
+{jquery /}
+{js file="jqueryUI" /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+<style type="text/css">
+	    	#dialog{
+		width: 400px;
+	}
+	#dialog table{
+		width: 100%;
+	}
+	#dialog table th{
+		width: 100px;
+	}
+	#dialog table label{
+		float: left;
+		margin-right: 10px;
+	}
+	#dialog table label input{
+		float: left;
+		margin-right: 5px;
+	}
+	#nav-button{
+		height: 36px;
+	}
+	.nav{
+		width: 200px;
+		float: left;
+	}
+	.alert-success{
+		float: left;
+		margin-bottom: 0px;
+	}
+</style>
+  </head>
+  <body>
+  	<div id="dialog">
+      <form action="__CONTROL__/editNavigation/id/{$hd.get.id}" method="post" validate="true">
+<div id="tabs-add" title="添加导航">
+	<ul>
+		<li><a href="#tabs-1">基本设置</a></li>
+		<li><a href="#tabs-2">SEO设置</a></li>
+	</ul>
+	<div id="tabs-1"><table>
+		<tr>
+	<th width="10%">导航标记</th>
+	<td><input type="text" name="mark" validate="{required:true,regexp:/^\w+$/,messages:'只能输入数字、字母、下划线'}" value="{$nav.mark}" /></td>
+</tr>
+<tr>
+	<th width="10%">导航名称</th>
+	<td><input type="text" name="title" value="{$nav.title}" /></td>
+</tr>
+<tr>
+	<th>链接地址</th>
+	<td><input type="text" name="href" value="{$nav.href}" /></td>
+</tr>
+<tr>
+	<th>排序</th>
+	<td><input type="text" name="sort" class="input-mini" value="{$nav.sort}" /></td>
+</tr>
+<tr>
+	<th>打开方式</th>
+	<td><label><input type="radio" name="target" value="" checked />本页打开</label><label><input type="radio" name="target" value="_blank" {if value="$nav.target=='_blank'"}checked{/if} />新窗口打开</label></td>
+</tr>
+<tr>
+	<th>是否显示</th>
+	<td><label><input type="radio" name="state" value="1" checked />显示</label><label><input type="radio" name="state" value="0" {if value="$nav.state==0"}checked{/if} />不显示</label></td>
+</tr>
+</table>
+</div>
+	<div id="tabs-2">
+		<table>
+			<tr>
+				<th>SEO关键字</th>
+				<td><textarea name="seo_keywords">{$nav.seo_keywords}</textarea></td>
+			</tr>
+			<tr>
+				<th>SEO描述</th>
+				<td><textarea name="seo_desc" cols="100" rows="5">{$nav.seo_desc}</textarea></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<table>
+	<tr class="well">
+		<th></th>
+		<td><input type="submit" value="更新" class="btn btn-primary"></td>
+	</tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+	$('#tabs-add').tabs();
+</script>
+  </body>
+</html>

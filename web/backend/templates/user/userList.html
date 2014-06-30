@@ -1,0 +1,242 @@
+{include file="__TPL__/header.html" /}
+        <div id="userList">
+            <form action="__METH__" method="get" id="search-form">
+                <table class="table well" style="margin-bottom:-18px;">
+                <tr>
+                    <th colspan="1">筛选用户</th>
+                    <th><input type="text" name="username" class="input-medium" value="{if value="$hd.get.username|isset"}{$hd.get.username}{/if}"></th>
+                    <th><input type="text" name="email" class="input-medium" value="{if value="$hd.get.email|isset"}{$hd.get.email}{/if}"></th>
+                    <th>
+                        <select name="rid" id="" class="input-medium" {if value="$hd.get.rid|isset"}select="{$hd.get.rid}"{/if}>
+                            <option value="">请选择</option>
+                            {foreach from="$role_list" value="$role"}
+                            <option value="{$role.rid}">{$role.title}</option>
+                            {/foreach}
+                        </select>
+                    </th>
+                    <th>
+                        <select name="created" class="input-medium" style="z-index:99" {if value="$hd.get.created|isset"}select="{$hd.get.created}"{/if}>
+                            <option value="">请选择</option>
+                            <option value="-1week">1星期内</option>
+                            <option value="-1month">1月内</option>
+                            <option value="-3month">3月内</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select name="banned" class="input-medium" {if value="$hd.get.banned|isset"}select="{$hd.get.banned}"{/if}>
+                            <option value="">请选择</option>
+                            <option value="0">未禁止</option>
+                            <option value="1">已禁止</option>
+                        </select>
+                    </th>
+                    <th colspan="2">
+                        <button type="submit" class="btn btn-success"><i class="icon-search icon-white"></i>&nbsp;&nbsp;查询</button>
+                        <a id="reset" class="btn btn-info"><i class="icon-refresh icon-white"></i>&nbsp;&nbsp;重置</a>
+                    </th>
+                    <script type="text/javascript">
+                        $("select[select]").each(function(e,obj){
+                            $(this).val($(this).attr('select'));
+                        })
+                        $('#reset').click(function(){
+                            $('#search-form :input').val('');
+                            $('#search-form').submit();
+                        });
+                    </script> 
+                </tr>
+                </table>
+            </form>
+            <table id="user-list" class="table">
+            	<tr>
+            		<th><input type="checkbox" class="select-all input-checkbox"></th>
+            		<th width="12%">用户名</th>
+                    <th width="18%">Email</th>
+            		<th>用户组</th>
+            		<th>注册时间</th>
+            		<th>上次登录</th>
+            		<th>状态</th>
+            		<th>操作</th>
+            	</tr>
+            	{foreach from="$users" value="$user"}
+            	<tr>
+            		<td><input type="checkbox" class="input-checkbox" name="uid" value="{$user.uid}"> </td>
+            		<td>{$user.username} <span class="tips">[ID:{$user.uid}]</span></td>
+                    <td>{$user.email}{if value="$user.email_verify"}<span class="success">已认证</span>{/if}</td>
+            		<?php
+            			$groups=array_pop($user);
+            			$group='';
+                        $rid=array();
+                        if(is_array($groups)){
+                			foreach ($groups as $value) {
+                				$group.=$value['title'].'、';
+                                $rid[]=$value['rid'];
+                			}
+                        }else{
+                            $rid[]=$user['rid'];
+                            $group=$user['title'];
+                        }
+            		?>
+            		<td>{$group|trim:'、'}</td>
+            		<td>{$user.created|date:'Y-m-d H:i:s',@@}</td>
+            		<td>{$user.last_login|date:'Y-m-d H:i:s',@@}</td>
+            		<td class="status">{if value="$user.banned"} <span class="warning" title="{$user.ban_reason}">已禁止</span>{else} <span class="success">已开启</span> {/if}</td>
+            		<td>
+            			<a {if value="in_array('3',$rid)"}href="__CONTROL__/viewUserInfo/id/{$user.uid}/type/cu"{else}href="__CONTROL__/viewUserInfo/id/{$user.uid}/type/pu"{/if} c-name="{$user.username}" action="view" class="opt-item"><i class="icon-user"></i>查看</a>&nbsp;&nbsp;
+            			<a href="__CONTROL__/editUserInfoForm/id/{$user.uid}" c-name="{$user.username}" action="edit" class="opt-item"><i class="icon-asterisk"></i>修改</a>&nbsp;&nbsp;
+                        <a href="###" rid="{$rid|implode:'#',@@}" uid="{$user.uid}" username="{$user.username}" class="config-role" title="配置用户组"><i class="icon-th"></i>用户组</a>
+            		</td>
+            	</tr>
+            	{/foreach}
+            	<tr class="well">
+            		<td><input type="checkbox" class="select-all input-checkbox"></td>
+            		<td class="opt" colspan="2">
+            			<a class="btn btn-mini btn-danger" action="del"><i class="icon-trash icon-white"></i> 删除</a>
+            			<a class="btn btn-mini btn-info" action="ban"><i class="icon-ban-circle icon-white"></i> 禁止</a>
+            			<a class="btn btn-mini btn-success" action="unban"><i class="icon-ok icon-white"></i> 解禁</a>
+            		</td>
+            		<td colspan="4">
+            			{$page}
+            		</td>
+            	</tr>
+            </table>
+        </div>
+        <div id="config-role" title="配置用户角色" class="hide">
+            <form action="__CONTROL__/configUserRole" method="post">
+            <table class="table">
+                <tr>
+                    <th>用户：</th>
+                    <td>
+                        <span class="user"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <?php
+                        $l_role=formatLevelData2($role_list,array('rid','pid'));
+                        function bulid_role($role)
+                        {
+                            $str='<ul>';
+                            foreach ($role as $value) {
+                                    if(!empty($value['son_data'])){
+                                        $str.='<li><label class="checkbox"><input type="checkbox" class="input-checkbox" name="rid[]" value="'.$value['rid'].'" />'.$value['title'].'</label>'.bulid_role($value['son_data']).'</li>';
+                                    }else{
+                                        $str.='<li><label class="checkbox"><input type="checkbox" class="input-checkbox" name="rid[]" value="'.$value['rid'].'">'.$value['title'].'</label></li>';
+                                    }
+                            }
+                            $str.='</ul>';
+                            return $str;
+                        }
+                    ?>
+                    <th>角色：</th>
+                    <style type="text/css">
+                        .role-level ul{
+                            list-style: none;
+                        }
+                    </style>
+                    <td class="role-level">
+                        <input type="hidden" name="uid" id="config-uid" />
+                        <?php echo bulid_role($l_role);?>
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+        <div id="dialog" style="z-idnex:999"></div>
+        <script type="text/javascript">
+        $('.config-role').click(function(){
+            $('#config-role .user').text($(this).attr('username'));
+            $('#config-uid').val($(this).attr('uid'));
+            var rid=$(this).attr('rid').split('#');
+            $('#config-role :checkbox').each(function(){
+                if(jQuery.inArray($(this).val(),rid)>=0){
+                    $(this).attr('checked',true);
+                }else{
+                    $(this).attr('checked',false);
+                }
+            });
+            $('#config-role').dialog({
+                "width":"400",
+                "modal":true,
+                "buttons":{
+                    "修改":function(){
+                        if($('#config-role :checked').length==0){
+                            alert('必须为用户设置一个角色');
+                            return false;
+                        }
+                        $('#config-role form').submit();
+                    }
+                }
+            });
+            return false;
+        });
+        select_all('user-list');//全选
+        //删除选中用户
+        function del_user(arg){
+        	$.post('__CONTROL__/delUser',{id:arg.id},function(data){
+                if(data==1){
+                    arg.checked_obj.parents('tr').fadeOut(function(){
+                        arg.checked_obj.parents('tr').remove();
+                    });
+                }
+            },'html');
+        }
+        //禁止、解禁用户
+        function ban_user(arg){
+            $.post('__CONTROL__/banUser',{id:arg.id,type:arg.a_type},function(data){
+                if(data==1){
+                    if(arg.a_type==1){
+                        arg.checked_obj.parent().siblings('.status').html('<span class="warning" title="用户已被禁止">已禁止</span>');
+                    }else{
+                        arg.checked_obj.parent().siblings('.status').html('<span class="success" title="">已开启</span>');
+                    }
+                }
+            },'html');
+        }
+        $('.opt a').click(function(){
+        	var _id_arr=[],
+        	_confirm_msg='删除',
+        	_action=$(this).attr('action'),
+            _fun="del_user",//处理函数
+            _type="",
+        	_checked=$('.table :checkbox[name]:checked');
+        	if(_checked.length==0){
+        		alert("请选择你需要操作的用户!");
+        		return false;
+        	}
+        	_checked.each(function(){
+        		_id_arr.push($(this).val());
+        	});
+        	switch(_action){
+        		case "ban":_confirm_msg="禁止";_fun="ban_user";_type=1;break;
+        		case "unban":_confirm_msg="解除禁止";_fun="ban_user";_type=0;break;
+        	}
+        	if(confirm("确定"+_confirm_msg+"选择用户？")){
+        		eval(_fun+"({id:_id_arr,checked_obj:_checked,a_type:_type})");
+        	}
+        	return false;
+        });
+        $('.opt-item').click(function(){
+        	var _this=$(this),
+            _name=_this.attr('c-name'),
+        	_id=_this.attr('href');
+            $.post($(this).attr('href'),function(data){
+                $('#dialog').html(data);
+                $('#dialog').dialog({
+                "title":_name+"用户资料",
+                "width":"500",
+                "height":"auto",
+                "modal":true,
+                "buttons":{
+                    "确定":function(){
+                        if(_this.attr('action')=='view'){
+                            $(this).dialog("close");
+                        }else{
+                            $('#dialog form').submit();
+                        }
+                    }
+                }
+            });
+            },'html');
+        	return false;
+        });
+        </script>
+    </body>
+</html>

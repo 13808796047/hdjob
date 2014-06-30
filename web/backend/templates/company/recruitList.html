@@ -1,0 +1,174 @@
+{include file="__TPL__/header.html" /}
+        <div id="userList">
+            <form action="__METH__" method="get" id="search-form">
+                <table class="table well" style="margin-bottom:-18px;">
+                    <tr>
+                        <th></th>
+                        <th>职位名称</th>
+                        <th>招聘公司</th>
+                        <th>发布时间</th>
+                        <th>更新时间</th>
+                        <th>状态</th>
+                        <th>审核</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="text" name="recruit_name" class="input-medium" value="{if value="$hd.get.recruit_name|isset"}{$hd.get.recruit_name}{/if}"></td>
+                    <td><input type="text" name="company_name" class="input-medium" value="{if value="$hd.get.company_name|isset"}{$hd.get.company_name}{/if}"></td>
+                    <td>
+                        <select name="created" class="input-medium" style="z-index:99" {if value="$hd.get.created|isset"}select="{$hd.get.created}"{/if}>
+                            <option value="">请选择</option>
+                            <option value="-1week">1星期内</option>
+                            <option value="-1month">1月内</option>
+                            <option value="-2month">2月内</option>
+                            <option value="-3month">3月内</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="refresh_date" class="input-medium" style="z-index:99" {if value="$hd.get.refresh_date|isset"}select="{$hd.get.refresh_date}"{/if}>
+                            <option value="">请选择</option>
+                            <option value="-1week">1星期内</option>
+                            <option value="-1month">1月内</option>
+                            <option value="-3month">3月内</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="state" class="input-mini" {if value="$hd.get.state|isset"}select="{$hd.get.state}"{/if}>
+                            <option value="">请选择</option>
+                            <option value="0">开启</option>
+                            <option value="1">关闭</option>
+                            <option value="2">已过期</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="verify" id="" class="input-mini" {if value="$hd.get.verify|isset"}select="{$hd.get.verify}"{/if}>
+                            <option value="">请选择</option>
+                            <option value="0">未通过</option>
+                            <option value="1">通过</option>
+                            <option value="2">审核中</option>
+                        </select>
+                    </td>
+                    <td colspan="2">
+                        <button type="submit" class="btn btn-success"><i class="icon-search icon-white"></i>&nbsp;&nbsp;查询</button>
+                        <a id="reset" class="btn btn-info"><i class="icon-refresh icon-white"></i>&nbsp;&nbsp;重置</a>
+                    </td>
+                    <td></td>
+                    <script type="text/javascript">
+                        $("select[select]").each(function(e,obj){
+                            $(this).val($(this).attr('select'));
+                        })
+                        $('#reset').click(function(){
+                            $('#search-form :input').val('');
+                            $('#search-form').submit();
+                        });
+                    </script> 
+                </tr>
+                </table>
+            </form>
+            <table class="table" id="recruit-list">
+            	<tr>
+                    <!-- recruit_id,recruit_name,created,refresh_date,company_name,state,verify -->
+            		<th><input type="checkbox" class="select-all input-checkbox"></th>
+            		<th width="12%">职位名称</th>
+                    <th width="18%">招聘公司</th>
+            		<th>发布时间</th>
+                    <th>到期时间</th>
+            		<th>最后更新</th>
+            		<th>状态</th>
+                    <th>查看</th>
+            		<th>审核</th>
+            		<th>操作</th>
+            	</tr>
+            	{foreach from="$recruits" value="$recruit"}
+            	<tr>
+            		<td><input type="checkbox" class="input-checkbox" name="rid" value="{$recruit.recruit_id}"> </td>
+            		<td>{$recruit.recruit_name} <span class="tips">[ID:{$recruit.recruit_id}]</span></td>
+                    <td>{$recruit.company_name}</td>
+                    <td>{$recruit.created|date:'Y-m-d H:i:s',@@}</td>
+                    <td>{$recruit.expiration_time|date:'Y-m-d H:i:s',@@}</td>
+                    <td>{$recruit.refresh_date|date:'Y-m-d H:i:s',@@}</td>
+                    <td>
+                        {if value="$recruit.state && $recruit.expiration_time>time()"}<span class="success">招聘中</span>{elseif value="!$recruit.state"/} <span class="warning">已关闭</span>{else /}<span class="warning">已过期</span> {/if}
+                    </td>
+                    <td>{$recruit.views}</td>
+            		<td class="status">{if value="$recruit.verify==1"} <span class="success">通过</span>
+                        {elseif value="$recruit.verify==0"}
+                        <span class="warning">未通过</span> 
+                        {else /}
+                        <span class="sys">审核中</span> 
+                        {/if}
+                    </td>
+            		<td>
+            			<a href="__WEB__/index/search/jobs/id/{$recruit.recruit_id}" target="_blank">查看</a>
+                        <!-- <a href="">删除</a> -->
+            		</td>
+            	</tr>
+            	{/foreach}
+            	<tr class="well">
+            		<td><input type="checkbox" class="select-all input-checkbox"></td>
+            		<td class="opt" colspan="4">
+            			<a class="btn btn-mini btn-danger" action="del"><i class="icon-trash icon-white"></i> 删除</a>
+                        <a class="btn btn-mini btn-info" action="close"><i class="icon-remove-sign icon-white"></i> 关闭</a>
+                        <a class="btn btn-mini btn-success" action="enable"><i class="icon-remove-sign icon-white"></i> 开启</a>
+            			<a class="btn btn-mini btn-info" action="verify-unpass"><i class="icon-ban-circle icon-white"></i> 未通过</a>
+            			<a class="btn btn-mini btn-success" action="verify-pass"><i class="icon-ok icon-white"></i> 通过</a>
+            		</td>
+            		<td colspan="4">
+            			{$page}
+            		</td>
+                    <td></td>
+            	</tr>
+            </table>
+        </div>
+        <div id="dialog" style="z-idnex:999"></div>
+        <script type="text/javascript">
+        select_all('recruit-list');
+        //删除选中职位
+        function del_recruit(arg){
+        	$.post('__CONTROL__/delRecruit',{"recruit_id":arg.id},function(data){
+                if(data==1){
+                    arg.checked_obj.parents('tr').fadeOut(function(){
+                        arg.checked_obj.parents('tr').remove();
+                    });
+                }
+            },'html');
+        }
+        //开启、审核职位
+        function verify_recruit(arg){
+            $.post('__CONTROL__/verifyRecruit',{"recruit_id":arg.id,type:arg.a_type},function(data){
+                if(data==1){
+                    window.location.reload();
+                }
+            },'html');
+        }
+        $('.opt a').click(function(){
+        	var _id_arr=[],
+        	_confirm_msg='删除',
+        	_action=$(this).attr('action'),
+            _fun="del_recruit",//处理函数
+            _type="",
+        	_checked=$('#recruit-list :checkbox[name]:checked');
+        	if(_checked.length==0){
+        		alert("请选择你需要操作的职位!");
+        		return false;
+        	}
+        	_checked.each(function(){
+        		_id_arr.push($(this).val());
+        	});
+        	switch(_action){
+        		case "close":_confirm_msg="关闭";_fun="verify_recruit";break;
+                case "enable":_confirm_msg="开启";_fun="verify_recruit";break;
+        		case "verify-pass":_confirm_msg="审核通过";_fun="verify_recruit";break;
+                case "verify-unpass":_confirm_msg="不通过";_fun="verify_recruit";break;
+        	}
+        	if(confirm("确定"+_confirm_msg+"选中职位？")){
+        		eval(_fun+"({id:_id_arr,checked_obj:_checked,a_type:_action})");
+        	}
+        	return false;
+        });
+        </script>
+    </body>
+</html>

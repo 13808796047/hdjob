@@ -1,0 +1,257 @@
+{include file="__TPL__/header.html"}
+<style type="text/css">
+#dialog tr{
+height: 28px;
+}
+</style>
+	<ul class="nav nav-pills">
+	  <li class="active"><a href="###">栏目列表</a></li>
+	  <li><a href="#" class="add-channel">添加栏目</a></li>
+	</ul>
+	<div id="channel-list">
+		<form action="__CONTROL__/sortChannel" method="post">
+		<table class="table">
+			<tr>
+				<th>栏目名称</th>
+				<th>栏目类型</th>
+				<th>排序</th>
+				<th>访问</th>
+				<th>管理</th>
+			</tr>
+			{foreach from="$channels" value="$channel"}
+			<tr>
+				<?php $stepN=substr_count($channel['path'],',');?>
+				<?php if($stepN==0):?>
+				<td title="{$channel.pinyin}">├─{$channel.title}<span class="tips">[ID:{$channel.id}]</span></td>
+				<?php else:?>
+				<td title="{$channel.pinyin}"><?php echo str_repeat('&nbsp;&nbsp;', $stepN*2);?>└─{$channel.title}<span class="tips">[ID:{$channel.id}]</span></td>
+				<?php endif;?>
+				<td>{if value="$channel.type==2"} <span class="success">{$type[$channel.type]}</span>{else /}{$type[$channel.type]}{/if}</td>
+				<td><input type="text" name="sort[{$channel.id}]" value="{$channel.sort}" id="" class="input-min" /> </td>
+				<td><a href="{$channel.href}" target="_blank">访问</a></td>
+				<td>
+					<a href="##" c-id="{$channel.id}" type="son" class="add-channel"><i class="icon-plus-sign"></i>添加子栏目</a> |
+					<a href="{$channel.id}" class="edit-item"><i class="icon-edit"></i>修改</a> |
+					<a href="{$channel.id}" class="del-item"><i class="icon-trash"></i>删除</a>
+				</td>
+			</tr>
+			{/foreach}
+			<tr>
+				<td colspan="2"></td>
+				<td><button type="submit" class="btn btn-mini btn-info"><i class="icon-random icon-white"></i> 排序</button></td>
+				<td></td>
+			</tr>
+		</table>
+		</form>
+	</div>
+	<div id="dialog" title="添加栏目" class="hide">
+		<div id="tabs">
+			<ul>
+				<li><a href="#tab-1">栏目信息</a></li>
+				<li><a href="#tab-4">生成HTML</a></li>
+				<li><a href="#tab-3">模板设置</a></li>
+				<li><a href="#tab-2">SEO设置</a></li>
+			</ul>
+			<form class="well" style="margin-top:10px;" id="add-form" action="__METH__" method="post" validate="true">
+			<div id="tab-1">
+				<table>
+					<tr>
+						<th>父级栏目：</th>
+						<td>
+							<select name="pid" id="pid" validate="{required:true}">
+								<option value="">请选择</option>
+								<option value="0">顶级栏目</option>
+								{foreach from="$channels" value="$channel"}
+									<?php $stepN=substr_count($channel['path'],',');?>
+									<?php if($stepN==0):?>
+									<option value="{$channel.id}">├─{$channel.title}</option>
+									<?php else:?>
+									<option value="{$channel.id}"><?php echo str_repeat('&nbsp;&nbsp;', $stepN*2);?>└─{$channel.title}</option>
+									<?php endif;?>
+								{/foreach}
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>标题：</th>
+						<td><input type="text" name="title" validate="{required:true}" /></td>
+					</tr>
+					<tr>
+						<th>目录名称：</th>
+						<td><input type="text" name="pinyin" validate="{required:true}" class="input-medium" id="" /></td>
+					</tr>
+					<tr>
+						<th>栏目类型：</th>
+						<td class="c-type"><label class="radio pull-left" style="margin-right: 35px;"><input type="radio" name="type" checked="checked" value="1" class="input-radio"/>分类栏目</label><label class="radio"><input type="radio" name="type" value="2" class="input-radio" style="width:20px;" />单网页</label></td>
+					</tr>
+					<tr>
+						<th>排序：</th>
+						<td><input type="text" name="sort" class="input-mini" value="0" /></td>
+					</tr>
+					<tr>
+						<th>状态：</th>
+						<td><label class="radio pull-left" style="margin-right: 35px;"><input type="radio" name="state" checked="checked" value="1" id="" />开启</label><label class="radio"><input type="radio" name="state" value="0" />关闭</label></td>
+					</tr>
+				</table>
+			</div>
+			<div id="tab-4">
+				<table width="100%">
+					<!-- <tr>
+						<th width="40%">栏目生成html：</th>
+						<td>
+							<label class="radio pull-left" style="margin-right: 35px;"><input type="radio" name="setting[cate_html]" checked="checked" value="1" id="" />生成</label>
+							<label class="radio"><input type="radio" name="setting[cate_html]" value="0" />不生成</label></td>
+					</tr> -->
+					<tr>
+						<th>内容页生成html：</th>
+						<td>
+							<label class="radio pull-left" style="margin-right: 35px;"><input type="radio" name="setting[con_html]" checked="checked" value="1" id="" />生成</label>
+							<label class="radio"><input type="radio" name="setting[con_html]" value="0" />不生成</label></td>
+					</tr>
+				</table>
+			</div>
+			<div id="tab-3">
+				<table>
+					<tr>
+						<th>风格：</th>
+						<td>
+							<select name="style" class="style" validate="{required:true}">
+								<option value="">请选择</option>
+								{foreach from="$tpl" value="$value"}
+								<option value="{$value.dirname}">{$value.name}</option>
+								{/foreach}
+							</select>
+						</td>
+					</tr>
+					<tr class="cate-tpl">
+						<th>栏目首页模板：</th>
+						<td>
+							<select name="index_tpl" class="index_tpl" validate="{required:true}"></select>
+						</td>
+					</tr>
+					<tr class="cate-tpl">
+						<th>列表页模板：</th>
+						<td>
+							<select name="list_tpl" class="list_tpl" validate="{required:true}"></select>
+						</td>
+					</tr>
+					<tr class="cate-tpl">
+						<th>内容页模板：</th>
+						<td>
+							<select name="con_tpl" class="con_tpl" validate="{required:true}"></select>
+						</td>
+					</tr>
+					<tr class="page-tpl hide">
+						<th>单页模板：</th>
+						<td>
+							<select name="index_tpl" class="pg_tpl" validate="{required:true}"></select>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="tab-2">
+				<table>
+					<tr>
+						<th width="30%">关键字：</th>
+						<td><input type="text" name="seo_keyword" class="input-large" id="" /></td>
+					</tr>
+					<tr>
+						<th>描述：</th>
+						<td><textarea name="seo_desc" rows="3" class="input-large" id=""></textarea></td>
+					</tr>
+				</table>
+			</div>
+			</form>
+		</div>
+	</div>
+	<div id="dialog-e" title="修改栏目" class="hide"></div>
+	<script type="text/javascript">
+	$('#tabs').tabs();
+	$('.style').live("change",function(){
+		var _val=$(this).val();
+		if(_val!=""){
+			$.get('__CONTROL__/getChannelTpl',{'style':_val},function(data){
+				$('.index_tpl').html(data.index);
+				$('.list_tpl').html(data.list);
+				$('.con_tpl').html(data.content);
+				$('.pg_tpl').html(data.page);
+			},'json');
+		}
+	});
+	$('.c-type label').live("click",function(){
+		if($('input',$(this)).val()==2){//如果是单网页，隐藏首页模板，列表页选择。
+			$('.cate-tpl :input').val('');
+			$('.cate-tpl').hide();
+			$('.page-tpl').show();
+		}else{
+			$('.page-tpl :input').val('');
+			$('.cate-tpl').show();
+			$('.page-tpl').hide();
+		}
+		//return false;
+	});
+	$('.add-channel').click(function() {
+		$('#add-form')[0].reset();//清空表单
+		if($(this).attr('type')=='son'){
+			$("#pid").val($(this).attr('c-id'));
+		}
+		$('input[name="title"]').blur(function(){
+			$.post('__APP__/index/pinyin',{pinyin:$(this).val()},function(data){
+				$('input[name="pinyin"]').val(data);
+			},'html')
+		});
+		$('#dialog').dialog({
+			"width":"450",
+			"height":"auto",
+			"modal":true,
+			"title":"添加栏目",
+			"buttons":{
+				"添加":function () {
+					//如果没有设置模板或模板设置错误
+					if($('#tab-3 select').find('[value=""]:visible:selected').length || $('#tab-3 .error').length){
+						alert('请在模板设置中设置模板');
+						return false;
+					}
+					$('#add-form').submit();
+				}
+			}
+		});
+		return false;
+	});
+	$('.edit-item').click(function(){
+		var _obj=$(this);
+		$.get(
+			'__CONTROL__/editChannel',{id:_obj.attr('href')},function(data){
+				if(data!=''){
+					$('#dialog-e').html(data);
+					$('#dialog-e .tabs').tabs();
+					$('#dialog-e').dialog({
+						"width":"450",
+						"modal":true,
+						"buttons":{
+							"修改":function () {
+								$('#edit-form').submit();
+							}
+						}
+					});
+				}
+			},'html'
+		);
+		return false;
+	});
+	$('.del-item').click(function(){
+		if(confirm("确认删除此栏目?\n警告：同时会删除子栏目")){
+			var _obj=$(this);
+			$.post('__CONTROL__/delChannel',{id:_obj.attr('href')},function(data){
+				if(data==1){
+					_obj.parents('tr').fadeOut('slow',function(){
+						_obj.parents('tr').remove();
+					});
+				}
+			},'html');
+		}
+		return false;
+	});
+	</script>
+</body>
+</html>

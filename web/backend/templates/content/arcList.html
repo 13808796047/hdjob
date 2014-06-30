@@ -1,0 +1,59 @@
+{include file="__TPL__/header.html" /}
+{js file="jquery.treeview" /}
+<style type="text/css">
+#browser{
+	float: left;
+	width: 160px;
+}
+#arc-opt{
+	float: left;
+	border-left: 2px #999 solid;
+}
+#arc-opt iframe{
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0px;
+	padding: 10px;
+}
+</style>
+<ul id="browser" class="filetree">
+	<?php
+		function buildTree($data){
+			$str='';
+			foreach ($data as $value) {
+				$class="folder";
+				$url='<a href="__CONTROL__/channelArc/cid/'.$value['id'].'.html" target="channel-arc">'.$value['title'].'</a>';
+				if($value['type']==2){
+					if($value['pid']!=0){
+						$class="file";
+						$url='<a href="__CONTROL__/page/cid/'.$value['id'].'.html" target="channel-arc">'.$value['title'].'</a>';
+					}else{
+						$url=$value['title'];
+					}
+				}
+				if(empty($value['son_data'])){
+					$str.='<li><span class="'.$class.'">'.$url.'</span></li>';
+				}else{
+					$str.='<li><span class="'.$class.'">'.$url.'</span><ul>'.buildTree($value['son_data']).'</ul></li>';
+				}
+			}
+			return $str;
+		}
+		echo buildTree($channels);
+	?>
+</ul>
+<div id="arc-opt">
+<iframe src="__TPL__/content/index.html" name="channel-arc" frameborder="0" scrolling="yes" style="overflow:visible;">
+</iframe>
+</div>
+<script type="text/javascript">
+	$("#browser").treeview();
+	var _w=document.documentElement.clientWidth,
+	_h=document.documentElement.clientHeight;
+	$('#arc-opt').css({"width":(_w-180)+"px"});
+	$('#browser').css({"height":(_h-65)+"px"});
+	$('#arc-opt').css({"height":(_h-65)+"px"});
+</script>
+</body>
+</html>

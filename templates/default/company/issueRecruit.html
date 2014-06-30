@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{$hd.config.web_name}-Powered by 后盾网</title>
+        {hd_seo /}
+        {css file="alice" /}
+        {css file="__TPL__/css/company.css" /}
+        {css file="__TPL__/css/common.css" /}
+        {js file="jquery" /}
+        {js file="datepicker" /}
+        <script type="text/javascript">
+            var url='__ROOT__';
+        </script>
+        <style type="text/css">
+        #opt-area .table-form th{
+            width: 20%;
+        }
+        </style>
+    </head>
+    <body>
+        {load file="__TPL__/company/company_top.html" /}
+        <div id="content">
+            <!--opt-->
+            <div id="opt">
+                <div id="opt-menu">
+                    <dl>
+                        <dt>企业中心</dt>
+                        <dd><a href="__CONTROL__/recruit.html">职位管理</a></dd>
+                        <dd><a href="__METH__">发布职位</a></dd>
+                        <dd><a href="__APP__/search/resume">简历搜索</a></dd>
+                        <dd><a href="__CONTROL__/receiveApply">收到的职位申请</a></dd>
+                        <dt>企业推广</dt>
+                        <dd><a href="__APP__/company/template.html">企业模板</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/5.html">职位置顶</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/2.html">紧急招聘</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/1.html">推荐职位</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/6.html">职位变色</a></dd>
+                        <dt>企业资料</dt>
+                        <dd><a href="__APP__/company/data">企业资料</a></dd>
+                        <dd><a href="__APP__/company/account">账户管理</a></dd>
+                        <dd><a href="__APP__/company/optLog">操作日志</a></dd>
+                    </dl>
+                </div>
+                <!--opt-area-->
+                <div id="opt-area">
+                    <h2 class="data-title">发布职位</h2>
+                    {hd_field model="5"}
+                     <table class="table-form">
+                            <tr>
+                                <th></th>
+                                <td><button class="btn btn-large" />提交</button>
+                            </tr>
+                    </table>
+                    {/hd_field}
+                </div>
+                <!--/opt-area-->
+            </div>
+            <!--/opt--> 
+        </div>
+
+        <script>
+            $(function(){
+                $("input[name='issue_type']:eq(0)").click(function(){
+                    $("#start_time").val('').hide();
+                });
+                $("input[name='issue_type']:eq(1)").click(function(){
+                    $("#start_time").val('点击选择日期').show();
+                });
+            })
+            $("#effective_time").blur(function(){
+                var _day_nums=$(this).val();
+                $(this).next().html('有效期：<span style="color:#f60">'+_day_nums+'</span>天。').show();
+            });
+        </script>
+        
+        {js file="jquery.validate" /}
+        <script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+    </body>
+</html>

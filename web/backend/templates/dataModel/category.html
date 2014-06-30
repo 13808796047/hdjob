@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{js file="jquery" /}
+{js file="jqueryUI" /}
+{css file="jqueryUI.bootstrap" /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+<style type="text/css">
+	#add-form table th{
+		font-weight: normal;
+		text-align: right;
+		width: 100px;
+	}
+	.input-mini{
+		text-align: center;
+	}
+	.direct-city{
+		color: #096;
+	}
+	.hot-city{
+		color: #f65;
+	}
+	.tips{
+		font-size: 11px;
+		color: #666;
+	}
+	.city-open{
+		color: #68F;
+	}
+</style>
+</head>
+<body>
+	<!-- <a class="btn btn-mini btn-success">更新分类JS</a> -->
+	<ul class="nav nav-pills">
+	  <li class="active"><a href="#">地区列表</a></li>
+	  <li><a href="#" class="add-city">添加地区</a></li>
+	  <li><a href="__CONTROL__/linkageCateList">其他分类</a></li>
+	  {if value="$hd.get.pid|isset"}
+	  <li><a href="###" onclick="javascript:window.history.back();return false;">返回上级</a></li>
+	  {/if}
+	</ul>
+	<div id="city-list">
+		<form action="__CONTROL__/sortArea" method="post">
+	<table class="table">
+		<tr>
+			<th width="10px"><input type="checkbox" class="select-all input-checkbox" /></th>
+			<th>名称</th>
+			<th>排序</th>
+			<th>操作</th>
+		</tr>
+		{foreach from="$citys" value="$value"}
+		<tr>
+			<td><input type="checkbox" name="id[]" class="input-checkbox" value="{$value.id}" id="city-{$value.id}" /></td>
+			<td title="{$value.pinyin}" class="city-name-col"><label for="city-{$value.id}"><span class="city-name">{$value.name}</span><span class="tips">(ID：{$value.id})</span>{if value="$value.direct"}&nbsp;&nbsp;<span class="direct-city">直辖市</span>{/if}{if value="$value.hot"}&nbsp;&nbsp;<span class="hot-city">热门</span>{/if}{if value="$value.is_open"}&nbsp;&nbsp;<span class="city-open">地区子站</span>{/if}</label></td>
+			<td><input type="text" name="sort[{$value.id}]" class="input-mini" value="{$value.sort}" /></td>
+			<td>
+				<a href="" pid="{$value.pid}" city-id="{$value.id}" class="edit-item" is-open="{$value.is_open}" hot="{$value.hot}" direct="{$value.direct}" area="{$value.area}"><i class="icon-edit"></i>修改</a>
+				<a href="" class="del-items" type="item"><i class="icon-trash"></i>删除</a>
+				<a href="" pid="{$value.id}" area="{$value.area}" class="add-city" type="item"><i class="icon-plus-sign"></i>增加子类</a>
+				<a href="__METH__/pid/{$value.id}"><i class="icon-th-list"></i>管理子类</a>
+			</td>
+		</tr>
+		{/foreach}
+		<tr>
+			<td><input type="checkbox" class="select-all input-checkbox" /></td>
+			<td><a href="" class="del-items btn btn-mini"><i class="icon-trash"></i>删除</a></td>
+			<td><button type="submit" class="btn btn-mini btn-info"><i class="icon-refresh icon-white"></i>排序</button> </td>
+			<td></td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	<div id="add-form" class="hide" title="添加地区">
+		<form class="well" validate="true" action="__CONTROL__/addCity" method="post">
+			<table>
+				<tr>
+					<th>父级地区：</th>
+					<td>
+						<select name="pid" id="pid" validate="{required:true}" class="input-medium">
+							<option value="0">├─顶级地区</option>
+							{if value="$parents"}
+							<option value="{$parents.id}">├─{$parents.name}</option>
+							{/if}
+							{foreach from="$citys" value="$value"}
+							<option value="{$value.id}">&nbsp;&nbsp;&nbsp;&nbsp;└─{$value.name}</option>
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr class="add-info">
+					<th>地区名称：</th>
+					<td>
+						<textarea name="name" validate="{required:true}"></textarea>
+						<p>一次添加多个请用,或，号隔开</p>
+					</td>
+				</tr>
+				<tr class="edit-info hide">
+					<th>地区名称：</th>
+					<td><input type="text" disabled="disabled" name="name" id="" class="input-medium" /> </td>
+				</tr>
+				<tr class="edit-info hide">
+					<th>拼音：</th>
+					<td><input type="text" disabled="disabled" name="pinyin" id="" class="input-medium" /> </td>
+				</tr>
+				<tr>
+					<th>所在区域：</th>
+					<td>
+						<select name="area" class="input-medium">
+							<option value=""></option>
+							<!-- 1：华北东北，2：华东地区，3：中部西部，4：华南地区 -->
+							<option value="1">华北东北</option>
+							<option value="2">华东地区</option>
+							<option value="3">中部西部</option>
+							<option value="4">华南地区</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>排序：</th>
+					<td><input type="text" name="sort" validate="{digits:true}" value="0" class="input-mini" /></td>
+				</tr>
+				<tr>
+					<th>选项：</th>
+					<td>
+						<label class="checkbox"><input type="checkbox" class="pull-left input-checkbox" name="direct" value="1" />直辖市</label>
+						<label class="checkbox"><input type="checkbox" class="pull-left input-checkbox" name="is_open" value="1" />开通子站</label>
+						<label class="checkbox"><input type="checkbox" class="pull-left input-checkbox" name="hot" value="1" />热门城市</label>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript">
+		$('.select-all').click(function(){
+			if($(this).attr('checked')){
+				$('.select-all').attr('checked',true);
+				$('#city-list :checkbox[name]').attr('checked',true);
+			}else{
+				$('.select-all').attr('checked',false);
+				$('#city-list :checkbox[name]').attr('checked',false);
+			}
+		});
+		$('.del-items').click(function(){
+			if($(this).attr('type')=='item'){
+				$(this).parents('tr').find(":checkbox").attr('checked',true);
+			}
+			var _id_arr=[],
+			_obj=$('#city-list :checked[name]');
+			if(_obj.length==0){
+				alert("请选中你需要删除的地区！");
+				return false;
+			}
+			if(confirm("确认删除？\n警告：将会删除该地区的所有子地区。")){
+				_obj.each(function(){
+					_id_arr.push($(this).val());
+				});
+				$.post('__CONTROL__/delArea',{id:_id_arr},function(data) {
+					if(data==1){
+						_obj.parents('tr').fadeOut(350);
+					}
+				},'html');//删除地区
+			}
+			return false;
+		});
+		$('.add-city').click(function(){
+			$('#add-form form').attr('action','__CONTROL__/addCity');
+			$('.add-info').show();
+			$('.add-info :input').attr('disabled',false);
+			$('.edit-info').hide();
+			$('.edit-info :input').attr('disabled',true);
+			$('#add-form :input').val('');//清空form的值
+			if($(this).attr('type')=='item'){
+				$('#pid').val($(this).attr('pid'));
+				$('#add-form select[name="area"]').val($(this).attr('area'));
+			}
+			$('#add-form').dialog({
+				"width":405,
+				"modal":true,
+				"buttons":{
+					"添加":function(){
+						$('#add-form form').submit();
+					}
+				}
+			});
+			return false;
+		});
+		$('.edit-item').click(function(){
+			$('#add-form form').attr('action','__CONTROL__/editArea/id/'+$(this).attr('city-id'));
+			$('.add-info').hide();
+			$('.edit-info').show();
+			$('.edit-info :input').attr('disabled',false);
+			$('.add-info :input').attr('disabled',true);
+
+			if($(this).attr('is-open')=='1'){
+				$('#add-form input[name="is_open"]').attr('checked',true);
+			}
+			if($(this).attr('hot')=='1'){
+				$('#add-form input[name="hot"]').attr('checked',true);
+			}
+			if($(this).attr('direct')=='1'){
+				$('#add-form input[name="direct"]').attr('checked',true);
+			}
+			$('#add-form input[name="sort"]').val($(this).parent().prev().children("input").val());
+			$('#add-form input[name="name"]').val($(this).parents('tr').find('.city-name').text());
+			$('#add-form input[name="pinyin"]').val($(this).parents('tr').find('.city-name-col').attr('title'));
+			$('#add-form select[name="area"]').val($(this).attr('area'));
+			$('#add-form select[name="pid"]').val($(this).attr('pid'));//设置父级ID
+
+			$('#add-form').dialog({
+				"width":405,
+				"modal":true,
+				"title":'修改地区',
+				"buttons":{
+					"更新":function(){
+						$('#add-form form').submit();
+					}
+				}
+			});
+			return false;
+		});
+	</script>
+</body>
+</html>

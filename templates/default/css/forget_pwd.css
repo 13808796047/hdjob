@@ -1,0 +1,23 @@
+#pwd{
+	width: 900px;
+	margin: 10px auto;
+}
+#step-nav{
+	font-size: 14px;
+}
+#step-nav a{
+	display: block;
+	color: #2F68A5;
+	width: 200px;
+	float: left;
+	padding: 8px;
+	background: #ccc;
+	border-right: 2px #fff solid;
+}
+#step-nav a:hover{
+	text-decoration: none;
+}
+#step-nav .current{
+	background: #2F68A5;
+	color: #FFF;
+}

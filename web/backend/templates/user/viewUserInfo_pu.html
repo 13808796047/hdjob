@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	{css file="bootstrap" /}
+    {css file="__TPL__/css/public.css"}
+    {css file="jqueryUI.bootstrap" /}
+    {jquery /}
+    {js file="jqueryUI"}
+</head>
+<body>
+	<div class="user-info">
+	<?php
+		$data=new data('resume_basic');
+		$userinfo=$data->convert($userinfo);
+	?>
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">账户信息</a></li>
+				<li><a href="#tabs-2">用户资料</a></li>
+			</ul>
+			<div id="tabs-1">
+				<table class="table">
+					<tr>
+						<th>用户ID</th>
+						<td>{$userinfo.uid}</td>
+					</tr>
+					<tr>
+						<th>用户名</th>
+						<td>{$userinfo.username}</td>
+					</tr>
+					<tr>
+						<th>创建时间</th>
+						<td>{$userinfo.created|date:'Y-m-d H:i:s',@@}</td>
+					</tr>
+					<tr>
+						<th>用户积分</th>
+						<td> <span class="success">{$userinfo.point}</span></td>
+					</tr>
+					<tr>
+						<th>最后登录</th>
+						<td>{$userinfo.last_login|date:'Y-m-d H:i:s',@@}</td>
+					</tr>
+					<tr>
+						<th>登录IP</th>
+						<td>{$userinfo.last_ip}</td>
+					</tr>
+					<tr>
+						<th>Email</th>
+						<td>{$userinfo.email}{if value="$userinfo.email_verify"}<span class="success">已认证</span>{/if}</td>
+					</tr>
+					{if value="$userinfo.banned"}
+						<tr>
+							<th>禁止</th>
+							<td><span class="warning">账户已禁止：</span> <span class="tips">{$userinfo.ban_reason}</span></td>
+						</tr>
+					{/if}
+				</table>
+			</div>
+			<div id="tabs-2">
+				<table class="table">
+					<tr>
+						<th>姓名</th>
+						<td>{$userinfo.name}</td>
+					</tr>
+					<tr>
+						<th>性别</th>
+						<td>{$userinfo.gender}</td>
+					</tr>
+					<tr>
+						<th>出生年份</th>
+						<td>{$userinfo.birthday}</td>
+					</tr>
+					<tr>
+						<th>工作年份</th>
+						<td>{$userinfo.job_year}</td>
+					</tr>
+					<tr>
+						<th>地点</th>
+						<td>{$userinfo.origin_provice}</td>
+					</tr>
+					<tr>
+						<th>电话</th>
+						<td>{$userinfo.tel}</td>
+					</tr>
+					<tr>
+						<th>婚姻状态</th>
+						<td>{$userinfo.marital_status}</td>
+					</tr>
+					<tr>
+						<th>工作经验</th>
+						<td>{$userinfo.work_exp}</td>
+					</tr>
+					<tr>
+						<th>证件类型</th>
+						<td>{$userinfo.cert_type}--{$userinfo.id_number}</td>
+					</tr>
+					<tr>
+						<th>联系地址</th>
+						<td>{$userinfo.link_provice}</td>
+					</tr>
+					<tr>
+						<th>联系Email</th>
+						<td>{$userinfo.link_email}</td>
+					</tr>
+					{if value="!$userinfo.avatar|empty"}
+					<tr>
+						<th>头像</th>
+						<td><img src="__ROOT__/{$userinfo.avatar}" alt=""></td>
+					</tr>
+					{/if}
+				</table>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('#tabs').tabs();
+	</script>
+</body>
+</html>

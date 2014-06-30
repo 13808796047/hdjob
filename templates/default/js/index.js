@@ -1,0 +1,18 @@
+$("#username").focus(function(){
+$(this).val('');
+});
+$("#password").focus(function(){
+$(this).hide();
+$(this).next().show();
+$(this).next().focus();
+});
+$("#validate").focus(function(){
+$(this).val('');
+});
+$('#search').submit(function(){
+if($('#keywords').val()=='输入职位名称'){
+ $('#keywords').val('');
+}
+});
+$("#fast-news").textScroll();
+$("#hot-recruit").textScroll();

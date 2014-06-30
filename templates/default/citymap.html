@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="alice" /}
+{css file="__TPL__/css/index.css" /}
+{css file="__TPL__/css/citymap.css" /}
+{jquery /}
+</head>
+<body>
+	{include file="__TPL__/navigation.html" /}
+	<div class="citymap">
+		{foreach from="$citys_format" key="$key" value="$city"}
+		<dl>
+			<dt>{$key}</dt>
+			<dd>
+				{foreach from="$city" value="$item"}
+				<a href="__WEB__/{$item.pinyin}" {if value="$item.hot"}class="hot"{/if}>{$item.name}</a>
+				{/foreach}
+			</dd>
+		</dl>
+		{/foreach}
+	</div>
+	<div style="clear:both;"></div>
+	<br /><br />
+{include file="__TPL__/footer.html" /}

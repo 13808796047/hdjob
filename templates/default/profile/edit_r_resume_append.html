@@ -1,0 +1,48 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+<style type="text/css">
+    #new-resume-nav li{
+        width: 142px;
+    }
+     #new-resume textarea{
+        height: 120px;
+    }
+</style>
+<div id="ui-opt-area">
+    <div id="new-resume-nav" class="fn-clear tabs-nav">
+        <ul>
+            <li><a href="__CONTROL__/editResumeInfoBasic/id/{$hd.get.id}">1 基本情况</a></li>
+            <li><a href="__CONTROL__/editResumeInfoEdu/id/{$hd.get.id}">2 教育经历</a></li>
+            <li><a href="__CONTROL__/editResumeInfoExp/id/{$hd.get.id}">3 工作经历</a></li>
+            <li class="tabs-nav-active"><a href="__CONTROL__/editResumeInfoAppend/id/{$hd.get.id}">4 附加信息</a></li>
+        </ul>
+    </div>
+    <div id="new-resume">
+        {hd_field model="8" type="edit"}
+        <input type="hidden" name="resume_id" value="{$hd.get.id}" />
+        <table class="table-form">
+                <tr>
+                    <th></th>
+                    <td><button class="btn btn-large btn-green" />提交</button>
+                </tr>
+        </table>
+        {/hd_field}
+    </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $('select[name="title"]').change(function(){
+        if($(this).val()=='其他'){
+            if($(this).next('input').length==0){
+                $(this).after('<input type="text" class="append-title" name="title" id="" />');
+            }else{
+                $(this).next().show();
+            }
+        }else{
+            $(this).next().hide();
+        }
+    });
+</script>
+{include file="__TPL__/footer.html" /}

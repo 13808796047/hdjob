@@ -1,0 +1,96 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_78b6408c4fe2377dc6fe3da0c85907f3 = Array
+	(
+	0=>Array
+		(
+		'field'=>'id',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'name',
+		'type'=>'char(15)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'pinyin',
+		'type'=>'varchar(150)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'is_open',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'direct',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	5=>Array
+		(
+		'field'=>'area',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	6=>Array
+		(
+		'field'=>'hot',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	7=>Array
+		(
+		'field'=>'pid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'0',
+		'extra'=>''
+		),
+	8=>Array
+		(
+		'field'=>'ucfirst',
+		'type'=>'char(1)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	9=>Array
+		(
+		'field'=>'sort',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'0',
+		'extra'=>''
+		)
+	);
+?>

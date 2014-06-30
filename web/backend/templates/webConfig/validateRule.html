@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {css file="jqueryUI.bootstrap" /}
+        {js file="jquery" /}
+        {js file="jqueryUI" /}
+        {js file="jquery.validate" /}
+        <style type="text/css">
+            .error{
+                color: #F00;
+            }
+            table th{
+                vertical-align: text-top;
+                padding-top: 6px;
+                font-weight: normal;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="validate_rule">
+            <ul>
+                <li><a href="#rule_list">规则列表</a></li>
+                <li><a href="#add_rule">添加规则</a></li>
+            </ul>
+            <div id="rule_list">
+                <table class="table table-condensed table-striped table-bordered">
+                    <tr>
+                        <th width="6%">ID</th>
+                        <th width="26%">正则表达式</th>
+                        <th width="10%">验证名</th>
+                        <th width="6%">操作</th>
+                    </tr>
+                    {foreach from="$allRule" value="$rule"}
+                    <tr>
+                        <td>{$rule.vrid}</td>
+                        <td>{$rule.regexp}</td>
+                        <td>{$rule.title}</td>
+                        <td>
+                            <a href="__CONTROL__/editRule/vrid/{$rule.vrid}" class="edit_rule" title="修改"><i class="icon-edit"></i></a>
+                            <a href="__CONTROL__/delRule/vrid/{$rule.vrid}" class="del_rule" title="删除"><i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                    {/foreach}
+                </table>
+            </div>
+            <div id="add_rule">
+                <form action="__CONTROL__/addRule.html" id="addRule" method="post" class="well">
+                    <table>
+                        <tr>
+                            <th>正则表达式：</th>
+                            <td><input type="text" name="regexp" id="" class="required" />
+                                <p class="help-block">例如：/^[a-z]/i，需要左右的/线
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>验证名：</th>
+                            <td><input type="text" name="title" id="" class="required" />
+                                <p class="help-block">验证规则的名称，汉字</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input type="submit" class="btn btn-primary" value="添加规则" name="addRule" /></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div id="dialog" title="修改验证规则" style="display:none;">
+            <form action="" method="post" id="eidt_info" class="well">
+                <table>
+                    <tr>
+                        <th>正则表达式：</th>
+                        <td><input type="text" name="regexp" id="" class="required input-xlarge" />
+                            <p class="help-block">例如：/^[a-z]/i，需要左右的/线</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>验证名：</th>
+                        <td><input type="text" name="title" id="" class="required input-xlarge" />
+                            <p class="help-block">验证规则的名称，汉字</p>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $("#validate_rule").tabs();
+            $("#addRule").validate();
+            $(".del_rule").click(function(){
+                if(confirm("确认删除这个验证规则吗？")){
+                    return true;
+                }
+                return false;
+            });
+            $(".edit_rule").click(function(){
+                var _regexp=$(this).parent().siblings("td:eq(1)").text(),
+                _title=$(this).parent().siblings("td:eq(2)").text();
+                $("#eidt_info input[name='regexp']").val(_regexp);
+                $("#eidt_info input[name='title']").val(_title);
+                $("#eidt_info").attr('action',$(this).attr('href'));
+                $("#dialog").dialog({
+                    width:440,
+                    buttons:{
+                        '确定':function(){
+                            $("#eidt_info").submit();
+                        },
+                        '取消':function(){
+                            $(this).dialog('close')
+                        }
+                    }
+                });
+                return false;
+            });
+        </script>
+    </body>
+</html>

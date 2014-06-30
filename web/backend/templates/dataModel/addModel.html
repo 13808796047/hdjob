@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {css file="jqueryUI.bootstrap" /}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+        {js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+        {js file="jqueryUI" /}
+        {js file="bootstrap" /}
+        <style type="text/css">
+            table th{
+                vertical-align: text-top;
+                padding-top: 6px;
+                font-weight: normal;
+                text-align: right;
+                padding-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="add_model_tabs">
+            <ul>
+                <!-- <li><a href="#add-model">添加模型</a></li> -->
+                <!-- <li><a href="#add-cate">添加模型分类</a></li> -->
+            </ul>
+            <div id="add-model">
+                <form action="__METH__" id="model_validate" class="well" method="post">
+                    <table style="width:100%">
+                        <tr>
+                            <th width="38%">模型分类：</th>
+                            <td>
+                                <select name="mcid" class="required">
+                                    {foreach from="$category" value="$cate"}
+                                    <option value="{$cate.mcid}">{$cate.cate_title}</option>
+                                    {/foreach}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>模型名称（表名）：</th>
+                            <td><input type="text" id="name" name="name" validate="{required:true,regexp:/\w+/i}" />
+                                <p class="help-inline">作为数据库中的表名称</p>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <th>主键ID名：</th>
+                            <td><input type="hidden" id="pri_name" name="pri_name" class="required" minlength="2" />
+                                <p class="help-inline">作为数据库中的表的主键ID</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>模型名称[中文]：</th>
+                            <td><input type="text" id="title" name="title" class="required" /></td>
+                        </tr>
+                        <tr>
+                            <th>发布模板：</th>
+                            <td>
+                                <select name="issue_tpl" class="required">
+                                    <option value="">请选择</option>
+                                    {foreach from="$model_tpl" value="$tpl"}
+                                        <option value="{$tpl.name}">{$tpl.name}</option>
+                                    {/foreach}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>修改模板：</th>
+                            <td>
+                                <select name="edit_tpl" class="required">
+                                    <option value="">请选择</option>
+                                    {foreach from="$model_tpl" value="$tpl"}
+                                        <option value="{$tpl.name}">{$tpl.name}</option>
+                                    {/foreach}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>表单验证：</th>
+                            <td>
+                                <div class="controls">
+                                    <label class="radio inline">
+                                        <input type="radio" class="radio" value="1" name="validate" checked="checked">开启
+                                    </label>
+                                    <label class="radio inline">
+                                        <input type="radio" class="radio" value="0" name="validate">关闭
+                                    </label>
+                                    <p class="help-block">开启表单验证可以过滤一些格式不正确的数据，建议开启。</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>文件上传：</th>
+                            <td>
+                                <div class="controls">
+                                    <label class="radio inline">
+                                        <input type="radio" class="radio" value="1" name="upload">开启</label>
+                                    <label class="radio inline">
+                                        <input type="radio" class="radio" value="0" name="upload" checked="checked">关闭</label>
+                                    <p class="help-block">开启后支持上传文件，默认关闭。</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>模型描述：</th>
+                            <td><textarea class="input-xlarge" rows="3" name="des"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input type="submit" value="添加" class="btn btn-primary" name="addModel" /></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+           <!--  <div id="add-cate">
+                <form action="__CONTROL__/addModelCate" id="model_cate_validate" method="post" class="well">
+                    <div class="alert alert-info">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <strong>模型分类</strong> 是为了更好的管理不同作用的模型
+                    </div>
+                    <table class="">
+                        <tr>
+                            <th>模型分类名称：</th>
+                            <td><input type="text" id="cate_name" name="cate_name" validate="{required:true,regexp:/\w+/i}" minlength="2" /></td>
+                        </tr>
+                        <tr>
+                            <th>分类名称[中文]：</th>
+                            <td><input type="text" id="cate_title" name="cate_title" class="required" /></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input type="submit" value="添加" name="addCate" class="btn btn-primary" /></td>
+                        </tr>
+                    </table>                    
+                </form>
+            </div> -->
+        </div>
+        <script type="text/javascript">
+            $(function(){
+                $("input[class*=required]").after('<span class="must" style="color:red;">*</span>'); 
+            });
+            $("#name").keyup(function(){
+                if($(this).val().length){
+                    $("#pri_name").val($(this).val()+'_id');
+                }else{
+                    $("#pri_name").val('');
+                }
+            });
+            // $("#add_model_tabs").tabs();
+            $("#model_cate_validate").validate();
+            $("#model_validate").validate({
+                rules:{
+                    name:{
+                        required:true,
+                        remote:{
+                            url:"__CONTROL__/modelExist",
+                            type:'post',//兼容IE6,需写上
+                            dataType:"json",
+                            data:{
+                                name:function(){return $("#name").val();}
+                            }
+                        },
+                        minlength:2
+                    }
+                },
+                messages:{
+                    name:{
+                        required:'模型名不能为空',
+                        remote:'该模型已经存在'
+                    }
+                }
+                 
+            });  
+        </script>
+    </body>
+</html>

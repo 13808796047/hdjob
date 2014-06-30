@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {css file="alice" /}
+    {css file="__TPL__/css/index.css" /}
+    {jquery}
+  </head>
+  <body>
+    <div class="header">
+      <div id="logo" class="fn-left">
+        <h1 class="logo">后盾招聘系统</h1>
+        <span class="slogan">有实力，做后盾</span>
+      </div>
+      <ul class="headermenu">
+        <li class="home active"><a href="__APP__">管理中心</a></li>
+         {foreach from="$menu_list" value="$menu"}
+         <li><a href="{$menu.app}/{$menu.control}" menuid="{$menu.id}">{$menu.menu_name}</a></li>
+         {/foreach}
+      </ul>
+      <div class="head-right">
+        <div class="userinfo user-name"><span>{$hd.session.username}</span></div>
+        <div class="userpanel">
+          <ul>
+            <li>
+              <a href="http://www.houdunwang.com"><i class="icon icon-home"></i>官方网站</a>
+              <a href="__WEB__/index/auth/logout"><i class="icon icon-user"></i>退出登录</a>
+              <a href="__CONTROL__/update_cache"><i class="icon icon-folder"></i>更新缓存</a>
+              <a href="http://bbs.houdunwang.com" target="_blank"><i class="icon icon-flag"></i>在线帮助</a>
+            </li>
+          </ul>
+        </div>
+        <div class="userinfo update-cate"><a href="__CONTROL__/update_cache"><span>更新缓存</span></a></div>
+      </div>
+      <style type="text/css">
+      </style>
+      <script type="text/javascript">
+      $('.user-name').toggle(function(){
+        $(this).next().slideDown();
+      },function(){
+        $(this).next().slideUp();
+      });
+        $('.headermenu li:not(.home) a').click(function() {
+          var menuid=$(this).attr('menuid');
+          $('.headermenu li').removeClass('active');
+          $(this).parent().addClass('active');
+          $.post('__WEB__/backend/nav/showTwoMenu', 
+                {'menuid':menuid}, 
+                function(data){
+                  $('.left-menu').html(data);
+                }, 
+                'html');
+          return false;
+        });
+      </script>
+    </div>
+    <div id="content">
+      <div id="menu">
+        <ul class="left-menu">
+          <li>
+            <span><a href="">企业中心</a></span>
+            <ul class="son">
+              <li><a href="__APP__/company/spreadList" target="opt">推广列表</a></li>
+              <li><a href="__APP__/company/recruitList" target="opt">职位列表</a></li>
+              <li><a href="__APP__/company/spreadList" target="opt">添加推广</a></li>
+            </ul>
+          </li>
+          <li>
+            <span><a href="">用户中心</a></span>
+            <ul class="son">
+              <li><a href="__APP__/user/userList" target="opt">用户列表</a></li>
+              <li><a href="__APP__/user/addUser" target="opt">添加用户</a></li>
+              <li><a href="__APP__/user/roleList" target="opt">配置权限</a></li>
+              <li><a href="__APP__/webConfig/userConfig" target="opt">用户配置</a></li>
+            </ul>
+          </li>
+          <li>
+            <span><a href="###">广告管理</a></span>
+            <ul class="son">
+              <li><a href="__APP__/ads/addAds" target="opt">广告列表</a></li>
+              <li><a href="__APP__/ads/addAds/action/1" target="opt">添加广告</a></li>
+              <li><a href="__APP__/ads/addAds/action/3" target="opt">添加广告位</a></li>
+            </ul>
+          </li>
+          <li>
+            <span><a href="###">网站配置</a></span>
+            <ul class="son">
+              <li><a href="__APP__/nav/menuList" target="opt">后台菜单</a></li>
+              <li><a href="__APP__/webConfig/links" target="opt">友情链接</a></li>
+              <li><a href="__APP__/webConfig/siteNavigation" target="opt">导航管理</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul id="shortcut-ico" class="fn-hide">
+          <li><a href=""><i class="icon icon-user"></i></a></li>
+          <li><a href=""><i class="icon icon-setting"></i></a></li>
+          <li><a href=""><i class="icon icon-list"></i></a></li>
+          <li><a href=""><i class="icon icon-flag"></i></a></li>
+          <li><a href=""><i class="icon icon-folder"></i></a></li>
+        </ul>
+        <div class="close-left" title="点击显示快捷菜单"></div>
+      </div>
+      <div id="opt">
+        <iframe name="opt" src="__CONTROL__/home.html" frameborder="0" scrolling="yes" style="overflow:visible;"></iframe>
+      </div>
+    </div>
+      <script type="text/javascript">
+      window.onload=function(){(window.onresize=function(){
+          //获取可见宽度
+          var _document_width=document.documentElement.clientWidth,
+          //获取可见高度
+          _document_height=document.documentElement.clientHeight,
+          _menu_width=$('#menu').outerWidth(),
+          _bottom_height=_document_height-60;
+          document.getElementById('menu').style.height=_bottom_height+'px';
+          document.getElementById('opt').style.width=_document_width-_menu_width+'px';
+          document.getElementById('opt').style.height=_bottom_height+'px';
+      })()};
+      $('.close-left').toggle(function(){
+        
+        left_w = $('#menu') . outerWidth();
+        var right_w = $('#opt') . outerWidth() + left_w-30-7;
+        $('.left-menu').fadeOut();
+        $('#menu').animate({width:"30px"},function(){
+            $('#shortcut-ico').show();
+        });
+        $('#opt').animate({"width":right_w+"px"});
+        $(this).addClass('enable-left').attr("title","点击显示菜单列表")
+      },function(){
+        var right_w = $('#opt') . width() - left_w+30;
+        $('#shortcut-ico').fadeOut(function(){
+            $('.left-menu').fadeIn();
+          }
+        );
+        $('#menu').animate({"width":left_w-7+"px"});
+        $('#opt').animate({"width":right_w+"px"});
+        $(this).removeClass('enable-left').attr("title","点击显示快捷菜单")
+      });
+      $('#menu span').live("click",function() {
+        if($(this).next('ul:visible').length==0){
+          $('#menu .son').slideUp();
+          $(this).next().slideDown();
+        }else{
+          $(this).next().slideUp();
+        }
+        return false;
+      });
+      $('#menu .son a').hover(function(){
+        $(this).addClass('son-hover');
+      },function(){
+        $(this).removeClass('son-hover');
+      });
+      </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <css file="__PUBLIC__/css/check.css"/>
+</head>
+<body>
+    <div class="setup">
+        <div class="title">
+            {$setup.webname}安装向导
+        </div>
+        <div class="copy">
+            <p>
+                {$setup.version}
+            </p>
+        </div>
+        <div class="body">
+            <h2>环境检测</h2>
+            <table>
+                <tr>
+                    <th>名称</th>
+                    <th>HDCMS要求配置</th>
+                    <th>最佳配置</th>
+                    <th>当前环境</th>
+                </tr>
+                <tr>
+                    <td>操作系统</td>
+                    <td>任意</td>
+                    <td>类linux</td>
+                    <td>{$system.phpos}</td>
+                </tr>
+                <tr>
+                    <td>PHP版本</td>
+                    <td>5.0</td>
+                    <td>5.3</td>
+                    <td>{$system.phpversion}</td>
+                </tr>
+                <tr>
+                    <td>附件上传大小</td>
+                    <td>不限制</td>
+                    <td>5M</td>
+                    <td>{$system.uploadsize}</td>
+                </tr>
+                <tr>
+                    <td>GD库</td>
+                    <td>1.0</td>
+                    <td>2.0</td>
+                    <td>{$system.gdversion}</td>
+                </tr>
+                <tr>
+                    <td>磁盘空间</td>
+                    <td>8MB</td>
+                    <td>不限制</td>
+                    <td>{$system.diskspace}</td>
+                </tr>
+            </table>
+            <!--目录检测-->
+            <h2>环境检测</h2>
+            <table style="width:90%">
+                <tr>
+                    <th>目录文件名称</th>
+                    <th>所需状态</th>
+                    <th>当前状态</th>
+                </tr>
+                <foreach from="$setup.dirs" key="$k" value="$v">
+                    <tr>
+                        <td>{$v}</td>
+                        <td>可写</td>
+                        <td><?php echo is_writeable($v)?"<img src='__PUBLIC__/images/10.png'/>&nbsp;可写":"<img src='__PUBLIC__/images/12.png'/>不可写"?></td>
+                    </tr>
+                </foreach>
+            </table>
+
+            <!--函数检测-->
+            <h2>环境检测</h2>
+            <table style="width:80%">
+                <tr>
+                    <th width="280">目录名称</th>
+                    <th>检测结果</th>
+                    <th>系统建议</th>
+                </tr>
+                <foreach from="$setup.functions" key="$k" value="$v">
+                    <tr>
+                        <td>{$v}</td>
+                        <td><?php echo function_exists($v)?"<img src='__PUBLIC__/images/10.png'/>&nbsp;支持":"<img src='__PUBLIC__/images/12.png'/>不支持"?></td>
+                        <td>无</td>
+                    </tr>
+                </foreach>
+            </table>
+        </div>
+        <div class="submit">
+            <form action="__CONTROL__/setconfig" method="get">
+                <button class="send" type="submit">下一步</button>
+            </form>
+        </div>
+        <div class="step">
+        </div>
+    </div>
+</body>
+</html>

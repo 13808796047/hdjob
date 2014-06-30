@@ -1,0 +1,198 @@
+@charset "utf-8";
+#reg{
+    width:990px;
+    height:auto;
+    margin:10px auto;
+}
+#reg a{
+    color: #D14836;
+}
+#reg-center{
+    width:990px;
+    height:400px;
+    margin:50px auto;
+    position: relative;
+    overflow:hidden;
+}
+#reg-center #reg-input-info{
+    width:600px;
+    height:400px;
+    float:left;
+    border-right:1px #999 solid;
+}
+#reg-center #reg-type{
+    width:520px;
+    border-bottom:2px #F60 solid;
+}
+#reg-center #reg-type a:hover{
+    text-decoration:none;
+}
+#reg-center #reg-type .reg-type{
+    display:block;
+    height:25px;
+    font-size:17px;
+    font-weight:bold;
+    background:#DDD;
+    color:#F60;
+    padding:20px 20px 5px 55px;
+    float:left;
+    margin-right:30px;
+}
+#reg-center #reg-type .reg-type-active{
+    background:#F60;
+    color:#FFF;
+}
+#form-area{
+    margin-top:25px;
+}
+#form-area input{
+    display:block;
+    width: 150px;
+    height:22px;
+    padding:3px 10px;
+    border:1px #CCC solid;
+}
+#form-area input.checkbox{
+    float: left;
+    width: 30px;
+    height: 22px;
+    border: none;
+}
+#form-area label{
+    float: left;
+    margin-top: 2px;
+}
+#form-area table tr{
+    height:50px;
+}
+#form-area table th{
+    width:100px;
+    text-align:right;
+}
+#form-area table .tips{
+    color:#999;
+    padding-left:7px;
+}
+#form-area table .error{
+    color: #F00;
+    padding-left:7px;
+}
+#form-area table .success{
+    padding-left:30px;
+    background:url(../images/succ.png) no-repeat 10px center;
+}
+#form-area table .reg-button{
+    width:70px;
+    height:30px;
+    border-radius:3px;
+    font-weight:bold;
+    color:#F60;
+    border:1px #999 solid;
+    cursor: pointer;
+}
+#reg-suggest{
+    width:250px;
+    height:250px;
+    float:left;
+    margin-top:75px;
+    margin-left:70px;
+}
+#registration{
+    position: absolute;
+    width: 340px;
+    right: 10px;
+    top:450px;
+    background: #F5F5F5;
+    color: #888;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#registration .data-title{
+    font-size: 16px;
+    color: #999;
+    text-align: center;
+}
+#registration-con{
+    height: 350px;
+    overflow-y: scroll;
+}
+#has-account h2{
+    text-align:center;
+    font-size:15px;
+    color:#666;
+    font-weight:bold;
+}
+#has-account a{
+    display:block;
+    width:70px;
+    height:32px;
+    line-height:32px;
+    background:url(../images/Next.png) no-repeat left;
+    background-color:#F60;
+    padding-left:32px;
+    margin:8px auto;
+    color:#FFF;
+    font-weight:bolder;
+}
+#account-instruct h2{
+    text-indent:1.2em;
+    font-weight:bolder;
+    color:#060;
+    margin-top:10px;
+    font-size: 15px;
+}
+#account-instruct span{
+    display:block;
+    text-indent:1.2em;
+    margin-left:10px;
+    padding-left:10px;
+    margin-top:5px;
+    font-size: 13px;
+    color:#999;
+}
+#f-link {
+	width: 1200px;
+	height: 25px;
+	line-height: 25px;
+	margin: 6px auto;
+}
+#f-link h2 {
+	display: block;
+	padding: 0px 10px;
+	float: left;
+	color: #E4161C;
+	font-size: 14px;
+	font-weight: bold;
+}
+#f-link ul li {
+	float: left;
+	padding: 0px 10px;
+}
+#f-link ul li a {
+	color: #666;
+}
+#copyright {
+	width: 1200px;
+	height: 40px;
+	margin: 6px auto;
+	border-top: 1px #999 solid;
+}
+#bottom-logo {
+	display: block;
+	float: left;
+	width: 227px;
+	height: 40px;
+	margin-left: 30px;
+	background: url(../images/logo.gif) no-repeat;
+}
+#copyright #info {
+	display: block;
+	float: left;
+	margin-left: 150px;
+	text-align: center;
+	color: #6D6D6D;
+}
+#copyright #info a {
+	color: #6D6D6D;
+}

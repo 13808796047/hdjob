@@ -1,0 +1,51 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_f074a4702d9b22a67ac109dfb1b69d67 = Array
+	(
+	0=>Array
+		(
+		'field'=>'id',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'uid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'activation_key',
+		'type'=>'char(32)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'created',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'email',
+		'type'=>'varchar(30)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		)
+	);
+?>

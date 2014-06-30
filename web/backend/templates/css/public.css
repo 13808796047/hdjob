@@ -1,0 +1,51 @@
+.input-checkbox{
+	width: 20px;
+	border: none;
+}
+.radio input{
+	width: 20px;
+	float: left;
+}
+.success {
+color: #090;
+}
+.warning{
+	color: red;
+}
+.sys{
+	color: #F60;
+}
+.tips{
+	font-size: 11px;
+	color: #999;
+	margin-left: 5px;
+}
+.input-min{
+	width: 30px;
+	height: 12px;
+	text-align: center;
+	margin: 0px;
+}
+.nav{
+	margin: 5px;
+}
+.nav li{
+	_padding: 5px 8px;
+	float: left;
+}
+.nav .active{
+	background-color: #08C;
+	border-radius: 3px;
+}
+.nav .active a{
+	color: white;
+}
+.switch{
+	width: 83px;
+	height: 28px;
+	background: url('../images/switch.png') repeat-x left center;
+	cursor: pointer;
+}
+.switch-off{
+	background: url('../images/switch.png') repeat-x right center;	
+}

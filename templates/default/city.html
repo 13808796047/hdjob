@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$hd.config.keyword},{$city.name}招聘,{$city.name}求职,{$city.name}人才市场" />
+<meta name="description" content="{$hd.config.desc}" />
+<title>{$city.name}招聘信息--{$hd.config.web_name}</title>
+{css file="alice" /}
+{css file="__TPL__/css/common.css" /}
+{css file="__TPL__/css/city.css" /}
+{js file="jquery" /}
+{js file="__TPL__/js/textScroll.js" /}
+<script type="text/javascript">
+	var url='__ROOT__';
+</script>
+{js file="__ROOT__/caches/js/linkage_data.js"}
+{js file="__ROOT__/public/js/linkage/linkage_style_2.js"}
+</head>
+<body>
+	{include file="__TPL__/navigation.html" /}
+	<div id="content">
+		<div id="banner">
+			<div id="login-panel">
+			    <div id="login-head">用户登录</div>
+			    <div id="login-input">
+			        <form method="post" name="" action="__APP__/auth/login.html">
+			            <div class="input-bar">
+			                <input type="text" id="username" maxlength="20" name="name" value="输入用户名/Email" />
+			            </div>
+			            <div class="input-bar">
+			                <input type="text" id="password" value="输入密码">
+			                    <input type="password" name="pwd" style="display:none;" />
+			            </div>
+			            <div class="validate-bar">
+			                <input type="text" name="code" id="validate" value="输入验证码" />
+			                <a href="#"><img src="__APP__/auth/validateCode.html" onclick="javascript:this.src='__APP__/auth/validateCode?next='+Math.random();return false;" /> </a>
+			            </div>
+			            <div class="login-bar">
+			                <input type="submit" name="login" class="login-button" value="" />
+			                <div class="checkbox">
+			                    <label for="auto">
+			                    	<input type="checkbox" name="auto" id="auto" value="1" />
+			                    自动登录</label>
+			                    <a href="###" style="cursor:help;">忘记密码</a> 
+			                </div>
+			            </div>
+			        </form>
+			    </div>
+			    <div id="login-bottom"> <a href="__APP__/profile/createNewRes"><em class="fn-hide">写简历</em></a><a href="__WEB__/register.html"><em class="fn-hide">注册</em></a> </div>
+			</div>
+			<!--/login-->
+			<div id="banner-right">
+				<div id="filter">
+					<form action="__APP__/search" method="get">
+						{linkage data="3" field="jobs_industry" style="2" attr='class="linkage-item"' tips="点击选择行业"}
+						{/linkage}
+						{linkage data="4" field="class#class_two" tips="点击选择职位分类" style="2" attr='class="linkage-item"'}
+						{/linkage}
+					<div class="filter-city">
+						<input type="text" id="town-show" city-id="{$city.id}" class="linkage-item get-town" value="点击选择地区" />
+						<input type="hidden" name="city" value="{$city.id}"  />
+						<input type="hidden" name="town"  />
+						<div class="filter-city-list"></div>
+					</div>
+					<p class="refresh_date">发布日期：
+						<select name="refresh_date">
+							<option value="">请选择</option>
+							<option value="3">3天内</option>
+							<option value="10">10天内</option>
+							<option value="15">15天内</option>
+							<option value="30">1月内</option>
+						</select>
+					</p>
+					<p class="search"><input type="text" name="keywords" id="" class="input-medium" />
+					<button type="submit">查询</button></p>
+					</form>
+				</div>
+				<div id="ads-box">
+					<h2>招聘格子</h2>
+					<ul>
+						{hd_ads cate="10" city="$city.id"}
+							<li><a href="{$ads.href}"><img src="__ROOT__/{$ads.path}" alt="" /></a></li>
+						{/hd_ads}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--/bannel-->
+		<div id="ads">
+			<div id="ads-left">
+				<div id="city-hot-job">
+					<h2 class="data-title">{$city.name}热点招聘</h2>
+					<div class="textscroll">
+						<ul>
+							{hd_ads cate="cityHotspot" city="$city.id"}
+							<li><a href="{$ads.href}">{$ads.text}</a></li>
+							{/hd_ads}
+						</ul>
+					</div>
+				</div>
+				<div id="news">
+					<h2 class="data-title">求职新闻</h2>
+					<div>
+						<ul>
+							{hd_channel}
+					<li><a href="{$channel.href}">{$channel.title}</a></li>
+					{/hd_channel}
+						</ul>
+					</div>
+				</div>
+				<div id="link-way">
+					<h2 class="data-title">联系方式</h2>
+					<div>
+						<dl>
+							<dt>招聘咨询电话：</dt>
+							<dd>{$hd.config.tel}</dd>
+							<dt>客户服务电话：</dt>
+							<dd>{$hd.config.service_tel}</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<div id="ads-right">
+				<div class="famous-company fn-clear">
+					<h2 class="data-title">{$city.name}名企招聘</h2>
+					<div class="famous-company-ads">
+						<ul>
+							{hd_ads cate="9" city="$city.id"}
+							<li><a href="{$ads.href}"><img src="__ROOT__/{$ads.path}" alt="" /></a></li>
+							{/hd_ads}
+						</ul>
+					</div>
+				</div>
+				<div class="special-company">
+					<h2 class="data-title title-hot">{$city.name}特别推荐企业</h2>
+					<div class="spcial-com-list ads-bg">
+						<ul class="ads-list">
+							{hd_ads cate="cityRecomCompany" city="$city.id"}
+							<li><a href="{$ads.href}">{$ads.text}</a></li>
+							{/hd_ads}
+						</ul>
+					</div>
+				</div>
+				<div class="special-company" id="hot-job">
+					<h2 class="data-title title-hot">{$city.name}热门招聘</h2>
+					<div class="spcial-com-list ads-bg">
+						<ul class="ads-list">
+							{hd_recruit order="views desc" city="$city.id"}
+							<li>
+								<span><a href="__APP__/index/company/id/{$recruit.uid}">{$recruit.company_name}</a></span>
+								<a class="job-name" href="__APP__/search/jobs/id/{$recruit.recruit_id}">{$recruit.recruit_name}</a></li>
+							{/hd_recruit}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/content-->
+{js file="__TPL__/js/city.js" /}
+{include file="__TPL__/footer.html" /}

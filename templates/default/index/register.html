@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册页面</title>
+{css file="alice"}
+{css file="__TPL__/css/register.css" /}
+</head>
+<body>
+<!--reg-->
+<div id="reg"> 
+  <!--reg-center-->
+  <div id="reg-center"> 
+    <!--reg-area-->
+    <div id="reg-input-info">
+      <div id="reg-type" class="fn-clear"><a href="__WEB__/index/index/register.html" class="reg-type {if value="$type==4"}reg-type-active{/if}">个人注册</a><a href="__WEB__/index/index/register/type/3.html" class="reg-type  {if value="$type==3"}reg-type-active{/if}">企业注册</a></div>
+      <div id="form-area" >
+        <form action="__WEB__/index/index/registUser.html" method="post">
+          <table>
+            <tr>
+              <th>用户名：</th>
+              <td><input name="username" type="text" maxlength="20" /></td>
+              <td class="tips">可以输入数字、字母、下划线，必须以字母开头。<br />
+                例如：houdunwang</td>
+            </tr>
+            <tr>
+              <th>密码：</th>
+              <td><input name="password" type="password" maxlength="20" /></td>
+              <td class="tips">6-20个字符，建议使用复杂的<br />
+                密码（密码中包含字母，标点符号，大写字母）</td>
+            </tr>
+            <tr>
+              <th>重复密码：</th>
+              <td><input name="re-password" type="password" maxlength="20" /></td>
+              <td class="tips">重复用户密码</td>
+            </tr>
+            <tr>
+              <th>验证码：</th>
+              <td><input name="validata-code" type="text" /></td>
+              <td class="tips">输入图片中的字符</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td colspan="2"><input type="checkbox" class="checkbox" name="agree" id="agree" value="1" style="" /><label for="agree">我同意<a href="">《后盾招聘注册协议》</a><label></td>
+            </tr>
+            <tr>
+                <td><input type="hidden" name="uid" value="{$type}" /></td>
+              <td colspan="2"><input name="register" type="submit" value="提交注册" class="reg-button" /></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    <!--/reg-area--> 
+    <!--suggest-area-->
+    <div id="reg-suggest">
+      <div id="has-account">
+        <h2>已有账号？</h2>
+        <a href="">马上登陆</a>
+        </div>
+      <div id="account-instruct">
+        <h2>个人用户</h2>
+        <span> 填写个人简历，在线投递简历，在线申请职位，搜索职位... </span>
+        <h2>企业用户</h2>
+        <span> 发布招聘信息，查看人才简历，搜索简历，在线邀请面试... </span>
+        </div>
+    </div>
+    <!--/suggest-area--> 
+  </div>
+  <!--/reg-center--> 
+</div>
+<!--/reg-->
+<div id="f-link">
+  <h2>友情链接：</h2>
+  <ul>
+    <li><a href="http://www.houdunwang.com">百度一下</a></li>
+    <li><a href="http://www.houdunwang.com">后盾顶尖PHP培训</a></li>
+    <li><a href="http://www.houdunwang.com">百度一下</a></li>
+    <li><a href="http://www.houdunwang.com">百度一下</a></li>
+  </ul>
+</div>
+<div id="copyright"> <a href="http://www.houdunwang.com" id="bottom-logo"><em class="fn-hide">后盾logo</em></a> <span id="info">联系地址：北京市朝阳区小营路5号四方大厦 版权所有：<a href="http://www.houdunwang.com">后盾网</a> 京ICP备10027771号-1 站长统计 <br />
+  All rights reserved, houdunwang.com services for Beijing 2008-2011</span> </div>
+</body>
+</html>

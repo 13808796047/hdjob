@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+{css file="bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{css file="jqueryUI.bootstrap" /}
+{jquery /}
+{js file="jqueryUI" /}
+<style type="text/css">
+	.backup-set{
+		margin-bottom: 10px;
+	}
+	.db-action{
+		float: right;
+	}
+	.back-arg{
+		width: 420px;
+		float: right;
+		margin: 0px;
+		margin-top: -5px;
+	}
+	.back-arg th{
+		color: #666;
+	}
+	.back-arg tr{
+		height: 18px;
+		line-height: 18px;
+	}
+	.back-arg input{
+		height: 15px;
+		line-height: 15px;
+		margin: 0px;
+		margin-right: 10px;
+	}
+</style>
+</head>
+<body style="padding:10px">
+	<form id="table-list" action="__CONTROL__/dbBackup" method="post">
+		<div class="backup-set">
+		<span class="db-info">共 <span class="sys">{$table|count}</span> 张表</span> | 
+		<span class="db-info">数据库总大小 <span class="sys">{$dbSize}</span></span>
+
+		<div class="db-action">
+		<a id="backup" class="btn btn-mini btn-info"><i class="icon-file icon-white"></i> 备份选中数据库</a>
+		<a href="__CONTROL__/viewBackUp" class="btn btn-mini btn-success"><i class="icon-folder-open icon-white"></i> 数据导入</a>
+		</div>
+
+		<div class="back-arg">
+			<table>
+				<tr>
+					<th>备份速度 <span class="tips">(每次提取条数)</span>：</th>
+					<td><input type="text" name="limit" value="500" class="input-mini" /> </td>
+					<th>每卷大小：</th>
+					<td><input type="text" name="filesize" value="2048" class="input-mini" />K</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<table class="table">
+		<tr>
+			<th><input type="checkbox" class="select input-checkbox" /></th>
+			<th>表名</th>
+			<th>类型</th>
+			<th>编码</th>
+			<th>记录数</th>
+			<th>使用空间</th>
+			<th>碎片</th>
+			<th>操作</th>
+		</tr>
+		{foreach from="$table" value="$value"}
+		<tr>
+			<td width="2%"><input type="checkbox" class="input-checkbox" name="table[]" value="{$value.Name}" /> </td>
+			<td width="25%">{$value.Name}</td>
+			<td>{$value.Engine}</td>
+			<td>{$value.Collation}</td>
+			<td>{$value.Rows}</td>
+			<td>{$value.Data_length|get_size}</td>
+			<td>{$value.Data_free}</td>
+			<td>
+				<a href="__CONTROL__/optTable/table/{$value.Name}/type/optimize">优化</a>
+				<a href="__CONTROL__/optTable/table/{$value.Name}/type/repair">修复</a>
+				<a href="{$value.Name}" class="view-struct">结构</a>
+			</td>
+		</tr>
+		{/foreach}
+	</table>
+	</form>
+	<div id="dialog"></div>
+	<script type="text/javascript">
+	$('#backup').click(function(){
+		if($('.table :checked[name]').length==0){
+			alert('请选中你需要备份的数据库!!!');
+			return false;
+		}
+		$('#table-list').submit();
+	});
+	$('.select').click(function(){
+		if($(this).attr('checked')){
+			$('.table :checkbox[name]').attr('checked',true);
+		}else{
+			$('.table :checkbox[name]').attr('checked',false);
+		}
+	});
+	$('.view-struct').click(function(){
+		var _table=$(this).attr('href');
+		$.post('__CONTROL__/showCreateTable',{"table":_table},function(table){
+			$('#dialog').html(table);
+			$('#dialog').dialog({
+				"title":_table+"表结构",
+				"width":"500",
+				"modal":true,
+				"buttons":{
+					"确定":function(){
+					$(this).dialog('close');
+					}
+				}
+			});
+		},"html");
+		return false;
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+/* 
+    Document   : hd
+    Created on : 2012-2-18, 17:24:06
+    Author     : hdxj
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.hd_dialog{position: absolute;top:100px;left: 100px; padding:50px;text-align: center;width:600px; margin-left: 20px; border: solid 20px #dcdcdc; background:whitesmoke; }
+.hd_dialog .title{font-size:48px; color:yellowgreen; font-weight: bold; margin-bottom: 50px; line-height: 1.2em;}
+.hd_dialog .close a{padding: 20px;font-size:18px; font-weight: bold; }
+

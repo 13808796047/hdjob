@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title></title>
+{css file="bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{jquery /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"}
+</head>
+<body>
+<form action="__METH__" validate="true" class="well" method="post" style="width:400px;margin:20px auto;">
+    <table>
+        <tr>
+            <th>父级节点</th>
+            <td>
+            	<select name="pid" id="pid">
+            		 <option value="0">├─顶级节点</option>
+                    {foreach from="$nodes" value="$app"}
+                    <option value="{$app.nid}">├─{$app.title}</option>
+                        {foreach from="$app.son_data" value="$control"}
+                            <option value="{$control.nid}">&nbsp;&nbsp;&nbsp;&nbsp;└─{$control.title}</option>
+                            {foreach from="$control.son_data" value="$method"}
+                                <option value="{$method.nid}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─{$method.title}</option>
+                            {/foreach}
+                        {/foreach}
+                    {/foreach}
+            	</select>
+            </td>
+        </tr>
+        <tr>
+            <th width="28%">节点URI</th>
+            <td>
+                <input type="text" name="name" id="URI" validate="{required:true,regexp:/^\/.*\/$/}" value="" />
+                <p class="tips">即：/应用/控制器/方法/ <br/>例如: /index/company/info/</p>
+            </td>
+        </tr>
+        <tr>
+            <th>中文名</th>
+            <td><input type="text" name="title" validate="{required:true}" /></td>
+        </tr>
+        <tr>
+            <th>描述</th>
+            <td><textarea name="des" id="" cols="30" rows="3"></textarea></td>
+        </tr>
+        <tr>
+            <th>排序</th>
+            <td><input type="text" name="sort" value="0" class="input-mini" /></td>
+        </tr>
+        <tr>
+            <th>状态</th>
+            <td><label class="radio pull-left" style="margin-right:26px;"><input type="radio" name="state" value="1" checked />开启</label><label class="radio"><input type="radio" name="state" value="0" />关闭</label></td>
+        </tr>
+        <tr class="" style="height:50px;">
+        	<th></th>
+        	<td><input type="submit" class="btn btn-primary" value="添加"> </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

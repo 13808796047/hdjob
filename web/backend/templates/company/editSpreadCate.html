@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap"}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+        {js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+    </head>
+    <body>
+        <div id="edit-spread-cate">
+            <form action="__CONTROL__/editSpreadCate/cate/{$hd.get.cate}.html" validate="true" class="well form-horizontal" method="post">
+                <div class="control-group">
+                    <label for="cate_name" class="control-label">方案名称</label>
+                    <div class="controls">
+                        <input type="text" class="input-medium" name="cate_name" id="cate_name" value="{$spread_cate.cate_name}" validate={required:true} />
+                        <p class="help-block">例如：紧急招聘、招聘变色……</p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="cate_minday" class="control-label">最少推广</label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input class="input-mini" value="{$spread_cate.cate_minday}" id="cate_minday" name="cate_minday" type="text" validate={required:true,digits:true}><span class="add-on">天</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="cate_maxday" class="control-label">最多推广</label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input class="input-mini" name="cate_maxday" id="cate_maxday" value="{$spread_cate.cate_maxday}" type="text" validate={required:true,digits:true}><span class="add-on">天</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="cate_point" class="control-label">每天消耗</label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input class="input-mini" name="cate_point" id="cate_point" value="{$spread_cate.cate_point}" type="text" validate={required:true,number:true}><span class="add-on">积分</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="max_nums" class="control-label">最多数量</label>
+                    <div class="controls">
+                        <input type="text" name="max_nums" value="{$spread_cate.max_nums}" class="input-medium" id="max_nums" validate={required:true,digits:true} />
+                        <p class="help-block">允许此方案添加的最大值。超过此值后企业将无法购买。</p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="on" class="control-label">状态</label>
+                    <div class="controls">
+                        <label for="on" class="radio inline"><input type="radio" checked name="state" id="on" value="1" class="radio" />开启</label>
+                        <label for="off" class="radio inline"><input type="radio" name="state" id="off" value="0" class="radio" {if value="!$spread_cate.state"}checked{/if} />禁用</label>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="textarea">方案介绍</label>
+                    <div class="controls">
+                        {editor id="cate_desc" name="cate_desc" style="1" width="340" height="130" content="$spread_cate.cate_desc" /}
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <input type="submit" name="editSpread" value="修改方案" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

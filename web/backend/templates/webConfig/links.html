@@ -1,0 +1,180 @@
+{include file="__TPL__/header.html"}
+<style type="text/css">
+    .input-mini{
+        width: 25px;
+        text-align:center;
+    }
+    .waring{
+        color: #B94A48;
+    }
+    	#dialog{
+		width: 400px;
+	}
+	#dialog table{
+		width: 100%;
+	}
+	#dialog table th{
+		width: 100px;
+	}
+	#dialog table label{
+		float: left;
+		margin-right: 10px;
+	}
+	#dialog table label input{
+		float: left;
+		margin-right: 5px;
+	}
+	#nav-button{
+		height: 36px;
+	}
+	.nav{
+		width: 200px;
+		float: left;
+	}
+</style>
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">链接列表</a></li>
+			<li><a href="#tabs-2">添加链接</a></li>
+			<li><a href="#tabs-3">连接分类</a></li>
+			<li><a href="#tabs-4">添加分类</a></li>
+		</ul>
+		<div id="tabs-1">
+			<table class="table">
+				<tr>
+					<th>网站名称</th>
+					<th>链接地址</th>
+					<th>logo</th>
+					<th>状态</th>
+					<th>联系Email</th>
+					<th>广告分类</th>
+					<th>操作</th>
+				</tr>
+				{foreach from="$links" value="$link"}
+				<tr>
+					<td>{$link.web_name}</td>
+					<td>{$link.href}</td>
+					<td>{$link.logo}</td>
+					<td>{if value="$link.state==0"}
+						<span class="warning">已关闭</span>
+						{elseif value="$link.state==2"}
+						<span class="sys">审核中</span>
+						{else /}
+						<span class="success">显示中</span>
+						{/if}</td>
+					<td>{$link.email}</td>
+					<td>{$link.title}</td>
+					<td>
+						<!-- <i class="icon-edit"></i><a href="">修改</a><i class="icon-edit"></i> -->
+					<a href="{$link.lid}" class="del-item" type="ads">删除</a>
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+		</div>
+		<div id="tabs-2">
+			<form validate="true" action="__METH__" method="post" enctype="multipart/form-data">
+				<table>
+					<tr>
+						<th>网站名称：</th>
+						<td><input type="text" validate="{required:true}" name="web_name" id="" /></td>
+					</tr>
+					<tr>
+						<th>链接地址：</th>
+						<td><input type="text" validate="{required:true}" name="href" id="" /> </td>
+					</tr>
+					<tr>
+						<th>LOGO：</th>
+						<td><input type="file" name="logo" id="" /></td>
+					</tr>
+					<tr>
+						<th>连接分类：</th>
+						<td><select name="cate_id" id="">
+							<option value="">请选择</option>
+							{foreach from="$cates" value="$cate"}
+							<option value="{$cate.lcid}">{$cate.title}</option>
+							{/foreach}
+						</select></td>
+					</tr>
+					<tr>
+						<th>联系人Email：</th>
+						<td><input type="text" name="email" id="" validate="{email:true}" /></td>
+					</tr>
+					<tr>
+						<th>排序：</th>
+						<td><input type="text" name="sort" value="0" class="input-mini" /></td>
+					</tr>
+					<tr style="height:30px;">
+						<th>状态：</th>
+						<td><label class="radio pull-left" style="margin-right:30px;"><input type="radio" name="state" checked="checked" value="1" id="" />显示</label><label class="radio"><input type="radio" name="state" value="0" id="" />关闭</label></td>
+					</tr>
+					<tr class="well" style="height:50px">
+						<th></th>
+						<td><input type="submit" value="添加" class="btn btn-primary" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="tabs-3">
+			<table class="table">
+				<tr>
+					<th>ID</th>
+					<th>名称</th>
+					<th>操作</th>
+				</tr>
+				{foreach from="$cates" value="$cate"}
+				<tr>
+					<td>{$cate.lcid}</td>
+					<td>{$cate.title}</td>
+					<td><i class="icon-edit"></i><a href="{$cate.lcid}" class="edit-item" type="{$cate.lcid}">修改</a> <i class="icon-trash"></i><a href="{$cate.lcid}" class="del-item">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+		</div>
+		<div id="tabs-4">
+			<form validate="true" action="__CONTROL__/addLinkCate" method="post" class="well form-inline">
+		        <label for="cate-title">分类名：</label><input id="cate-title" validate="{required:true}" type="text" name="title" />&nbsp;&nbsp;
+		        <button type="submit" class="btn btn-primary">添加</button>
+			</form>
+		</div>
+	</div>
+	<div id="dialog" title="修改友情连接分类" class="hide">
+		<form validate="true" action="__CONTROL__/editLinkCate" method="post" class="well form-inline" style="margin-bottom: 0px;">
+			<input type="hidden" name="lcid" value="" />
+		    <label for="cate-title">分类名：</label><input id="cate-title" validate="{required:true}" type="text" name="title" />
+			</form>
+	</div>
+<script type="text/javascript">
+$('.del-item').click(function() {
+	var _obj=$(this),
+	_url='__CONTROL__/delLinkCate';
+	if($(this).attr('type')=='ads'){
+		_url='__CONTROL__/delLink';
+	}
+	if(confirm('确认删除？')){
+		$.post(_url,{id:$(this).attr('href')},function(data){
+			if(data==1){
+				_obj.parents('tr').fadeOut(300);
+			}
+		});
+	}
+	return false;
+});
+$('.edit-item').click(function(){
+	$('#dialog input[name="lcid"]').val($(this).attr('href'));
+	$('#dialog input[name="title"]').val($(this).parent().prev().text());
+	$('#dialog').dialog({
+		modal:true,
+		width:340,
+		buttons:{
+			'确定':function(){
+				$('#dialog form').submit();
+			}
+		}
+	});
+	return false;
+});
+$('#tabs').tabs({selected:0});
+</script>
+</body>
+</html>

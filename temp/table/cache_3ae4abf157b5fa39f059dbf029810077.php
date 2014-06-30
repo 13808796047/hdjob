@@ -1,0 +1,123 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_3ae4abf157b5fa39f059dbf029810077 = Array
+	(
+	0=>Array
+		(
+		'field'=>'work_exp_id',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'company_name',
+		'type'=>'varchar(30)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'company_property',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'company_scope',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'industry',
+		'type'=>'int(10) unsigned',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	5=>Array
+		(
+		'field'=>'department',
+		'type'=>'varchar(10)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	6=>Array
+		(
+		'field'=>'job_name',
+		'type'=>'varchar(15)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	7=>Array
+		(
+		'field'=>'job_start',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	8=>Array
+		(
+		'field'=>'job_end',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	9=>Array
+		(
+		'field'=>'salary',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	10=>Array
+		(
+		'field'=>'job_desc',
+		'type'=>'varchar(250)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	11=>Array
+		(
+		'field'=>'resume_id',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	12=>Array
+		(
+		'field'=>'uid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		)
+	);
+?>

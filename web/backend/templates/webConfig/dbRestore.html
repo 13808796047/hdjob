@@ -1,0 +1,53 @@
+{include file="__TPL__/header.html" /}
+	<table class="table" id="list">
+		<tr>
+			<th width="3%"><input type="checkbox" class="select-all" id=""> </th>
+			<th>备份时间</th>
+			<th>大小</th>
+			<!-- <th>备份时间</th>
+			<th>卷号</th> -->
+			<th>操作</th>
+		</tr>
+		{foreach from="$sql_file" value="$value"}
+		<tr>
+			<td><input type="checkbox" name="file[]" value="{$value.name}"> </td>
+			<td><i class="icon-folder-open"></i>{$value.name|date:'Y-m-d H:i:s',@@}</td>
+			<td>{$value.filesize|get_size}</td>
+			<!-- <td>{$value.filemtime|date:'Y-m-d H:i:s',@@}</td>
+			<td>{$value.name|strrchr:'_'|trim:'_.sql'}</td> -->
+			<td>
+				<a href="__CONTROL__/dbRestore/folder/{$value.name}"><i class="icon-share-alt"></i> 数据恢复</a>
+			</td>
+		</tr>
+		{/foreach}
+		<tr>
+			<th><input type="checkbox" class="select-all" id=""> </th>
+			<td colspan="3" class="opt">
+				<a href="" class="btn btn-mini btn-danger"><i class="icon-trash icon-white"></i>删除</a>
+			</td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		select_all('list');
+		$('.opt a').click(function(){
+			var _id=[],
+			_checked=$('.table :checkbox[name]:checked');
+        	if(_checked.length==0){
+        		alert("请选择你需要删除的备份文件夹!");
+        		return false;
+        	}
+        	_checked.each(function(){
+        		_id.push($(this).val());
+        	});
+        	$.post('__CONTROL__/delBackUp',{"folder":_id},function(data){
+        		if(data==1){
+                    _checked.parents('tr').fadeOut(function(){
+                        _checked.parents('tr').remove();
+                    });
+                }
+        	},'html');
+			return false;
+		});
+	</script>
+</body>
+</html>

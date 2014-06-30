@@ -1,0 +1,38 @@
+{include file="__TPL__/profile/public.html" /}
+<div id="ui-opt-area">
+    <div id="new-resume">
+        <h2 class="data-title">职位申请记录</h2>
+        <table class="table-list">
+            <tr class="table-list-header">
+                <th width="35%">职位名称</th>
+                <th>招聘公司</th>
+                <th width="14%">投递简历</th>
+                <th>投递时间</th>
+                <th width="15%">状态</th>
+            </tr>
+            {if value="$delivers|empty"}
+            <tr>
+                <td colspan="5"><div>还没有投递过简历，赶快去<a href="__APP__/search">找找</a>你喜欢的职位吧。</div></td>
+            </tr>
+            {/if}
+            {foreach from="$delivers" value="$deliver"}
+            <tr>
+                <td><a href="__APP__/search/jobs/id/{$deliver.recruit_id}.html" target="_blank">{$deliver.recruit_name}</a></td>
+                <td><a href="__APP__/index/company/id/{$deliver.company_id}.html" target="_blank">{$deliver.company_name}</a></td>
+                <td>{$deliver.resume_name}</td>
+                <td>{$deliver.sendtime|date:'Y-m-d',@@}</td>
+                <td>{if value="$deliver.is_view==0"}<span class="waring">查看中</span>{else/}<span class="success">已查看</span>{/if}</td>
+            </tr>
+            {/foreach}
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="3">
+                    <div class="page-list">{$page}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+{include file="__TPL__/footer.html" /}

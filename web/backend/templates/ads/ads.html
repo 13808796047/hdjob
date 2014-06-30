@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="jqueryUI.bootstrap" /}
+        {css file="bootstrap"}
+        {css file="__TPL__/css/public.css" /}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+        {js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+        {js file="jqueryUI" /}
+        {js file="datepicker" /}
+        {js file="__ROOT__/caches/js/linkage_data.js" /}
+        {js file="__ROOT__/public/js/linkage/linkage_style_1.js" /}
+    </head>
+    <body>
+        <div id="jquery-colour-picker" class="hide"></div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-2">广告列表</a></li>
+                <li><a href="#tabs-1">添加广告</a></li>
+                <li><a href="#tabs-3">广告位管理</a></li>
+                <li><a href="#tabs-4">添加广告位</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div id="add-form">
+                    <form action="__METH__" method="post" validate="true" enctype="multipart/form-data">
+                        <table>
+                            <tr>
+                                <th>广告标题：</th>
+                                <td><input type="text" name="ads_title" validate="{required:true}" /></td>
+                            </tr>
+                            <tr>
+                                <th>位置：</th>
+                                <td><select name="cate" id="cate" validate="{required:true,messages:'必须选择广告投放位置'}">
+                                        <option value="">请选择</option>
+                                        {foreach from="$cates" value="$cate"}
+                                        <option cate="cate_c_{$cate.type}" value="{$cate.id}">{$cate.title}</option>
+                                        {/foreach}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>开始时间：</th>
+                                <td><input type="text" name="starttime" class="input-medium" onfocus="WdatePicker({minDate:'%yyyy-%MM-%dd %HH:%mm:%ss',alwaysUseStartDate:true,dateFmt:'yyyy-MM-dd HH:mm:ss',autoPickDate:true,vel:'starttime'})" /></td>
+                            </tr>
+                            <tr>
+                                <th>结束时间：</th>
+                                <td><input type="text" name="endtime" class="input-medium" onfocus="WdatePicker({minDate:'%yyyy-%MM-%dd %HH:%mm:%ss',alwaysUseStartDate:true,dateFmt:'yyyy-MM-dd HH:mm:ss',autoPickDate:true,vel:'endtime'})" /></td>
+                            </tr>
+                            <tr>
+                                <th>排序：</th>
+                                <td><input type="text" name="sort" value="0" class="input-mini" validate="{digits:true}" /></td>
+                            </tr>
+                            <tr>
+                                <th>状态：</th>
+                                <td>
+                                    <label><input type="radio" name="state" value="1" checked />开启</label>
+                                    <label><input type="radio" name="state" value="0" />关闭</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>用户ID：</th>
+                                <td><input type="text" name="uid" id="" class="input-mini"></td>
+                            </tr>
+                            <tr>
+                                <th>投放城市：</th>
+                                <td>
+                                    {linkage data="city" field="provice#city" attr='class="input-medium"'}
+                                    {/linkage}
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="cate_c_1">
+                            <tr class="cate-title">
+                                <td colspan="2"><span  class="alert alert-info" style="display:block;width:100%">文字广告</span></td>
+                            </tr>
+                            <tr>
+                                <th>文字内容：</th>
+                                <td><textarea name="text" rows="3" /></textarea>
+                            </tr>
+                            <tr>
+                                <th>链接地址：</th>
+                                <td><input type="text" name="href" id="" /></td>
+                            </tr>
+                            <tr>
+                                <th>颜色：</th>
+                                <td>
+                                   <input type="text" name="color" />
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="cate_c_2 hide">
+                            <tr class="cate-title">
+                                <td colspan="2"><span  class="alert alert-info" style="display:block;width:100%">图片广告</span></td>
+                            </tr>
+                            <tr>
+                                <th>上传图片：</th>
+                                <td>{upload size="2" type="jpg,png,gif" limit="1" text="点击上传" name="path" dir="uploads/ads" /}</td>
+                            </tr>
+                            <tr>
+                                <th>或图片地址：</th>
+                                <td><input type="text" name="path[web_url]" value="" /><span class="help-block tips">例如：uploads/img/1.jpg 或 http://www.houdunwang.com/images/logo.gif</span></td>
+                            </tr>
+                            <tr>
+                                <th>图片链接：</th>
+                                <td>
+                                    <input type="text" name="href" value="http://" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>图片文字：</th>
+                                <td>
+                                    <input type="text" name="text" />
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="cate_c_3 hide">
+                            <tr class="cate-title">
+                                <td colspan="2"><span class="alert alert-info" style="display:block;width:100%">FLASH广告</span></td>
+                            </tr>
+                            <tr>
+                                <th>上传FLASH：</th>
+                                <td>{upload size="2" type="swf" limit="1" text="点击上传" name="path" dir="uploads/ads/flash" /}</td>
+                            </tr>
+                            <tr>
+                                <th>或FLASH地址：</th>
+                                <td><input type="text" name="path[web_url]" value="" /></td>
+                            </tr>
+                            <tr>
+                                <th>宽：</th>
+                                <td><input type="text" name="width" id="" /></td>
+                            </tr>
+                            <tr>
+                                <th>高：</th>
+                                <td><input type="text" name="height" id="" /></td>
+                            </tr>
+                        </table>
+                        <script type="text/javascript">
+                            $('#cate').change(function(){
+                                $('[class^=cate_c_]').hide();
+                                $('[class^=cate_c_] input').attr('disabled',true);
+                                $('.'+$(this).find(':checked').attr('cate')).show();
+                                $('.'+$(this).find(':checked').attr('cate')+' input').attr('disabled',false);
+                            });
+                        </script>
+                        <table>
+                            <tr>
+                                <th></th>
+                                <td><button type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i> 添加</button></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <style type="text/css">
+                    table th{
+                        width: 95px;
+                        text-align:right;
+                    }
+                    .cate-title{
+                        width: 200px;
+                        height: 40px;
+                    }
+                </style>
+            </div>
+            <div id="tabs-2">
+                <table class="table">
+                    <tr>
+                        <th>广告标题</th>
+                        <th>广告位</th>
+                        <th>类型</th>
+                        <th>添加时间</th>
+                        <th>开始/结束时间</th>
+                        <th>状态</th>
+                        <th>排序</th>
+                        <th>编辑</th>
+                    </tr>
+                    {foreach from="$ads" value="$value"}
+                    <tr>
+                        <td>{$value.ads_title}</td>
+                        <td>{$value.title}<span class="tips">(ID:{$value.cate})</span></td>
+                        <td>{$ads_type[$value.type]}</td>
+                        <td>{$value.addtime|date:'Y-m-d H:i:s',@@}</td>
+                        <td>
+                            {if value="$value.endtime<time()"}
+                            <span class="warning" title="已过期">
+                                 {$value.starttime|date:'Y-m-d H:i:s',@@}<br />{$value.endtime|date:'Y-m-d H:i:s',@@}
+                            </span>
+                            {else /}
+                                 {$value.starttime|date:'Y-m-d H:i:s',@@}<br />{$value.endtime|date:'Y-m-d H:i:s',@@}
+                            {/if}
+                        </td>
+                        <td>
+                            {if value="!$value.state"}
+                            <span class="warning">已关闭</span>
+                            {else /}
+                            <span class="success">已开启</span>
+                            {/if}
+                        </td>
+                        <td><input type="text" name="sort" class="input-mini" value="{$value.sort}" /></td>
+                        <td><a href="__CONTROL__/editAds/id/{$value.id}"><i class="icon-edit"></i>编辑</a>&nbsp;&nbsp;<a href="{$value.id}" class="del-ads"><i class="icon-trash"></i>删除</a></td>
+                    </tr>
+                    {/foreach}
+                    <tr class="well">
+                        <td colspan="6"></td>
+                        <td><input type="submit" value="排序" class="btn btn-mini btn-primary" /></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <style type="text/css">
+                    .input-mini{
+                        width: 30px;
+                        text-align:center;
+                    }
+                </style>
+                <script type="text/javascript">
+                    $('.del-ads').click(function(){
+                        if(confirm('确认删除？')){
+                            var _obj=$(this).parents('tr');
+                            $.post(
+                            '__CONTROL__/delAds',
+                            {id:$(this).attr('href')},
+                            function(data) {
+                                if(data){
+                                    _obj.fadeOut(350);
+                                }
+                            },'html'
+                        );
+                        }
+                        return false;
+                    });
+                </script>
+            </div>
+            <div id="tabs-3">
+                <table class="table">
+                    <tr>
+                        <th>广告位名称</th>
+                        <th>调用ID</th>
+                        <th>调用名称</th>
+                        <th>属性</th>
+                        <th>系统</th>
+                        <th>编辑</th>
+                    </tr>
+                    {foreach from="$cates" value="$cate"}
+                    <tr>
+                        <td>{$cate.title}</td>
+                        <td>{$cate.id}</td>
+                        <td>{$cate.tname}</td>
+                        <td>{$ads_type[$cate.type]}</td>
+                        <td>{if value="$cate.is_sys"}<span class="sys">系统内置</span>{else /}<span>自定义广告位</span>{/if}</td>
+                        <td><a href="{$cate.id}" class="edit-advert"><i class="icon-edit"></i>修改</a>{if value="$cate.is_sys"}&nbsp;<span class="tips">删除</span>{else /}&nbsp;&nbsp;<a href="{$cate.id}" class="del-advert">删除</a>{/if}</td>
+                    </tr>
+                    {/foreach}
+                </table>
+                <div id="editAdvert">
+
+                </div>
+                <script type="text/javascript">
+                    $('.del-advert').click(function(){
+                        if(confirm('确认删除？')){
+                            var _obj=$(this).parents('tr');
+                            $.post(
+                            '__CONTROL__/delAdvert',
+                            {id:$(this).attr('href')},
+                            function(data) {
+                                if(data){
+                                    _obj.fadeOut(350);
+                                }
+                            },'html'
+                        );}
+                        return false;
+                    });
+                    $('.edit-advert').click(function(){
+                        var _id=$(this).attr('href');
+                        var _edit=$('#tabs-4').clone();
+                        $('tr:last',$(_edit)).html('<input type="hidden" name="id" value="'+_id+'" />').hide();
+                        $('tr:eq(0) input',$(_edit)).val($(this).parent().siblings('td:eq(0)').text());
+                        $('tr:eq(1) input',$(_edit)).val($(this).parent().siblings('td:eq(2)').text());
+                        $('tr:eq(2) label:contains('+$(this).parent().siblings('td:eq(2)').text()+') input',$(_edit)).attr('checked',true);
+                        $('form',$(_edit)).attr('action','__CONTROL__/editAdvert');
+                        $(_edit).dialog({
+                            width:540,title:'修改广告位',modal:true,buttons:{
+                                '更新':function(){
+                                    var _data=$('form',$(_edit)).serializeArray();
+                                    $.post(
+                                    '__CONTROL__/editAdvert',
+                                    _data,
+                                    function(data) {
+                                        if(data){
+                                            window.location.reload();
+                                        }
+                                    },'html'
+                                );
+                                }
+                            }
+                        })
+                        return false;
+                    });
+                </script>
+            </div>
+            <div id="tabs-4">
+                <form validate="true" action="__CONTROL__/addAdvert" method="post">
+                    <table>
+                        <tr>
+                            <th>广告位名称：</th>
+                            <td><input type="text" name="title" id="" validate="{required:true}" /><span class="tips">中文</span></td>
+                        </tr>
+                        <tr>
+                            <th>调用名称：</th>
+                            <td><input type="text" name="tname" id="" validate="{required:true,regexp:/^[a-z]+$/i}" /><span class="tips">在模板中调用，只能为字母</span></td>
+                        </tr>
+                        <tr>
+                            <th>广告位类型：</th>
+                            <td>{foreach from="$ads_type" key="$key" value="$type"}<label><input type="radio" name="type" value="{$key}" {if value="$key==1"}checked{/if} />{$type}</label>{/foreach}</td>
+                        </tr>
+                        <tr class="well">
+                            <th></th>
+                            <td><input type="submit" value="添加" class="btn btn-primary" /></td>
+                        </tr>
+                    </table>
+                </form>
+                <style type="text/css">
+                    #tabs-4 table tr{
+                        height: 50px;
+                        line-height: 50px;
+                    }
+                    #tabs-4 table th{
+                        width: 90px;
+                    }
+                    table label{
+                        width: 70px;
+                        float: left;
+                        text-indent:0.3em;
+                    }
+                    table label input{
+                        display:block;
+                        padding-right:20px;
+                        float: left;
+                    }
+                </style>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $('#tabs').tabs({ selected: {if value="!$hd.get.action|empty"}{$hd.get.action}{else /}0{/if}});
+        </script>
+    </body>
+</html>

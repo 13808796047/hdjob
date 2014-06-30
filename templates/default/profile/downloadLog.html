@@ -1,0 +1,38 @@
+{include file="__TPL__/profile/public.html" /}
+<div id="ui-opt-area">
+    <div id="new-resume">
+        <h2 class="data-title">谁下载过我的简历</h2>
+        <table class="table-list">
+            <tr class="table-list-header">
+                <th width="12%">下载简历</th>
+                <th>下载公司</th>
+                <th width="20%">下载时间</th>
+            </tr>
+            {if value="$downloads|empty"}
+            <tr>
+                <td colspan="3"><div>还没有企业下载你的简历噢。要不在仔细检查一下<a href="__CONTROL__/resume">简历</a>？或者<a href="__APP__/search">搜索</a>你喜欢的职位</div></td>
+            </tr>
+            {/if}
+            {foreach from="$downloads" value="$download"}
+            <tr>
+                <td>{$download.resume_name}</td>
+                <td><a href="__APP__/company/home/id/{$download.company_id}" target="_blank">{$download.company_name}</a></td>
+                <td>{$download.created|date:'Y-m-d H:i:s',@@}</td>
+            </tr>
+            {/foreach}
+            <tr>
+                <td></td>
+                <td>
+                    <div class="page-list">{$page}</div>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<!--/个人主页--> 
+<!--公共底部信息--> 
+<!--/公共底部信息-->
+{include file="__TPL__/footer.html" /}

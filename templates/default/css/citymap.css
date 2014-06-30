@@ -1,0 +1,30 @@
+.citymap{
+	width: 1000px;
+	margin: 10px auto;
+}
+.citymap dl{
+	width: 500px;
+	float: left;
+	margin-bottom: 12px;
+}
+.citymap dl dt{
+	float: left;
+	font-weight: bold;
+	color: #555;
+	width: 35px;
+	padding-left: 20px;
+	line-height: 26px;
+	font-size: 14px;
+}
+.citymap dl dd{
+	float: left;
+	width: 435px;
+	line-height: 26px;
+}
+.citymap dl dd a{
+	padding-right:25px;
+	color: #315AAA;
+}
+.citymap dl dd .hot{
+	background: url('../images/hot.gif') no-repeat right center;
+}

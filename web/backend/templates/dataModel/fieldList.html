@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+        <style type="text/css">
+            table,tr,th{
+                text-align: center;
+            }
+            .input-min{
+                width:28px;
+                text-align: center;
+            }
+            input{
+                display: block;
+                margin: 0px auto;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="row-fluid">
+            <div id="field-list">
+                <a style="margin:5px;" class="btn btn-success" href="__CONTROL__/addField/tableName/{$hd.get.tableName}/dmid/{$hd.get.dmid}"><i class="icon-plus-sign icon-white"></i>增加字段</a>
+                {if value="$field_list"}
+                <form method="post" action="__CONTROL__/sortField/dmid/{$hd.get.dmid}" id="field-form">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="3%">ID</th>
+                                <th>字段名</th>
+                                <th>字段别名</th>
+                                <th>字段类型</th>
+                                <th>排序</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $switch=array(
+                            'radio'=>'单选',
+                            'checkbox'=>'复选框',
+                            'option'=>'下拉列表'
+                            );
+                            ?>
+                            {foreach from="$field_list" value="$list"}
+                            <?php $setting=json_decode($list['setting'],true);?>
+                            <tr>
+                                <td>{$list.mfid}</td>
+                                <td>{$list.field_name}</td>
+                                <td>{$list.title}</td>
+                                <td>{$list.ft_title}{if value="$list.field_type=='switch' && isset($switch[$setting['type']])"}[{$switch[$setting['type']]}]{/if}</td>
+                                <td><input type="text" name="sort_id[{$list.field_name}]" value="{$list.sort}" class="input-min required" /></td>
+                                <td>
+                                    <a href="__CONTROL__/editField/mfid/{$list.mfid}/dmid/{$hd.get.dmid}/tableName/{$hd.get.tableName}" class="btn btn-mini edit-field"><i class="icon-edit"></i>修改</a>
+                                    {if value="$list.is_sys==1"}
+                                    <a class="btn btn-mini" title="系统字段禁止删除"><i class="icon-trash"></i>删除</a>
+                                    {else /}
+                                    <a href="__CONTROL__/delField/table/{$hd.get.tableName}/field_name/{$list.field_name}/mfid/{$list.mfid}/dmid/{$hd.get.dmid}" class="btn btn-danger btn-mini del-field" mfid="{$list.mfid}"><i class="icon-trash icon-white"></i>删除</a>
+                                    {/if}
+                                </td>
+                            </tr>
+                            {/foreach}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="2"><button class="btn btn-primary btn-mini" name="sort">更新字段信息</button>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                {/if}
+            </div>
+            <div id="myModal" style="display:none;" title="字段详细信息">
+            </div>
+        </div>
+        <script>
+            $("#field-form").validate();
+            $(".del-field").click(function(){
+                if(confirm('确认删除此字段？')){
+                    var _obj=$(this);
+                    $.get(_obj.attr('href'),function(data){
+                        if(data==1){
+                            _obj.parents('tr').fadeOut(300);
+                        }else{
+                            alert('删除失败!');
+                        }
+                    },'html');
+                }
+                return false;
+            });
+        </script>
+    </body>
+</html>

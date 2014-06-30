@@ -1,0 +1,95 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+{js file="datepicker" /}
+<script type="text/javascript" src="__ROOT__/caches/js/linkage_data.js"></script>
+<script type="text/javascript" src="__ROOT__/public/js/linkage/linkage_style_1.js"></script>
+<div id="ui-opt-area">
+    <div class="tabs-nav">
+        <ul>
+            <li class="tabs-nav-active"><a href="__CONTROL__/info">基本资料</a></li>
+            <li><a href="__CONTROL__/avatars">个人头像</a></li>
+            <li><a href="__CONTROL__/proAuth">邮箱验证</a></li>
+            <li><a href="__CONTROL__/password">修改密码</a></li>
+        </ul>
+        <div class="fn-clear"></div>
+    </div>
+    <div id="new-resume">
+        <form validate="true" method="post" action="__METH__">
+            <table class="table-form">
+                <tbody><tr>
+                        <th>真实姓名</th>
+                        <td><input type="text" name="name" validate="{required:true}" value="{$field.name}"><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>性别</th>
+                        <td><label><input type="radio" name="gender" value="1" validate="{required:true}" checked>男</label><label><input type="radio" name="gender" value="2" validate="{required:true}" {if value="$field.gender==2"}checked{/if}>女</label><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>出生日期（年）</th>
+                        <td><input type="text" name="birthday" onfocus="WdatePicker({dateFmt:'yyyy',minDate:'1960',startDate:'1980',autoPickDate:true})" validate="{required:true,digits:true}" value="{$field.birthday}"><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>婚姻状况</th>
+                        <td><label><input type="radio" name="marital_status" value="1" validate="{required:true}" checked="checked">未婚</label><label><input type="radio" name="marital_status" value="2" validate="{required:true}" {if value="$field.marital_status==2"}checked{/if}>已婚</label><label><input type="radio" name="marital_status" value="3" validate="{required:true}" {if value="$field.marital_status==3"}checked{/if}>保密</label><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>联系地址</th>
+                        <td>{linkage data="city" attr='class="input-medium"' field="link_provice#link_city#link_town" defaults="$field['link_provice']#$field['link_city']#$field['link_town']"}{/linkage}<span></span></td>
+                    </tr>
+                    <tr>
+                        <th>详细地址</th>
+                        <td><input type="text" name="address" value="{$field.address}"><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>户口所在地</th>
+                        <td>{linkage data="city" attr='class="input-medium"' field="origin_provice#origin_city#origin_town" defaults="$field['origin_provice']#$field['origin_city']#$field['origin_town']"}{/linkage}<span></span></td>
+                    </tr>
+                    <tr>
+                        <th>工作经验</th>
+                        <td><select name="work_exp" select="{$field.work_exp}">
+                                <option value="">请选择</option>
+                                <option value="0">不限</option>
+                                <option value="1">无经验</option>
+                                <option value="2">1年以下</option>
+                                <option value="3">1-3年</option>
+                                <option value="4">3-5年</option>
+                                <option value="5">5-10年</option>
+                                <option value="6">10年以上</option>
+                            </select>
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>证件类型</th>
+                        <td><select name="cert_type" select="{$field.cert_type}"><option value="">请选择</option><option value="1">身份证</option><option value="2">护照</option><option value="3">军官证</option><option value="4">香港身份证</option><option value="5">澳门身份证</option><option value="6">港澳通行证</option><option value="7">台胞证</option><option value="8">其他</option></select><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>证件号码</th>
+                        <td><input type="text" name="id_number" validate="{required:true,maxlength:20}" value="{$field.id_number}"><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>个人主页</th>
+                        <td><input type="text" name="profile" validate="{required:true,url:true,maxlength:100}" value="{$field.profile}"><span></span></td>
+                    </tr>
+                    <tr>
+                        <th>电子邮箱</th>
+                        <td><input type="text" name="link_email" validate="{email:true,maxlength:50}" value="{$field.link_email}"><span></span></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><button type="submit" class="btn btn-green">保存</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $('select[select]').each(function(){
+        $(this).val($(this).attr('select'));
+    });
+</script>
+</div>
+</div>
+{include file="__TPL__/footer.html" /}

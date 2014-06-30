@@ -1,0 +1,107 @@
+{load file="__TPL__/company/company_top.html" /}
+{css file="__TPL__/css/company_addspread.css" /}
+{js file="jquery" /}
+{js file="jquery.validate" /}
+<div id="content">
+<!--opt-->
+<div id="opt">
+<!--menu-->
+<div id="opt-menu">
+<dl>
+    <dt>职位管理</dt>
+    <dd><a href="__CONTROL__">管理中心</a></dd>
+    <dd><a href="__CONTROL__/issueRecruit.html">发布职位</a></dd>
+    <dd><a href="__CONTROL__/recruit.html">职位管理</a></dd>
+    <dt>企业推广</dt>
+    <dd><a href="__APP__/company/template.html">企业模板</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/5.html">职位置顶</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/2.html">紧急招聘</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/1.html">推荐职位</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/6.html">职位变色</a></dd>
+    <dt>企业资料</dt>
+    <dd><a href="__APP__/company/data">企业资料</a></dd>
+    <dd><a href="__APP__/company/account">账户管理</a></dd>
+    <dd><a href="__APP__/company/optLog">操作日志</a></dd>
+</dl>
+</div>
+<!--/menu-->
+<!--opt-area-->
+<div id="opt-area">
+<div id="spread">
+    <h2 class="data-title">推广方案 > {$cates.cate_name}</h2>
+    <div id="setSpread">
+        <form id="add_form" validate="true" action="__METH__/cate/{$cates.id}" method="post">
+            <table class="table-form">
+                <tr>
+                    <th>推广方案：</th>
+                    <td>{$cates.cate_name}</td>
+                </tr>
+                <tr>
+                    <th>推广天数：</th>
+                    <td>
+                        <input type="text" name="days" class="required digits input-mini" {if value="$cates.cate_minday>0"}min="{$cates.cate_minday}"{/if} {if value="$cates.cate_maxday>0"}max="{$cates.cate_maxday}"{/if} />
+                    </td>
+                </tr>
+                <tr>
+                    <th>推广职位：</th>
+                    <td>
+                <select name="recruit_id" id="recruit_id" class="required digits input-medium" messages="请选择推广的职位">
+                    <option value="">请选择</option>
+                    {foreach from="$recruits" value="$recruit"}
+                    <option value="{$recruit.recruit_id}" {if value="$hd.get.recruit_id|isset && $hd.get.recruit_id==$recruit.recruit_id"}selected{/if}>{$recruit.recruit_name}</option>
+                    {/foreach}
+                </select>
+                </td>
+                </tr>
+                <tr class="tips fn-hide">
+                    <th></th>
+                    <td>一共推广<span class="day-nums sys"></span>天，花费 <span class="total-point sys"></span>积分</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><button type="submit" class="btn btn-large">马上推广</button> </td>
+                </tr>
+            </select>
+            </table>
+        </form>
+    </div>
+    <div id="spread-info">
+        <h2 class="data-title">推广介绍</h2>
+        <table class="table-list">
+            <tr>
+                <th>方案名称</th>
+                <td>{$cates.cate_name}</td>
+                <th>每天消耗</th>
+                <td><span class="sys" id="day-point">{$cates.cate_point}</span>积分</td>
+            </tr>
+            <tr>
+                <th>推广至少天数</th>
+                <td>{$cates.cate_minday}天</td>
+                <th>推广最多天数</th>
+                <td>{$cates.cate_maxday}天</td>
+            </tr>
+            <tr>
+                <th>详细介绍</th>
+                <td colspan="3" class="cate-desc">{$cates.cate_desc}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div style="clear:both"></div>
+</div>
+<!--/opt-area--> 
+</div>
+<!--/opt-->
+</div>
+<script type="text/javascript">
+$('input[name=days]').blur(function() {
+    if(/\d+/.test($(this).val()) && $(this).val()>$(this).attr('min') && $(this).val()*1 <$(this).attr('max')){
+        $('.day-nums').text($(this).val());
+        $('.total-point').text($(this).val()*$('#day-point').text());
+        $('.tips').show();
+    }else{
+        $('.tips').hide();
+    }
+});
+</script>
+{include file="__TPL__/footer.html" /}

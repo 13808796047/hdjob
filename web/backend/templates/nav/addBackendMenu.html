@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+        {js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+    </head>
+    <body>
+        <div id="add_backend_menu">
+            <form class="form-horizontal" validate="true" method="post" action="__METH__" id="add_menu">
+                <fieldset>
+                    <legend>添加菜单</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="parent_id">父级菜单</label>
+                        <div class="controls">
+                            <select name="parent_id" id="parent_id" class="input-medium" validate="{required:true}">
+                                <option value="">请选择</option>
+                                <option value="0" level="1">├─一级菜单</option>
+                                {foreach from="$menu_list" key="$key" value="$menu"}
+                                <option value="{$menu.id}" level="2">├─{$menu.menu_name}</option>
+                                {foreach from="$menu.two_level" key="$two_key" value="$two_menu"}
+                                <option value="{$two_menu.id}" level="3">&nbsp;&nbsp;&nbsp;&nbsp;└─{$two_menu.menu_name}</option>
+                                {/foreach}
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="input01">菜单名称</label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" validate="{required:true,messages:'请输入菜单名称'}" name="menu_name" id="input01">
+                            <p class="help-inline">
+                                输入中文名称
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="app">操作应用</label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" validate="{required:true}" value="{$hd.const.APP}" name="app" id="app">
+                            <p class="help-inline">
+                                此菜单中的应用
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="control">操作控制器</label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" name="control" id="control">
+                            <p class="help-inline">
+                                此菜单应用中的控制器
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="method">操作方法</label>
+                        <div class="controls">
+                            <input type="text" class="input-medium" name="method" id="method">
+                            <p class="help-inline">
+                                此菜单应用中的控制器的方法
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="" class="control-label">GET参数</label>
+                        <div class="controls">
+                            <textarea name="query_string" id="" cols="30" rows="3" class="input-xlarge"></textarea>
+                            <p class="help-block">格式pathinfo:/name/hd/city/bj  query:?name=hd&city=bj</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="display_on">显示菜单</label>
+                        <div class="controls">
+                            <label for="display_on" class="radio inline"><input type="radio" id="display_on" value="1" checked="checked" name="state" />显示</label>
+                            <label for="display_off" class="radio inline"><input type="radio" id="display_off" value="0" name="state" />不显示</label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">加到底部快捷连接</label>
+                        <style type="text/css">
+                        </style>
+                        <div class="controls">
+                            <label class="radio inline"><input type="radio" value="1" name="set_end" />加入</label>
+                            <label class="radio inline"><input type="radio" value="0" name="set_end" checked="checked" />不加入</label>
+                        </div>
+                    </div>
+                    <div class="form-actions" style="height:30px;padding: 10px 160px 10px;">
+                        <button type="submit" name="add" class="btn btn-primary" /><i class="icon-plus-sign icon-white"></i> 添加</button>
+                        <button class="btn" onclick="javascript:window.history.back();return false;">取消</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>

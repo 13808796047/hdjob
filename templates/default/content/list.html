@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<meta name="keywords" content="{$channel.seo_keyword}" />
+<meta name="description" content="{$channel.seo_desc}" />
+{css file="alice" /}
+{css file="__ROOT__/templates/default/css/index.css" /}
+{css file="__ROOT__/templates/default/css/content.css" /}
+<style type="text/css">
+	.arc-list ul{
+		margin-top: 10px;
+	}
+	.arc-list li{
+		height: 23px;
+		font-size: 13px;
+	}
+	.arc-list li span{
+		float: right;
+		margin-right: 50px;
+		color: #999;
+	}
+</style>
+</head>
+<body>
+	{include file="__ROOT__/templates/default/navigation.html" /}
+	<div id="content">
+	<div id="arc" class="arc-list">
+		<ul>
+		{arc_list cid="$_GET['cid']" page="true" nums="10"}
+		<li><a href="{$arc.href}" target="_blank">{$arc.title}</a><span>{$arc.updated|date:'Y-m-d',@@}</span></li>
+		{/arc_list}
+		</ul>
+		<div class="page">
+			{$page}
+		</div>
+	</div>
+	<div id="widget">
+			<div class="cate c-list">
+				<h2>资讯分类</h2>
+				<ul>
+					{hd_channel}
+					<li><a href="{$channel.href}">{$channel.title}</a></li>
+					{/hd_channel}
+				</ul>
+			</div>
+			<div class="cate new-info">
+				<h2>最新资讯</h2>
+				<ul>
+					{arc_list nums="15"}
+					<li><a href="{$arc.href}" target="_blank">{$arc.title}</a><span>{$arc.updated|date:'Y-m-d',@@}</span></li>
+					{/arc_list}
+				</ul>
+			</div>
+		</div>
+	</div>
+<body>
+</body>
+</html>

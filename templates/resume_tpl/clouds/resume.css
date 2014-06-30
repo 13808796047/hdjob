@@ -1,0 +1,139 @@
+#view{
+    width:574px;
+    color:#555;
+    font-size:13px;
+    margin: 0px auto;
+}
+#view .avatar{
+    width: 102px;
+    height: 100px;
+    border:1px solid #B7B7B7;
+}
+#view .title{
+    color: #F65;
+    height: 26px;
+    line-height: 26px;
+    background:url(./images/t_bg.jpg) no-repeat;
+    padding-left: 10px;
+    margin-bottom:10px;
+}
+#personal{
+    border-bottom:1px solid #B7B7B7;
+}
+#personal .info{
+    width: 440px;
+    float:left;
+    font-size:12px;
+}
+#personal .info h2{
+    color: #005580;
+    font-size:28px;
+    padding: 7px 10px;
+    font-weight:bold;
+}
+#personal .list-info p{
+    width: 430px;
+    height:22px;
+    margin-left:10px;
+    overflow: hidden;
+}
+#personal .list-info p span{
+    padding:1px 3px;
+    border-left:1px solid #B7B7B7;
+    margin-left:-1px;
+}
+#personal .avatar{
+    float:left;
+    margin:35px 10px;
+}
+#hope{
+    border-top:1px solid #E6E6E6;
+    padding-top:15px;
+}
+#hope table{
+    margin:10px;
+}
+#hope table tr{
+    height: 27px;
+}
+.con{
+    margin: 10px;
+    text-indent:1.3em;
+    line-height:23px;
+}
+#edu p{
+    margin-left:10px;
+    overflow:hidden;
+}
+#edu .edu-con{
+    font-weight:bold;
+    margin-bottom:10px;
+    margin-left:-1px;
+}
+#edu p span{
+    border-left:1px solid #B7B7B7;
+    margin-left:-1px;
+    padding: 0px 10px;
+}
+#work-exp{
+    overflow:hidden;
+}
+#work-exp p{
+    margin-left:10px;
+    padding-top: 2px;
+}
+#work-exp p span{
+     border-left:1px solid #B7B7B7;
+    margin-left:-1px;
+    padding: 0px 10px;
+}
+#work-exp .exp-com{
+    font-weight:bold;
+    margin-left:-1px;
+    margin-bottom:4px;
+}
+#work-exp .exp-ins{
+    margin-left:-1px;
+}
+.interview{
+             width: 100px;
+                height: 25px;
+                line-height: 25px;
+                margin: 10px auto;
+                border: 1px #f60 solid;
+                text-align: center;
+            }
+            .interview a{
+                color: #F65;
+                font-weight: bold;
+            }
+            
+                    #dialog{
+                        width: 350px;
+                        border: 1px #CCC solid;
+                    }
+                    .d-content table{
+                        width: 100%;
+                        color:#666
+                    }
+                    .d-content .notice{
+                        margin-left: 10px;
+                        color: #315AAA;
+                    }
+                    .d-content table tr{
+                        height: 35px;
+                    }
+                    .d-content table th{
+                        width: 80px;
+                    }
+                    .d-content table select{
+                        width: 120px;
+                        height: 25px;
+                        border: 1px #CCC solid;
+                        background: none;
+                    }
+                    .d-content table textarea{
+                        width: 250px;
+                        height: 75px;
+                        border: 1px #CCC solid;
+                    }

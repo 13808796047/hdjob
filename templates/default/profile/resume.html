@@ -1,0 +1,56 @@
+{include file="__TPL__/profile/public.html" /}
+<div id="ui-opt-area">
+    <div id="new-resume">
+        <h2 class="data-title">我的简历</h2>
+        <table class="table-list">
+            <tr class="table-list-header">
+                <th>简历名称</th>
+                <th>简历风格</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th width="20%">编辑</th>
+            </tr>
+            {if value="$resumes|empty"}
+            <tr>
+                <td colspan="5"><div>还没有简历，赶快<a href="__CONTROL__/createNewRes">创建</a>一份吧。</div></td>
+            </tr>
+            {/if}
+            {foreach from="$resumes" value="$resume"}
+            <tr>
+                <td>{$resume.resume_name}</td>
+                <td>{$resume.style_name}</td>
+                <td>{$resume.created|date:'Y-m-d',@@}</td>
+                <td>{$resume.updated|date:'Y-m-d H:i:s',@@}</td>
+                <td>
+                    <a href="__CONTROL__/refreshResume/id/{$resume.resume_id}">刷新</a> |
+                    <a href="__CONTROL__/editResume/id/{$resume.resume_id}">编辑</a> | <a href="{$resume.resume_id}" class="del-resume">删除</a> | <a href="__CONTROL__/viewResume/id/{$resume.resume_id}" target="__blank">预览</a></td>
+            </tr>
+            {/foreach}
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="2">
+                    <div class="page-list">{$page}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<!--/个人主页--> 
+<!--公共底部信息--> 
+<!--/公共底部信息-->
+<script type="text/javascript">
+    $('.del-resume').click(function(){
+        var _obj=$(this).parents('tr');
+        if(confirm('确认删除此简历？删除后不可回复。')){
+        $.post('__CONTROL__/del',{'id':$(this).attr('href')},function(data){
+            if(data==1){
+                _obj.fadeOut();
+            }
+        },'html');
+        }
+        return false;
+    });
+</script>
+{include file="__TPL__/footer.html" /}

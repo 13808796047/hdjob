@@ -1,0 +1,590 @@
+﻿#top {
+	width: 1000px;
+	height: 70px;
+	margin: 5px auto;
+}
+#top #logo {
+	display: block;
+	width: 217px;
+	float: left;
+}
+#top #top-ads {
+	width: 650px;
+	height: 63px;
+	float: left;
+	margin-left: 120px;
+}
+#top #top-ads img {
+	float: right;
+	margin-left: 20px;
+}
+#nav {
+	width: 1000px;
+	height: 38px;
+	line-height: 38px;
+	margin: 0px auto;
+	background: url(../images/nav-bg.gif) repeat-x;
+}
+#nav .fn-left {
+	width: 4px;
+	height: 38px;
+	background: url(../images/nav-left.gif) no-repeat left;
+}
+#nav li {
+	float: left;
+	padding-left: 35px;
+}
+#nav .nav-list {
+	width: 965px;
+	height: 38px;
+	float: left;
+}
+#nav .nav-list li a {
+	font-size: 15px;
+	color: #FFF;
+	font-weight: bold;
+}
+#nav #nav-help {
+	float: right;
+}
+#nav #nav-help a {
+	margin-left: 3px;
+	padding: 8px 12px;
+	font-weight: bold;
+	color: #006600;
+	background-color: #ffff99;
+	border-radius: 3px;
+}
+#nav .fn-right {
+	width: 4px;
+	height: 38px;
+	background: url(../images/nav-right.gif) no-repeat right;
+}
+#banner {
+	width: 1000px;
+	height: 210px;
+	margin: 0px auto;
+	background: url(../images/top-ads-b.png) repeat-x left bottom;
+}
+#banner #login-panel {
+	width: 219px;
+	height: 201px;
+	float: left;
+}
+#login-panel{
+	background:url(../images/loginbg.png) repeat-y right top #E3EDF7;
+}
+#login-panel .error{
+	color:#F33;
+}
+#login-panel #login-bottom{
+	clear:both;
+	width:202px;
+	height:31px;
+	background:url(../images/login-bottom.gif) no-repeat;
+	margin:0px 8px 0px;
+}
+#login-panel #login-bottom a{
+	display:block;
+	float:left;
+	width:101px;
+	height:31px;
+}
+#login-head{
+	color:#555555;
+	font-size:14px;
+	font-weight:bold;
+	padding:5px 10px;
+}
+#login-panel .input-bar input{
+	color:#6D6D6D;
+	width:192px;
+	height:27px;
+	line-height:27px;
+	padding-left:8px;
+	border:1px #a5bbe9 solid;
+	margin:0px 8px 5px;
+}
+#login-input .validate-bar{
+	height:27px;
+	padding-left:8px;
+	margin-bottom:5px;
+}
+#login-input .validate-bar input{
+	display:block;
+	float:left;
+	color:#6D6D6D;
+	width:92px;
+	height:27px;
+	line-height:27px;
+	padding-left:8px;
+	border:1px #a5bbe9 solid;
+}
+#login-input .validate-bar img{
+	display:block;
+	float:left;
+	margin-left:8px;
+}
+#login-input .login-bar{
+	clear:both;
+}
+#login-input .login-bar a{
+	color:#315aaa;
+}
+#login-input .login-button{
+	width:73px;
+	height:25px;
+	background:url(../images/ti.png) no-repeat -80px -153px;
+	border:none;
+	margin:0px 8px 5px;
+	float:left;
+	cursor:pointer;
+}
+#login-input .login-bar .checkbox{
+	float:left;
+	height:15px;
+	padding:5px 0px;
+}
+#banner #banner-right {
+	width: 765px;
+	height: 210px;
+	padding-left: 5px;
+	float: right;
+}
+#city-list {
+	width: 768px;
+}
+#city-list span {
+	display: block;
+	width: 52px;
+	line-height: 28px;
+	color: #666;
+	float: left;
+	font-size: 13px;
+}
+#city-list li {
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	margin-left: 10px;
+	letter-spacing: 0.2em;
+}
+#city-list .city-active a {
+	background-color: #427FD8;
+	font-weight: bold;
+	padding: 4px 6px;
+	color: #FFF;
+}
+#city-more a {
+	float: left;
+}
+#city-more span {
+	display: block;
+	width: 15px;
+	height: 10px;
+	margin-top: 12px;
+	background: url(../images/ti.png) no-repeat -137px -15px;
+}
+#city-list li a {
+	color: #315AAA;
+}
+#search-area {
+	border: 1px #ccc solid;
+	width: 759px;
+	height: 95px;
+}
+#search-l {
+	width: 410px;
+	height: 50px;
+	float: left;
+	padding: 10px 15px;
+}
+#input-area {
+	display: block;
+	width: 420px;
+	height: 40px;
+	background-color: #E9E9E9;
+}
+#input-area .input-word {
+	width: 322px;
+	padding-top: 6px;
+	padding-bottom: 5px;
+        padding-left: 18px;
+	color: #666;
+	margin-left: 4px;
+	margin-top: 3px;
+	float: left;
+	border: 1px #F60 solid;
+	background:#FFF url(../images/search-bg.png) no-repeat 2px center;
+}
+#input-area .search-img {
+	display: block;
+	margin-top: 3px;
+	float: left;
+	border: none;
+	width: 70px;
+	height: 31px;
+	margin-left: -1px;
+	background: url('../images/search-button.gif') no-repeat;
+}
+#hot-keyword {
+	display: block;
+	margin-top: 14px;
+	color: #666;
+}
+#search-l #hot-keyword a {
+	color: #666;
+	margin-left: 7px;
+}
+#search-l #hot-keyword .hot {
+	color: #F00;
+}
+#search-r {
+	width: 220px;
+	height: 70px;
+	float: left;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+#search-r .search-type {
+	border: 1px #F2D6BD solid;
+	height: 30px;
+	margin-bottom: 10px;
+	padding-left: 15px;
+	border-radius: 2px;
+}
+#search-r .search-type a {
+	display: block;
+	float: left;
+	line-height: 30px;
+	color: #F60;
+	width: 95px;
+}
+#top-ads {
+	height: 62px;
+	margin-top: 10px;
+}
+#top-ads a {
+	color: #315aaa;
+}
+#top-ads dl {
+	height: 65px;
+}
+#top-ads dl dt {
+	display: block;
+	width: 17px;
+	height: 65px;
+	float: left;
+}
+#top-ads dl dd {
+	display: block;
+	width: 220px;
+	height: 62px;
+	overflow: hidden;
+	float: left;
+}
+#top-ads #houdun-service a {
+	display: block;
+	width: 90px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	float: left;
+	border: 1px #E3EDF7 solid;
+	border-radius: 2px;
+	margin: 2px;
+}
+#top-ads #houdun-service a:hover{
+	background: #E3EDF7;
+	text-decoration: none;
+}
+#top-ads #houdun-service-b {
+	background: url(../images/ti.png) no-repeat -1px -138px;
+}
+#top-ads #fast-news-b {
+	background: url(../images/ti.png) no-repeat -27px -138px;
+}
+#top-ads #hot-recruit-b {
+	background: url(../images/ti.png) no-repeat -55px -138px;
+}
+#top-ads .top-ads-list li {
+	padding-left: 10px;
+	height: 20px;
+	line-height: 20px;
+	background: url(../images/ti.png) no-repeat -144px -40px;
+}
+#banner-ads {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	margin: 0px auto 10px;
+}
+#banner-ads ul {
+	width: 1009px;
+	height: auto;
+	overflow: hidden;
+	margin-right: -9px;
+}
+#banner-ads .pic-list {
+	float: left;
+	width: 324px;
+	height: 55px;
+	margin-top: 5px;
+	margin-right: 9px;
+	z-index:-10;
+}
+#banner-ads li img {
+	border: 1px solid #8C8481;
+}
+#hot-job-ads {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	margin: 0px auto;
+}
+#hot-job-ads ul {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	background: url(../images/hot-jobs_bg.png);
+}
+#hot-job-ads div {
+	height: 39px;
+	background: url(../images/ti.png) repeat-x 0px -89px;
+}
+#hot-job-ads h2 {
+	display: block;
+	width: 118px;
+	height: 39px;
+	background: url(../images/ti.png) no-repeat 0px -40px;
+}
+#hot-job-ads li {
+	float: left;
+	width: 314px;
+	height: 26px;
+	padding-left: 18px;
+	line-height: 26px;
+	background: url(../images/ti.png) no-repeat -138px -38px;
+}
+#hot-job-ads li a {
+	display: block;
+	float: left;
+	width: 200px;
+	color: #AD3251;
+	overflow: hidden;
+}
+#hot-job-ads li span {
+	display: block;
+	overflow: hidden;
+	width: 100px;
+	float: left;
+}
+#hot-job-ads li span a {
+	color: #565656;
+}
+#urgent-ads {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	margin: 10px auto;
+}
+#urgent-ads ul {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+}
+#urgent-ads li {
+	float: left;
+	border: 1px solid #8C8481;
+	margin-top: 5px;
+	margin-right: 8px;
+	padding: 3px;
+}
+#urgent-ads div {
+	height: 35px;
+	background: url(../images/ti.png) repeat-x 0px -89px;
+	border-bottom: 2px #e7a3ba solid;
+}
+#urgent-ads p {
+	text-align: center;
+}
+#urgent-ads h2 {
+	display: block;
+	width: 118px;
+	height: 35px;
+	background: url(../images/ti.png) no-repeat 0px 0px;
+}
+#update-resume {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	margin: 10px auto;
+}
+#update-resume #resume-list {
+	width: 695px;
+	height: auto;
+	overflow: hidden;
+	float: left;
+	margin-right: 10px;
+	border: 1px #D5D5D5 solid;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+#update-resume #resume-list li {
+	width: 313px;
+	height: 25px;
+	padding-left: 12px;
+	float: left;
+	background: url(../images/ti.png) no-repeat -130px -56px;
+	color: #666;
+}
+#update-resume #resume-list div {
+	height: 36px;
+	line-height: 36px;
+	border-bottom: 1px #D5D5D5 solid;
+}
+#update-resume #resume-list div span {
+	float: left;
+	font-size: 15px;
+	padding-left: 15px;
+	font-weight: bold;
+	color: #F60;
+	letter-spacing: 0.1em;
+}
+#update-resume #resume-list div a {
+	float: right;
+	margin-right: 10px;
+	color: #4D4D4D;
+}
+#update-resume #resume-list ul a {
+	color: #06C;
+	margin-right: 10px;
+}
+#update-resume #resume-list ul span a {
+	color: #F60;
+	margin-left: 10px;
+}
+#update-resume #image-resume {
+	float: left;
+	width: 290px;
+	height: auto;
+	overflow: hidden;
+}
+#update-resume #image-resume dt {
+	display: block;
+	width: 290px;
+	height: 35px;
+	line-height: 35px;
+	background: url(../images/pic-resume-bg.gif) repeat-x;
+	color: #FFF;
+	font-weight: bold;
+}
+#update-resume #image-resume dt span {
+	display: block;
+	height: 35px;
+	background: url(../images/pic-resume-l.gif) no-repeat left;
+	float: left;
+	padding-left: 10px;
+}
+#update-resume #image-resume dt a {
+	color: #FFF;
+	font-weight: bold;
+	display: block;
+	width: 50px;
+	height: 35px;
+	background: url(../images/pic-resume-r.gif) no-repeat right;
+	float: right;
+}
+#update-resume #image-resume dd {
+	border-left: 1px #8cdeb4 solid;
+	border-right: 1px #8cdeb4 solid;
+	border-bottom: 1px #8cdeb4 solid;
+}
+#update-resume #image-resume dd li {
+	clear: both;
+	height: 75px;
+	background: url(../images/pic-resume-list.gif) repeat-x;
+}
+#update-resume #image-resume dd li img {
+	display: block;
+	width: 56px;
+	height: 55px;
+	float: left;
+	margin: 7px 8px;
+	padding: 2px;
+	border: 1px #CCC solid;
+}
+#update-resume #image-resume dd li div {
+	float: left;
+	height: 55px;
+	margin: 8px 0px;
+	width: 200px;
+	font-size: 12px;
+}
+#update-resume #image-resume dd li div p {
+	padding: 1px 2px;
+}
+#image-resume dd li div {
+	color: #808080;
+}
+#image-resume dd li div span, span a {
+	color: #2c8c77;
+}
+#link {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	margin: 0px auto;
+}
+#copy {
+	width: 1000px;
+	height: auto;
+	overflow: hidden;
+	margin: 0px auto;
+	background: #f4f3f3;
+	border: 1px #e4e4e4 solid;
+}
+#copy #shortcut-link dl {
+	float: left;
+	margin-left: 30px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 141px;
+	height: auto;
+	overflow: hidden;
+}
+#copy dt, h2 {
+	font-size: 14px;
+	font-weight: bold;
+}
+#copy #shortcut-link dd li {
+	margin: 10px 2px;
+}
+#copy #shortcut-link dd a {
+	color: #666;
+}
+#tel-area {
+	width: 200px;
+	height: 200px;
+	margin-top: 20px;
+	float: left;
+	border-left: 1px #e4e4e4 solid;
+}
+#tel-area #tel {
+	width: 57px;
+	height: 200px;
+	float: left;
+	margin-left: 10px;
+	background: url(../images/tel.gif) no-repeat left top;
+}
+#tel-area #tel-list {
+	float: left;
+	margin-left: 17px;
+}
+#tel-list p {
+	color: #666;
+	padding: 2px 2px;
+}
+#copy-bottom{width: 100%;height:53px;background: #333;}
+#copy-bottom div{height: 33px;margin: 0 auto;background: url(../images/logo_bottom.gif) no-repeat;padding: 10px 0;}
+#copy-bottom div p{height: 33px;line-height: 33px;color: #fff;margin-left: 250px;}

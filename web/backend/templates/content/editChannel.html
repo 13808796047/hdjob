@@ -1,0 +1,126 @@
+<div class="tabs">
+<ul>
+	<li><a href="#tab-1">栏目信息</a></li>
+	<li><a href="#tab-4">生成HTML</a></li>
+	<li><a href="#tab-3">模板设置</a></li>
+	<li><a href="#tab-2">SEO设置</a></li>
+</ul>
+<div id="tab-1" class="well" >
+	<form id="edit-form" action="__METH__/id/{$hd.get.id}" method="post" validate="true">
+	<table>
+		<tr>
+			<th>父级栏目：</th>
+			<td>
+				<select name="pid" id="pid" validate="{required:true}" select="{$channel.pid}">
+					<option value="">请选择</option>
+					<option value="0">顶级栏目</option>
+					{foreach from="$channels" value="$value"}
+						<?php $stepN=substr_count($value['path'],',');?>
+						<?php if($stepN==0):?>
+						<option value="{$value.id}">├─{$value.title}</option>
+						<?php else:?>
+						<option value="{$value.id}"><?php echo str_repeat('&nbsp;&nbsp;', $stepN*2);?>└─{$value.title}</option>
+						<?php endif;?>
+					{/foreach}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>标题：</th>
+			<td><input type="text" name="title" validate="{required:true}" value="{$channel.title}" /></td>
+		</tr>
+		<tr>
+			<th>目录名称：</th>
+			<td><input type="text" name="pinyin" validate="{required:true}" class="input-medium"  value="{$channel.pinyin}" /></td>
+		</tr>
+		<tr>
+			<th>栏目类型：</th>
+			<td class="c-type">{if value="$channel.type==2"} <input type="hidden" name="type" value="2"> 单网页{else /}分类栏目{/if}</td>
+		</tr>
+		<tr>
+			<th>排序：</th>
+			<td><input type="text" name="sort" class="input-mini"  value="{$channel.sort}" /></td>
+		</tr>
+		<tr>
+			<th>状态：</th>
+			<td><label class="radio pull-left" style="margin-right: 35px;"><input type="radio" name="state" checked="checked" value="1" id="" />开启</label><label class="radio"><input type="radio" name="state" value="0" {if value="$channel.state==0"}checked="checked"{/if} />关闭</label></td>
+		</tr>
+	</table>
+</div>
+<div id="tab-4">
+<table width="100%">
+	<!-- <tr>
+		<th width="40%">栏目生成html：</th>
+		<td>
+			<label class="radio pull-left" style="margin-right: 35px;"><input type="radio" name="setting[cate_html]" checked="checked" value="1" id="" />生成</label>
+			<label class="radio"><input type="radio" name="setting[cate_html]" {if value="$channel.setting.cate_html==0"} checked="" {/if} value="0" />不生成</label></td>
+	</tr> -->
+	<tr>
+		<th>内容页生成html：</th>
+		<td>
+			<label class="radio pull-left" style="margin-right: 35px;"><input type="radio" name="setting[con_html]" checked="checked" value="1" id="" />生成</label>
+			<label class="radio"><input type="radio" name="setting[con_html]" {if value="$channel.setting.con_html==0"} checked="" {/if} value="0" />不生成</label></td>
+	</tr>
+</table>
+</div>
+<div id="tab-3">
+<table>
+	<tr>
+		<th>风格：</th>
+		<td>
+			<select name="style" class="style" validate="{required:true}" select="{$channel.style}">
+				<option value="">请选择</option>
+				{foreach from="$tpl" value="$value"}
+				<option value="{$value.dirname}">{$value.name}</option>
+				{/foreach}
+			</select>
+		</td>
+	</tr>
+	{if value="$channel.type==1"}
+	<tr class="cate-tpl">
+		<th>栏目首页模板：</th>
+		<td>
+			<select name="index_tpl" class="index_tpl" validate="{required:true}" select="{$channel.index_tpl}">{$tpl_s.index}</select>
+		</td>
+	</tr>
+	<tr class="cate-tpl">
+		<th>列表页模板：</th>
+		<td>
+			<select name="list_tpl" class="list_tpl" validate="{required:true}" select="{$channel.list_tpl}">{$tpl_s.list}</select>
+		</td>
+	</tr>
+	<tr class="cate-tpl">
+		<th>内容页模板：</th>
+		<td>
+			<select name="con_tpl" class="con_tpl" validate="{required:true}" select="{$channel.con_tpl}">{$tpl_s.content}</select>
+		</td>
+	</tr>
+	{else /}
+	<tr class="page-tpl">
+		<th>单页模板：</th>
+		<td>
+			<select name="index_tpl" class="pg_tpl" validate="{required:true}" select="{$channel.index_tpl}">{$tpl_s.page}</select>
+		</td>
+	</tr>
+	{/if}
+</table>
+</div>
+<div id="tab-2">
+	<table>
+		<tr>
+			<th>关键字：</th>
+			<td><input type="text" name="seo_keyword" class="input-xlarge"  value="{$channel.seo_keyword}" /></td>
+		</tr>
+		<tr>
+			<th>描述：</th>
+			<td><textarea name="seo_desc" rows="3" class="input-xlarge"  value="{$channel.seo_desc}"></textarea></td>
+		</tr>
+	</table>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$("select[select]").each(function(e,obj){
+		$(this).val($(this).attr('select'));
+	})
+</script>

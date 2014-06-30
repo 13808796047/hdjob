@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {css file="alice" /}
+    {css file="__TPL__/css/company.css" /}
+    {css file="__TPL__/css/common.css" /}
+  </head>
+  <body>
+     {load file="__TPL__/company/company_top.html" /}
+      <div id="content">
+            <!--opt-->
+            <div id="opt">
+                <div id="opt-menu">
+                    <dl>
+                        <dt>职位管理</dt>
+                        <dd><a href="__CONTROL__">管理中心</a></dd>
+                        <dd><a href="__CONTROL__/issueRecruit.html">发布职位</a></dd>
+                        <dd><a href="__CONTROL__/recruit.html">职位管理</a></dd>
+                        <dt>企业推广</dt>
+                        <dd><a href="__APP__/company/template.html">企业模板</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/5.html">职位置顶</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/2.html">紧急招聘</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/1.html">推荐职位</a></dd>
+                        <dd><a href="__APP__/company/addSpread/cate/6.html">职位变色</a></dd>
+                        <dt>企业资料</dt>
+                        <dd><a href="__APP__/company/data">企业资料</a></dd>
+                        <dd><a href="__APP__/company/account">账户管理</a></dd>
+                        <dd><a href="__APP__/company/optLog">操作日志</a></dd>
+                    </dl>
+                </div>
+                <!--opt-area-->
+                <div id="opt-area">
+                    <h2 class="data-title">简历收藏列表</h2>
+                    <table class="table-list">
+                        <tr class="table-list-header">
+                        	<th width="5%"></th>
+                            <th>简历名称</th>
+                            <th>创建者</th>
+                            <th >收藏时间</th>
+                        </tr>
+                        {foreach from="$favorites" value="$favorite"}
+                        <tr>
+                        	<td><label><input type="checkbox" name="id" value="{$favorite.id}"></label></td>
+                            <td>{$favorite.job_name}</td>
+                            <td>{$favorite.company_name}</td>
+                            <td>{$favorite.created|date:'Y-m-d H:i:s',@@}</td>
+                        </tr>
+                        {/foreach}
+                        <tr class="ui-func">
+                        	<td><label><input type="checkbox" class="select-all"></label></td>
+                        	<td>
+                        		<div class="opt-tool">
+                            		<a href="###" class="opt" action="del-fav">删除选中收藏</a>
+                        		</div>
+                    		</td>
+                              <td colspan="2"><div class="page-list">{$page}</div></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--/opt-area-->
+            </div>
+        </div>
+<script type="text/javascript">
+    var url='__CONTROL__/';
+</script>
+{js file="jquery" /}
+{js file="__TPL__/js/company.js" /}
+{load file="__TPL__/footer.html" /}

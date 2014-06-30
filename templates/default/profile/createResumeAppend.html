@@ -1,0 +1,51 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+<div id="ui-opt-area">
+    <div id="new-resume-nav" class="fn-clear tabs-nav">
+        <ul>
+            <li> 1 基本情况</li>
+            <li> 2 教育与工作</li>
+            <li class="tabs-nav-active"> 3 附加信息</li>
+        </ul>
+    </div>
+    <div id="new-resume">
+        {hd_field model="8"}
+        <input type="hidden" name="resume_id" value="{$hd.get.resume_id}" />
+        <table class="table-form">
+                <tr>
+                    <th></th>
+                    <td><button class="btn btn-large btn-green" />提交</button>
+                </tr>
+        </table>
+        {/hd_field}
+    </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $('select[name="title"]').change(function(){
+        if($(this).val()=='其他'){
+            if($(this).next('input').length==0){
+                $(this).after('<input type="text" class="append-title" name="title" id="" />');
+            }else{
+                $(this).next().show();
+            }
+        }else{
+            $(this).next().hide();
+        }
+    });
+</script>
+<style type="text/css">
+    #new-resume select{
+        width: 100px;
+        height:27px;
+    }
+    .append-title{
+        margin: 7px;
+    }
+</style>
+<!--/个人主页--> 
+<!--公共底部信息--> 
+<!--/公共底部信息-->
+{include file="footer.html"}

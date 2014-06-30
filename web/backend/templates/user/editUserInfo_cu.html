@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	{css file="bootstrap" /}
+    {css file="__TPL__/css/public.css"}
+    {css file="jqueryUI.bootstrap" /}
+    {jquery /}
+    {js file="jqueryUI"}
+</head>
+<body>
+	<div class="user-info">
+	<?php
+		$data=new data('recruit');
+        $userinfo=$data->convert($userinfo);
+	?>
+		<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">账户信息</a></li>
+				<li><a href="#tabs-2">用户资料</a></li>
+			</ul>
+			<div id="tabs-1">
+				<table class="table">
+					<tr>
+						<th>用户ID</th>
+						<td>{$userinfo.uid}</td>
+					</tr>
+					<tr>
+						<th>用户名</th>
+						<td>{$userinfo.email}</td>
+					</tr>
+					<tr>
+						<th>创建时间</th>
+						<td>{$userinfo.created|date:'Y-m-d H:i:s',@@}</td>
+					</tr>
+					<tr>
+						<th>用户积分</th>
+						<td> <span class="success">{$userinfo.point}</span></td>
+					</tr>
+					<tr>
+						<th>最后登录</th>
+						<td>{$userinfo.last_login|date:'Y-m-d H:i:s',@@}</td>
+					</tr>
+					<tr>
+						<th>登录IP</th>
+						<td>{$userinfo.last_ip}</td>
+					</tr>
+					<tr>
+						<th>Email</th>
+						<td>{$userinfo.email}{if value="$userinfo.email_verify"}<span class="success">已认证</span>{/if}</td>
+					</tr>
+					{if value="$userinfo.banned"}
+						<tr>
+							<th>禁止</th>
+							<td><span class="warning">账户已禁止：</span> <span class="tips">{$userinfo.ban_reason}</span></td>
+						</tr>
+					{/if}
+				</table>
+			</div>
+			<div id="tabs-2">
+				<table class="table">
+					<tr>
+						<th>企业名称</th>
+						<td>{$userinfo.name}</td>
+					</tr>
+					<tr>
+						<th>企业地址</th>
+						<td>{$userinfo.address}</td>
+					</tr>
+					<tr>
+						<th>企业行业</th>
+						<td>{$userinfo.company_industry}</td>
+					</tr>
+					<tr>
+						<th>企业性质</th>
+						<td>{$userinfo.company_property}</td>
+					</tr>
+					<tr>
+						<th>企业规模</th>
+						<td>{$userinfo.company_scope}</td>
+					</tr>
+					<tr>
+						<th>企业描述</th>
+						<td>{$userinfo.desc}</td>
+					</tr>
+					{if value="!$userinfo.logo|empty"}
+					<tr>
+						<th>企业logo</th>
+						<td><img src="__ROOT__/{$userinfo.logo}" alt=""></td>
+					</tr>
+					{/if}
+					<tr>
+						<th>认证</th>
+						<td>{if value="$userinfo.license_verify==1"} <span class="success">执照已认证</span>{elseif value="$userinfo.license_verify==2"} <span class="warning">执照认证中</span> {else}<span class="warning">执照未上传</span> {/if}</td>
+					</tr>
+					{if value="!$userinfo.license|empty"}
+					<tr>
+						<th>企业执照</th>
+						<td><img width="320px" src="__ROOT__/{$userinfo.license}" alt=""></td>
+					</tr>
+					{/if}
+				</table>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('#tabs').tabs();
+	</script>
+</body>
+</html>

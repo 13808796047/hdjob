@@ -1,0 +1,60 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_13399b8ece41511b1ed0e43c1ae424a9 = Array
+	(
+	0=>Array
+		(
+		'field'=>'laid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'title',
+		'type'=>'varchar(100)',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'pid',
+		'type'=>'int(11)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'0',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'path',
+		'type'=>'varchar(50)',
+		'null'=>'YES',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'sort',
+		'type'=>'mediumint(8) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'0',
+		'extra'=>''
+		),
+	5=>Array
+		(
+		'field'=>'lcgid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		)
+	);
+?>

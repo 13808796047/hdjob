@@ -1,0 +1,25 @@
+#page{
+	width: 900px;
+	margin: 20px auto;
+}
+#page .nav{
+	width: 200px;
+	float: left;
+	margin-right: 20px;
+	padding-top: 40px;
+	background: url('../images/about_left.png') no-repeat right top;
+}
+#page .nav li{
+	text-align: center;
+	height: 35px;
+	background: url('../images/about_left_bg.png');
+}
+#page .nav li a{
+	color: #6F6F6F;
+	font-size: 15px;
+}
+#page .content{
+	width: 630px;
+	float: left;
+	padding-top: 27px;
+}

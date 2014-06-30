@@ -1,0 +1,18 @@
+{foreach from="$menu_data" value="$menu"}
+<li>
+<span><a href="">{$menu.menu_name}</a></span>
+<ul class="son">
+	{foreach from="$menu['three_menu']" value="$three_menu"}
+	<li><a href="__WEB__/{$three_menu.app}/{$three_menu.control}/{$three_menu.method}{$three_menu.query_string}" target="opt">{$three_menu.menu_name}</a></li>
+	{/foreach}
+</ul>
+</li>
+<li>
+{/foreach}
+<script type="text/javascript">
+	$('#menu .son a').hover(function(){
+        $(this).addClass('son-hover');
+      },function(){
+        $(this).removeClass('son-hover');
+      });
+</script>

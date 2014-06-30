@@ -1,0 +1,67 @@
+{load file="__TPL__/company/company_top.html" /}
+{css file="__TPL__/css/company_account.css" /}
+<div id="content">
+<!--opt-->
+<div id="opt">
+<!--menu-->
+<div id="opt-menu">
+    <dl>
+        <dt>职位管理</dt>
+        <dd><a href="__CONTROL__">管理中心</a></dd>
+        <dd><a href="__CONTROL__/issueRecruit.html">发布职位</a></dd>
+        <dd><a href="__CONTROL__/recruit.html">职位管理</a></dd>
+        <dd><a href="__CONTROL__/recruit">简历搜索</a></dd>
+        <dd><a href="__CONTROL__/receiveApply">收到的职位申请</a></dd>
+        <dt>企业推广</dt>
+        <dd><a href="__APP__/company/template.html">企业模板</a></dd>
+        <dd><a href="__APP__/company/addSpread/cate/5.html">职位置顶</a></dd>
+        <dd><a href="__APP__/company/addSpread/cate/2.html">紧急招聘</a></dd>
+        <dd><a href="__APP__/company/addSpread/cate/1.html">推荐职位</a></dd>
+        <dd><a href="__APP__/company/addSpread/cate/6.html">职位变色</a></dd>
+        <dt>企业资料</dt>
+        <dd><a href="__METH__" class="view-data">企业资料</a></dd>
+        <dd><a href="__APP__/index/company/id/{$hd.session.uid}" class="view-data">企业首页</a></dd>
+        <dd><a href="__APP__/company/proAuth" class="view-data">邮箱认证</a></dd>
+    </dl>
+</div>
+<!--/menu-->
+<!--opt-area-->
+<div id="opt-area">
+   <div class="tabs-nav">
+        <ul>
+            <li><a href="__CONTROL__/account">营业执照</a></li>
+            <li class="tabs-nav-active"><a href="__CONTROL__/logo">企业LOGO</a></li>
+            <li><a href="__CONTROL__/proAuth">Email认证</a></li>
+            <li><a href="__CONTROL__/password">修改密码</a></li>
+        </ul>
+        <div class="fn-clear"></div>
+    </div>
+    <div id="account-set" class="logo">
+         <form action="__METH__" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td rowspan="3" width="30%">
+                    {if value="$info.logo==''"}
+                    <img src="__TPL__/images/no_photo.gif" alt="" />
+                    {else /}
+                    <img src="__ROOT__/{$info.logo}" alt="企业logo" />
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <th>上传：</th>
+                <td><input type="file" name="logo" style="border:none;"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><button type="submit" class="btn">修改LOGO</button></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</div>
+<!--/opt-area--> 
+</div>
+<!--/opt--> 
+</div>
+{include file="__TPL__/footer.html" /}

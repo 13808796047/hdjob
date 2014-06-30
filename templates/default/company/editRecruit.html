@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{$hd.config.web_name}-Powered by 后盾网</title>
+        {hd_seo /}
+        {css file="alice" /}
+        {css file="__TPL__/css/company-top.css" /}
+        {css file="__TPL__/css/company.css" /}
+        {js file="jquery" /}
+        {js file="datepicker" /}
+        {js file="jquery.validate" /}
+        <script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+        <script type="text/javascript">
+            var url='__ROOT__';
+        </script>
+        <style type="text/css">
+            #opt-area table th{
+                width: 100px;
+                text-align:right;
+                padding-right: 10px;
+                font-size:13px;
+            }
+            #opt-area table input{
+                height: 18px;
+                padding: 2px;
+                margin: 2px;
+                border:1px #CCCCFF solid;
+            }
+            #opt-area table select{
+                display:block;
+                float:left;
+                height: 27px;
+                margin: 2px;
+            }
+            #opt-area table label{
+                display: block;
+                height: 25px;
+                line-height:25px;
+                float:left;
+                margin-left:4px;
+            }
+            #opt-area table label input{
+                display: block;
+                float:left;
+                margin-top: 5px;
+            }
+            #opt-area .btn{
+                display:block;
+                height:27px;
+                padding: 5px 6px;
+                border-radius:5px;
+                cursor: pointer;
+            }
+            #opt-area .btn-primary{
+                background-color: #0074CC;
+                border:none;
+                color:#FFF;
+            }
+            select{
+                z-index: 90;
+            }
+        </style>
+    </head>
+    <body>
+        {load file="__TPL__/company/company_top.html" /}
+        <div id="content">
+            <!--opt-->
+            <div id="opt">
+                <div id="opt-menu">
+                    <dl>
+                        <dt>企业中心</dt>
+                        <dd><a href="#">招聘管理</a></dd>
+                        <dd><a href="#">发布职位</a></dd>
+                        <dd><a href="#">简历搜索</a></dd>
+                        <dd><a href="#">收到的职位申请</a></dd>
+                        <dt>企业资料</dt>
+                        <dd><a href="#" class="view-data">查看企业资料</a></dd>
+                        <dd><a href="#" class="edit-data">修改企业资料</a></dd>
+                    </dl>
+                </div>
+                <!--opt-area-->
+                <style>
+                    #opt-area .error{
+                        color: #F00;
+                    }
+                </style>
+                <div id="opt-area">
+                    {hd_field model="5" type="edit"}
+                    <input type="hidden" name="id" value="{$hd.get.id}" />
+                     <table class="table-form">
+                            <tr>
+                                <th></th>
+                                <td><button class="btn btn-large btn-green" />提交</button>
+                            </tr>
+                    </table>
+                    {/hd_field}
+                </div>
+                <!--/opt-area-->
+            </div>
+            <!--/opt--> 
+        </div>
+
+        <script>
+            $(function(){
+                $("input[name='issue_type']:eq(0)").click(function(){
+                    $("#start_time").val('').hide();
+                });
+                $("input[name='issue_type']:eq(1)").click(function(){
+                    $("#start_time").val('点击选择日期').show();
+                });
+                $("#company-data-form").validate();
+            })
+            $("#effective_time").keyup(function(){
+                var _day_nums=$(this).val();
+                $(this).next().html('有效期：<span style="color:#f60">'+_day_nums+'</span>天。 花费<span style="color:#f60">'+_day_nums+'</span>积分').show();
+            });
+        </script>
+    </body>
+</html>

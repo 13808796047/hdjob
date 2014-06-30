@@ -1,0 +1,60 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_de069b9c6ceba52695e595f2f3422a12 = Array
+	(
+	0=>Array
+		(
+		'field'=>'id',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'type',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'name',
+		'type'=>'varchar(20)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'state',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'dir_name',
+		'type'=>'varchar(20)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	5=>Array
+		(
+		'field'=>'point',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		)
+	);
+?>

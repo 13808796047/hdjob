@@ -1,0 +1,141 @@
+{load file="__TPL__/company/company_top.html" /}
+<script type="text/javascript">
+    var url='__ROOT__';
+</script>
+{js file="jquery" /}
+{js file="__ROOT__/caches/js/linkage_data.js" /}
+{js file="__ROOT__/public/js/linkage/linkage_style_2.js" /}
+{js file="__ROOT__/public/js/linkage/linkage_style_1.js" /}
+{css file="__ROOT__/public/js/artDialog/skins/blue.css" /}
+{js file="__ROOT__/public/js/artDialog/jquery.artDialog.min.js" /}
+<div id="content">
+<!--opt-->
+<div id="opt">
+<div id="opt-menu">
+<dl>
+    <dt>企业资料</dt>
+    <dd><a href="__METH__" class="view-data">企业资料</a></dd>
+    <dd><a href="__APP__/index/company/id/{$hd.session.uid}" class="view-data">企业首页</a></dd>
+    <dt>企业中心</dt>
+    <dd><a href="__CONTROL__">管理中心</a></dd>
+    <dd><a href="__CONTROL__/recruit">招聘管理</a></dd>
+    <dd><a href="__CONTROL__/issueRecruit">发布职位</a></dd>
+    <dd><a href="__CONTROL__/recruit">简历搜索</a></dd>
+    <dd><a href="__CONTROL__/receiveApply">收到的职位申请</a></dd>
+    <dt>企业推广</dt>
+     <dd><a href="__APP__/company/template.html">企业模板</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/5.html">职位置顶</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/2.html">紧急招聘</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/1.html">推荐职位</a></dd>
+    <dd><a href="__APP__/company/addSpread/cate/6.html">职位变色</a></dd>
+</dl>
+</div>
+<!--opt-area-->
+<style>
+#opt-area .error{
+    color: #F00;
+}
+</style>
+
+<div id="opt-area">
+    <h2 class="data-title">企业资料</h2>
+<form id="company-data-form" validate="true" method="post" action="__METH__">
+<table class="table-list table-form">
+    <tr>
+        <th>公司名称</th>
+        <td><input type="text" name="name"  class="required" value="{$company.name}" /></td>
+        <td class="error"><span></span></td>
+    </tr>
+    <tr>
+        <th>公司行业</th>
+        <td>{linkage data="3" style="2" field="company_industry" checkbox="true" defaults="$company['company_industry']"}{/linkage}</td>
+        <td class="error"><span></span></td>
+    </tr>
+    <tr>
+    <th>公司类型</th>
+    <td>
+        <select name="company_property" class="input-medium" validate="{required:true}">
+            <option value="">请选择</option>
+            <?php
+                $recruit = include PATH_ROOT . '/caches/model/field/m_recruit.php';
+                $switch=$recruit['company_property']['data'];
+            ?>
+            {foreach from="$switch" key="$k" value="$v"}
+            {if value="$company.company_property==$k"}
+                <option value="{$k}" selected>{$v}</option>
+            {else /}
+                <option value="{$k}">{$v}</option>
+            {/if}
+            {/foreach}
+        </select>
+    </td>
+    <td class="error"><span></span></td>
+        </tr>
+        <tr>
+            <th>公司规模</th>
+            <td>
+                <select name="company_scope" class="input-medium" validate="{required:true}">
+                    <option value="">请选择</option>
+                    <?php $switch=$recruit['company_scope']['data'];?>
+                    {foreach from="$switch" key="$k" value="$v"}
+                    {if value="$company.company_scope==$k"}
+                    <option value="{$k}" selected>{$v}</option>
+                    {else /}
+                    <option value="{$k}">{$v}</option>
+                    {/if}
+                    {/foreach}
+                </select>
+            </td>
+            <td class="error"><span></span></td>
+        </tr>
+        <tr>
+            <th>公司描述</th>
+            <td>
+                <textarea name="desc" id="desc" rows="6" cols="20">{$company.desc}</textarea>
+            </td>
+            <td class="error"><span></span></td>
+        </tr>
+        <tr>
+            <th>公司位置</th>
+            <td>
+                {linkage data="city" field="address#city#town" style="1" attr='class="input-medium"' defaults="$company['address']#$company['city']#$company['town']"}
+                {/linkage}
+            </td>
+            <td class="error"><span></span></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="text" name="street" value="{$company.street}" /></td>
+            <td class="error"></td>
+        </tr>
+        <tr>
+            <th>联系人</th>
+            <td><input type="text" name="contact_person" class="required" value="{$company.contact_person}" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>联系电话（手机）</th>
+            <td><input type="text" name="contact_tel" value="{$company.contact_tel}" /></td>
+            <td class="error"><span></span></td>
+        </tr>
+
+        <tr>
+            <th>联系人Email</th>
+            <td><input type="text" name="link_email" value="{$company.link_email}" /></td>
+            <td class="error"><span></span></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><button id="confirm" class="btn" type="submit">确认修改</button></td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+</div>
+<!--/opt-area-->
+</div>
+<!--/opt--> 
+</div>
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+{include file="__TPL__/footer.html" /}

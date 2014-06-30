@@ -1,0 +1,96 @@
+<?php 
+  if(!defined('PATH_HD'))exit;
+$cache_65a19d7e1edee8067c8b518f1603f2f2 = Array
+	(
+	0=>Array
+		(
+		'field'=>'resume_id',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>1,
+		'default'=>'',
+		'extra'=>'auto_increment'
+		),
+	1=>Array
+		(
+		'field'=>'uid',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	2=>Array
+		(
+		'field'=>'resume_name',
+		'type'=>'varchar(20)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	3=>Array
+		(
+		'field'=>'style',
+		'type'=>'varchar(20)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	4=>Array
+		(
+		'field'=>'created',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	5=>Array
+		(
+		'field'=>'updated',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	6=>Array
+		(
+		'field'=>'avatar',
+		'type'=>'varchar(200)',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>'',
+		'extra'=>''
+		),
+	7=>Array
+		(
+		'field'=>'views',
+		'type'=>'int(10) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>1,
+		'extra'=>''
+		),
+	8=>Array
+		(
+		'field'=>'verify',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>1,
+		'extra'=>''
+		),
+	9=>Array
+		(
+		'field'=>'open',
+		'type'=>'tinyint(3) unsigned',
+		'null'=>'NO',
+		'key'=>'',
+		'default'=>1,
+		'extra'=>''
+		)
+	);
+?>

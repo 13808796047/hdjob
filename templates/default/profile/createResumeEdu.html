@@ -1,0 +1,36 @@
+{include file="__TPL__/profile/public.html" /}
+{js file="jquery.validate" /}
+<script type="text/javascript" src="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"></script>
+{js file="datepicker" /}
+<div id="ui-opt-area">
+    <div id="new-resume-nav" class="fn-clear tabs-nav">
+        <ul>
+            <li> 1 基本情况</li>
+            <li class="tabs-nav-active"> 2 教育与工作</li>
+            <li> 3 附加信息</li>
+        </ul>
+    </div>
+    <div id="new-resume">
+            <h2 class="data-title">最高教育信息</h2>
+        {hd_field model="7"}
+        {/hd_field}
+            <h2 class="data-title">工作经验</h2>
+        {hd_field model="12"}
+        <input type="hidden" name="resume_edu" id="resume_edu_v" /><input type="hidden" name="resume_id" value="{$hd.get.resume_id}" />
+        <table class="table-form">
+                <tr>
+                    <th></th>
+                    <td><button class="btn btn-large btn-green" id="save"  />提交</button>
+                </tr>
+            </table>  
+        {/hd_field}
+    </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $('#save').click(function(){
+        $('#resume_edu_v').val($('#new-resume form:eq(0)').serialize());
+    });
+</script>
+{include file="footer.html"}

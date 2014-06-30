@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {css file="bootstrap" /}
+        {css file="jqueryUI.bootstrap" /}
+        <!--[if IE]>
+            <link rel="stylesheet" type="text/css" href="__ROOT__/public/css/jqueryUI.bootstrap/jquery.ui.1.8.16.ie.css"/>
+        <![endif]-->
+        {js file="jquery" /}
+        {js file="jqueryUI" /}
+        {js file="jquery.validate" /}
+        {js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js" /}
+    </head>
+    <body>
+        <div id="linkage">
+            <ul>
+                <li><a href="#linkage_list">联动分类列表</a></li>
+                <li><a href="#add_linkage">添加联动分类</a></li>
+            </ul>
+            <div id="linkage_list">
+                <table class="table">
+                    <tr>
+                        <td colspan="3">
+                            <a href="__CONTROL__/updateLinkageJs" class="btn btn-success btn-mini" style="color:#FFF;"><i class="icon-refresh icon-white"></i>更新JS文件</a></td>
+                    </tr>
+                    <tr>
+                        <th width="5%">ID</th>
+                        <th width="30%">分类名</th>
+                        <th width="30%">操作</th>
+                    </tr>
+                    {foreach from="$linkage_cate" value="$cate"}
+                    <tr>
+                        <td>{$cate.lcgid}</td>
+                        <td>{$cate.cate_title}</td>
+                        <td>
+                            <a href="__CONTROL__/manageLinkageData/lcgid/{$cate.lcgid}/lcgname/{$cate.cate_title|urlencode}" class="btn btn-mini"><i class="icon-th-list"></i>管理</a>
+                            {if value="$cate.is_sys==1"}
+                            <a href="" title="系统数据，无法删除！" class="btn btn-mini" onclick="return false;"><i class="icon-trash"></i>删除</a>
+                            {else /}
+                            <a href="__CONTROL__/delLinkageCate/lcgid/{$cate.lcgid}" title="删除此分类" class="del_linkage_cate btn btn-mini btn-danger" style="color:#FFF;"><i class="icon-trash icon-white"></i>删除</a>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                </table>
+            </div>
+            <div id="add_linkage">
+                <form method="post" action="__CONTROL__/addLinkageCate" id="add_cate" class="form-search">
+                            <label for="cate_title">分类名</label>
+                            <input name="cate_title" id="cate_title" class="span3" type="text" validate="{required:true}" />&nbsp;&nbsp;<input name="add_cate" type="submit" value="添加分类" class="btn btn-primary" />
+                            <p class="help-block" style="padding:3px 45px;">字母，数字，汉字皆可</p>
+                </form>
+            </div>
+        </div>
+        <script>
+            $("#linkage").tabs();
+            $(".ui-table-list tr").hover(function(){
+                $(".ui-table-list tr").css({'backgroundColor':'#FFF'});
+                $(this).css({'backgroundColor':'#ddd'});
+            })
+            $(".del_linkage_cate").click(function(){
+                if(confirm('确认删除此条联动分类？\n同时会删除该分类下的所有数据')){
+                    return true;
+                }else{
+                    return false;
+                }
+            });
+            $("#add_cate").validate();
+        </script>
+    </body>
+</html>

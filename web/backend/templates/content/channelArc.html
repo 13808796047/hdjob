@@ -1,0 +1,97 @@
+{include file="__TPL__/header.html" /}
+<div class="arc-list">
+	<a href="__CONTROL__/addArc/cid/{$_GET['cid']}" target="opt" class="btn btn-success"><i class="icon-plus icon-white"></i>添加文章</a>
+	<!-- <a href="__CONTROL__/updateList/cid/{$_GET['cid']}">更新列表页</a> -->
+	<table class="table" style="margin-top:10px;">
+		<tr>
+			<th width="3%">ID</th>
+			<th width="4%"><input type="checkbox" class="select-all input-checkbox" /> </th>
+			<th>文章标题</th>
+			<th>更新时间</th>
+			<th>栏目</th>
+			<th>发布人</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+		{foreach from="$arcs" value="$value"}
+		<tr>
+			<td>{$value.id}</td>
+			<td><input type="checkbox" class="input-checkbox" name="arc-id" value="{$value.id}" /> </td>
+			<td>{$value.title}</td>
+			<td>{$value.updated|date:'Y/m/d H:i:s',@@}</td>
+			<td>{$value.channel_name}</td>
+			<td>{$value.username}</td>
+			<td>{if value="$value.state==1"} <span class="success">显示中</span>{else /} <span class="warning">已关闭</span> {/if}</td>
+			<td>
+				<a href="__CONTROL__/editArc/id/{$value.id}" target="_blank"><i class="icon-edit"></i>修改</a>
+				<a href="" class="del-item" type="item"><i class="icon-trash"></i>删除</a>
+				<a href="{$value.href}" target="_blank"><i class="icon-th-large"></i>预览</a>
+			</td>
+		</tr>
+		{/foreach}
+		<tr>
+			<td></td>
+			<td colspan="6">
+				<input type="checkbox" class="select-all input-checkbox" />&nbsp;&nbsp;&nbsp;
+				<a class="btn btn-mini del-item"><i class="icon-trash"></i>删除</a>&nbsp;&nbsp;
+				<a class="btn btn-mini btn-danger del-item" action="close"><i class="icon-trash icon-white"></i>关闭</a>
+				<a class="btn btn-mini btn-success del-item" action="enable"><i class="icon-trash icon-white"></i>开启</a>
+			</td>
+			<td>{$page}</td>
+		</tr>
+	</table>
+</div>
+		<script type="text/javascript">
+		$('.select-all').click(function(){
+			if($(this).attr('checked')){
+				$('.select-all').attr('checked',true);
+				$('input[name="arc-id"]').attr('checked',true);
+			}else{
+				$('.select-all').attr('checked',false);
+				$('input[name="arc-id"]').attr('checked',false);
+			}
+		});
+		$('.del-item').click(function(){
+			var _this=$(this);
+			if(_this.attr('type')=='item'){
+				_this.parents('tr').find(':checkbox').attr('checked',true);
+			}
+			var _id_array=[],
+			_id_obj=$('input[name="arc-id"]:checked'),
+			_url='__CONTROL__/delArc',
+			_msg_waring='请选中你要删除的文章！',
+			_msg_confirm='确认删除选中的文章？';
+			if($(this).attr('action')=='close'){
+				_url='__CONTROL__/closeArc';
+				_msg_waring='请选中你要关闭的文章！';
+				_msg_confirm='确认关闭选中的文章？';
+			}
+			if($(this).attr('action')=='enable'){
+				_url='__CONTROL__/enableArc';
+				_msg_waring='请选中你要开启的文章！';
+				_msg_confirm='确认开启选中的文章？';
+			}
+			if(_id_obj.length==0){
+				alert(_msg_waring);
+				return false;
+			}
+			if(confirm(_msg_confirm)){
+				_id_obj.each(function(){
+					_id_array.push($(this).val());
+				});
+				$.post(_url,{id:_id_array},function(data){
+					if(data==1){
+						if(_this.attr('action')){
+							window.location.reload();
+						}
+						_id_obj.parents('tr').fadeOut('slow',function(){
+							_id_obj.parents('tr').remove();//移除选中的节点
+						});
+					}
+				},'html');
+			}
+			return false;
+		});
+		</script>
+</body>
+</html>

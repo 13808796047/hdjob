@@ -1,0 +1,31 @@
+/* 
+    Document   : backend
+    Created on : 2012-6-23, 0:06:53
+    Author     : zhangbo
+    Description: 后盾人才系统后台主页样式
+*/
+#center .ui-left-menu{
+    float: left;
+    width: 150px;
+    border-right: 2px #7F5835 solid
+}
+#ui-left-menu .nav-list{
+    margin-top:10px;
+}
+#center .ui-left-menu .ui-two-level-menu{
+    font-size: 15px;
+    font-weight: bold;
+}
+#center .ui-opt-face{
+    float: left;
+}
+#center .ui-opt-face iframe{
+    display: block;
+    width: 100%;
+    border: none;
+    margin-top: 5px;
+}
+#center .ui-opt-face .page_bottom{
+    height: 60px;
+    color: red;
+}

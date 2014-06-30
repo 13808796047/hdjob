@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        {css file="alice" /}
+        {css file="__TPL__css/backend_public.css" /}
+        {js file="jquery" /}
+        {js file="jquery.validate" /}
+    </head>
+    <body>
+        <div id="add_linkage">
+            <form method="post" action="__METH__">
+                <table class="ui-table ui-form">
+                    <tr>
+                        <th><strong>联动数据分类</strong></th>
+                        <td>
+                            <select name="lcgid">
+                                {foreach from="$linkage_cate" value="$cate"}
+                                <option value="{$cate.lcgid}">{$cate.cate_title}</option>
+                                {/foreach}
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

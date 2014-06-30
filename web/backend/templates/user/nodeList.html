@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+{css file="bootstrap" /}
+{css file="jqueryUI.bootstrap" /}
+{css file="__TPL__/css/public.css" /}
+{jquery /}
+{js file="jqueryUI" /}
+{js file="jquery.validate" /}
+{js file="__ROOT__/public/js/jqueryValidate/jquery.metadata.js"}
+<style type="text/css">
+	dd{
+		float: left;
+		width: 252px;
+		background: #D4E2F0;
+        padding:2px 5px;
+        border-radius: 3px;
+        border: 1px #B2C1D2 solid;
+        margin-top: 6px;
+        margin-right: 6px;
+        margin-left: 10px;
+	}
+    dd .method-title{
+        height: 20px;
+        position: relative;
+    }
+    dd .method-title strong{
+        overflow: hidden;
+    }
+    dd .method-title span{
+        width: 90px;
+        position: absolute;
+        right: 0px;
+    }
+	dd:hover{
+		background: #EFF3F6;
+        cursor: pointer;
+	}
+    .disable{
+        border: 1px #f00 solid;
+    }
+    .app-item{
+    }
+    .control-item dt{
+        display: block;
+        color: #ED7A53;
+        border-radius: 2px;
+        font-weight: normal;
+    }
+    .control-item strong{
+        font-weight: normal;   
+    }
+    .control-item dt strong{
+        display: block;
+        width: 220px;
+        float: left;
+    }
+    .control-item dt span a{
+        color: #39C;
+    }
+	dd .node-path{
+        color: #999;
+        height: 20px;
+        overflow: hidden;
+	}
+</style>
+</head>
+<body style="padding:10px;">
+<div style="margin-bottom:10px;">
+    <a href="__CONTROL__/addApp"  class="btn btn-success add" type="app"><i class="icon-plus-sign icon-white"></i>添加应用</a>
+</div>
+<div>
+    {foreach from="$nodes" value="$app"}
+            <div class="app-item well" style="padding:8px;margin-bottom:8px;" title="{$app.des}">
+                <strong>{$app.title}({$app.name})</strong>
+                {if value="$app.name!='/'"}
+                <span c-id="{$app.nid}" c-title="{$app.title}" c-name="{$app.name}">
+                    <a href="###" class="add"><i class="icon-plus-sign"></i>添加控制器</a> 
+                    <a href="__CONTROL__/editNode/nid/{$app.nid}" class="edit"><i class="icon-edit"></i>编辑</a>
+                    <a href="###" class="del" type="app-item"><i class="icon-remove-sign"></i>删除</a>
+                </span>
+                {/if}
+            {foreach from="$app.son_data" value="$control"}
+                <dl class="control-item">
+                    <dt title="{$control.des}">
+                        <strong>{$control.title}({$control.name})</strong>
+                        <span c-id="{$control.nid}" c-title="{$control.title}" c-name="{$control.name}">
+                            <a href="###" class="add"><i class="icon-plus-sign"></i>添加方法</a>
+                            <a href="__CONTROL__/editNode/nid/{$control.nid}" class="edit"><i class="icon-edit"></i>编辑</a>
+                            <a href="###" class="del" type="control-item"><i class="icon-trash"></i>删除</a>
+                        </span>
+                    </dt>
+                    {foreach from="$control['son_data']" value="$method"}
+                        <dd class="method-item {if value="!$method.state"} disable{/if}" title="{$method.des}" >
+                            <div class="method-title">
+                            	<strong title="{$method.title}">{$method.title}</strong>
+                            	<span class="hide opt-method"  c-id="{$method.nid}" c-name="{$method.name}">
+	                                <a title="删除方法" href="###" class="del" type="method-item"><i class="icon-trash"></i>删除</a>&nbsp;
+	                                <a title="修改" href="__CONTROL__/editNode/nid/{$method.nid}" class="edit"><i class="icon-edit"></i>修改</a>
+	                            </span>
+                            </div>
+                            <div class="node-path">{$method.name}</div>
+                        </dd>
+                    {/foreach}
+                </dl>
+                <div style="clear:both;"></div>
+            {/foreach}
+            <div style="clear:both;"></div>
+            </div>
+    {/foreach}
+    <div id="dialog" title="添加节点" class="hide">
+        <form action="__CONTROL__/addNode" validate="true" method="post" class="well">
+            <table>
+                <tr>
+                    <th>父级节点</th>
+                    <td><select name="pid" id="pid"></select></td>
+                </tr>
+                <tr>
+                    <th width="28%">节点URI</th>
+                    <td>
+                        <input type="text" name="name" id="URI" validate="{required:true,regexp:/^\/.*\/$/}" value="" />
+                        <p class="tips">即：/应用/控制器/方法/ <br/>例如: /index/company/info/</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>中文名</th>
+                    <td><input type="text" name="title" validate="{required:true}" /></td>
+                </tr>
+                <tr>
+                    <th>描述</th>
+                    <td><textarea name="des" id="" cols="30" rows="3"></textarea></td>
+                </tr>
+                <tr>
+                    <th>排序</th>
+                    <td><input type="text" name="sort" id="" class="input-mini" /></td>
+                </tr>
+                <tr>
+                    <th>状态</th>
+                    <td><label class="radio pull-left" style="margin-right:26px;"><input type="radio" name="state" value="1" checked />开启</label><label class="radio"><input type="radio" name="state" value="0" />关闭</label></td>
+                </tr>
+            </table>
+        </form>
+        </div>
+    </div>
+    <div id="dialog-edit">
+    </div>
+    <script type="text/javascript">
+    	$('dd').hover(function(){
+    		$('.opt-method',this).removeClass('hide');
+    		$('this').animate({"opacity": "show"});
+    	},function(){
+    		$('.opt-method',this).addClass('hide');
+    	});
+        $('.del').click(function(){
+            if(confirm("确认删除此节点？\n同时将会删除该节点的所有子节点。")){
+                var _eff=Math.floor(Math.random()*3),
+                    _eff_arr=['slideUp','fadeOut','hide'],
+                    _c_id=$(this).parent().attr('c-id'),
+                    _item=$(this).parents('.'+$(this).attr('type'));
+                $.post('__CONTROL__/delNode',{id:_c_id},function(data){
+                    if(data==1){
+                        eval('_item.'+_eff_arr[_eff]+"('slow',function(){_item.remove();});");
+                    }
+                });
+            }
+            return false;
+        });
+        $('.edit').click(function(){
+            $.get($(this).attr('href'),function(html){
+                $('#dialog-edit').html(html);
+                $('#dialog-edit').dialog({
+                    "width":"380",
+                    "modal":true,
+                    "title":"修改节点",
+                    "buttons":{
+                        "修改":function(){
+                            $('#dialog-edit form').submit();
+                        }
+                    }
+                });
+            });
+            return false;
+        });
+        $('.add').click(function(){
+            if($(this).attr('type')=='app'){
+                $('#pid').html('<option value="0">├─顶级节点</option>');
+            }else{
+                $('#pid').html('<option value="'+$(this).parent().attr('c-id')+'">'+$(this).parent().attr('c-title')+'</option>');
+            }
+            $('#URI').val($(this).parent().attr('c-name'));
+            $('#URI').focus();
+            $('#dialog').dialog({
+                "width":"380",
+                "modal":true,
+                "buttons":{
+                    "添加":function(){
+                        $('#dialog form').submit();
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+</div>
+</body>
+</html>
