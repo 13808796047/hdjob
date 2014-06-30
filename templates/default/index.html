@@ -9,9 +9,15 @@
 {js file="jquery" /}
 {js file="__TPL__/js/textScroll.js" /}
 </head>
-<body>
-{include file="__ROOT__/header.html" /}
 
+<body>
+<!-- -->
+
+<IFRAME id="iframepage" name="left" hspace="0" vspace="0" frameBorder=0 scrolling=no src="__ROOT__/header.html"  allowTransparency="true" width="100%"></IFRAME> 
+<script type="text/javascript" language="javascript"> 
+    parent.document.all("iframepage").style.height=document.body.scrollHeight; 
+    parent.document.all("iframepage").style.width=document.body.scrollWidth; 
+</script> 
 <div id="top-ads">
     {hd_ads cate="indexTopPic"}
     <a href="{$ads.href}"><img src="__ROOT__/{$ads.path}" width="300" height="63" /></a>
@@ -211,7 +217,10 @@
         {$hd.config.service_tel}
     </div>
 </div>
+
 </div>
 
 {js file="__TPL__/js/index.js" /}
-{include file="__ROOT__/footer.html" /}
+<IFRAME id="iframepage" name="left" hspace="0" vspace="0" frameBorder=0 scrolling=no src="__ROOT__/footer.html"  allowTransparency="true" width="100%"></IFRAME> 
+</body>
+</html>

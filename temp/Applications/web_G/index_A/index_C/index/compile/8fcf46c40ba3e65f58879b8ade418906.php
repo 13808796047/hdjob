@@ -1,28 +1,28 @@
 <?php if(!defined("PATH_HD"))exit;?>
 	
 
-<link href="http://kunming.wxcs.cn/static/win8/css/footer.css" rel="stylesheet" />
+<link href="http://guangzhou.wxcs.cn/static/win8/css/footer.css" rel="stylesheet" />
 <div id="win8Footer" >
 	    <!-- 页尾开始 -->
 	    <dl class="jt_w8_footer-x" role="footer">
 			<p>
 				<dt>
-					<a href="http://kunming.wxcs.cn/site/siteMap">网站地图</a>
+					<a href="http://guangzhou.wxcs.cn/site/siteMap">网站地图</a>
 				</dt>
 				<dt>
-					<a href="http://kunming.wxcs.cn/site/friendLink">友情链接</a>
+					<a href="http://guangzhou.wxcs.cn/site/friendLink">友情链接</a>
 				</dt>
 				<dt>
-					<a href="http://kunming.wxcs.cn/site/aboutUs">关于<strong>和生活</strong></a>
+					<a href="http://guangzhou.wxcs.cn/site/aboutUs">关于<strong>和生活</strong></a>
 				</dt>
 				<dt>
-					<a href="http://kunming.wxcs.cn/site/feedBack">意见反馈</a>
+					<a href="http://guangzhou.wxcs.cn/site/feedBack">意见反馈</a>
 				</dt>
 				<dt>
-					<a href="http://kunming.wxcs.cn/site/service">服务声明</a>
+					<a href="http://guangzhou.wxcs.cn/site/service">服务声明</a>
 				</dt>
 				<dt>
-					<a href="http://kunming.wxcs.cn/site/questions">常见问题</a>
+					<a href="http://guangzhou.wxcs.cn/site/questions">常见问题</a>
 				</dt>
 				
 			</p>
