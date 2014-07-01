@@ -13,11 +13,7 @@
 <body>
 <!-- -->
 
-<IFRAME id="iframepage" name="left" hspace="0" vspace="0" frameBorder=0 scrolling=no src="__ROOT__/header.html"  allowTransparency="true" width="100%"></IFRAME> 
-<script type="text/javascript" language="javascript"> 
-    parent.document.all("iframepage").style.height=document.body.scrollHeight; 
-    parent.document.all("iframepage").style.width=document.body.scrollWidth; 
-</script> 
+{include file='__ROOT__/header.html'}
 <div id="top-ads">
     {hd_ads cate="indexTopPic"}
     <a href="{$ads.href}"><img src="__ROOT__/{$ads.path}" width="300" height="63" /></a>
@@ -96,12 +92,12 @@
         </div>
     </div>
     <!--/right-->
-
+<!-- 
     <div id="top-ads" class="fn-clear">
         <dl>
             <dt id="houdun-service-b"></dt>
             <dd id="houdun-service"> <a href="__WEB__/register/company.html">企业注册</a> <a href="">招聘推广</a> <a href="">企业服务</a> <a href="">求职帮助</a> </dd>
-            <!--/-->
+            /
             <dt id="fast-news-b"></dt>
             <dd id="fast-news" class="top-ads-list">
                 <ul>
@@ -110,7 +106,7 @@
                     {/hd_ads}
                 </ul>
             </dd>
-            <!--/-->
+            /
             <dt id="hot-recruit-b"></dt>
             <dd id="hot-recruit" class="top-ads-list">
                 <ul>
@@ -120,7 +116,7 @@
                 </ul>
             </dd>
         </dl>
-    </div>
+    </div> -->
     <!--top-ads--> 
 </div>
 </div>
@@ -221,6 +217,6 @@
 </div>
 
 {js file="__TPL__/js/index.js" /}
-<IFRAME id="iframepage" name="left" hspace="0" vspace="0" frameBorder=0 scrolling=no src="__ROOT__/footer.html"  allowTransparency="true" width="100%"></IFRAME> 
+{include file='__ROOT__/footer.html'}
 </body>
 </html>

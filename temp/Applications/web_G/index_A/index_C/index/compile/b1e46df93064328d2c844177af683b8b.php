@@ -24,8 +24,9 @@
         	</strong>
         	<div class="jt_w8_userinfo-x">
 		             
+	    			<img src="http://guangzhou.wxcs.cn/static/win8/images/win8images/weather/T05.png" width="26" height="26"/>
 	    			<img src="http://guangzhou.wxcs.cn/static/win8/images/win8images/weather/T01.png" width="26" height="26"/>
-		    	晴26℃~34℃
+		    	雷阵雨转晴26℃~34℃
 	    	</div>
         </div>
         
